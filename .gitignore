@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Next.js
+app/.next/
+app/out/
+
+# Python
+*.egg-info/
+dist/
+build/
+
+# IDE / OS
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+.cursor/
+
+# Sentry
+.sentryclirc
+
+# Supabase
+supabase/.branches/
+supabase/.temp/

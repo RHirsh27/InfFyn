@@ -1,0 +1,13 @@
+{
+  "name": "inffyn",
+  "private": true,
+  "workspaces": [
+    "app",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:app": "npm run dev --workspace=app",
+    "build:app": "npm run build --workspace=app",
+    "start:app": "npm run start --workspace=app"
+  }
+}
