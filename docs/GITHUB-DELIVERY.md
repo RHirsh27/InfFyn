@@ -41,6 +41,8 @@ No automatic database migration, billing activation, live provider import or pro
 
 ## Preview configured September 12, 2026
 
+Later September 12 decision: use Render's native Python runtime for the persistent alpha engine, retaining the Vercel frontend and existing public aliases. See [RENDER-PRIVATE-ALPHA.md](RENDER-PRIVATE-ALPHA.md) and `render.yaml`. The Vercel engine described below remains the stateless review fallback until Render activation is verified; do not treat the configuration below as a persistent-alpha deployment.
+
 Both existing Vercel projects are connected to `RHirsh27/InfFyn`. Their production branch remains `main`; this setup does not merge or promote the feature branch.
 
 - Review branch: `codex/private-alpha-reviewed-imports`.

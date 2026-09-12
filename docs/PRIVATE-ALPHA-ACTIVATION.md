@@ -107,6 +107,8 @@ Disable public signup in Supabase as part of the reviewed alpha setup, preservin
 
 ## 4. Restricted deployment
 
+The later September 12 owner instruction selects **Render native Python for the persistent engine**, without local Docker. Follow [RENDER-PRIVATE-ALPHA.md](RENDER-PRIVATE-ALPHA.md) for the new deployment. Keep the existing Vercel frontend and public aliases. The Vercel engine configuration below is retained as the previous plan and stateless fallback, not the new activation target. Recovery and authenticated acceptance gates are unchanged.
+
 Existing team: `team_sP2wD4MBHG6ACAEpv5pm8rb9`.
 
 | Service | Existing project | Preview-only configuration |
