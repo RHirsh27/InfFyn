@@ -55,7 +55,7 @@ The existing database password and trusted certificate are needed. Dashboard OAu
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\setup-private-alpha-db.ps1
 ```
 
-The public certificate linked by the signed-in InfFyn database dashboard was downloaded to `%LOCALAPPDATA%\InfFyn\private-alpha\certificates\supabase-prod-ca-2021.crt` and checked as a certificate without a private key, valid through April 2031. SHA-256: `700723581420DD1AC98FD7E9AC529F0EF210EADCAF87FC868A3AD7D114C2F3B7`. The setup command defaults to that path. Run in your own terminal:
+The public certificate linked by the signed-in InfFyn database dashboard is bundled in `scripts/certificates/` and checked as a certificate without a private key, valid through April 2031. SHA-256: `700723581420DD1AC98FD7E9AC529F0EF210EADCAF87FC868A3AD7D114C2F3B7`. Initialization now verifies and copies it to `%LOCALAPPDATA%\InfFyn\private-alpha\certificates\supabase-prod-ca-2021.crt` when absent, so a fresh checkout does not need a manual certificate download. Existing mismatched certificates are never overwritten. `-PrepareCertificate` performs just this offline public-certificate step without prompting for a password. Run initialization in your own terminal:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\setup-private-alpha-db.ps1 -Initialize
