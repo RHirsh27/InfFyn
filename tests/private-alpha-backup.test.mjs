@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { mkdtemp, writeFile, mkdir, readdir, readFile, rm, cp } from 'node:fs/promises';
+import { mkdtemp, writeFile, mkdir, readdir, readFile, rm, cp, symlink } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 import { EventEmitter } from 'node:events';
@@ -84,6 +84,15 @@ test('support files cannot live inside repo, backup output, or shared paths', as
   await assert.rejects(supportFile(resolve('package.json')),/outside_repository/);
   await assert.rejects(supportFile(o.pgpassFile,[resolve(dir,'secure')]),/outside_repository/);
   await assert.rejects(supportFile('relative.pgpass'),/absolute_support/);
+});
+
+test('support exclusion resolves directory aliases and not-yet-created output boundaries', async t => {
+  const {o,dir}=await fixture(t);
+  const alias=resolve(dir,'secure-alias');
+  await symlink(resolve(dir,'secure'),alias,process.platform==='win32'?'junction':'dir');
+  await assert.rejects(supportFile(o.pgpassFile,[alias]),/outside_repository/);
+  await assert.rejects(supportFile(resolve(alias,'fixture.pgpass'),[resolve(dir,'secure')]),/outside_repository/);
+  await supportFile(o.pgpassFile,[resolve(alias,'future-output')]);
 });
 
 test('capture emits only three encrypted-archive slots, preserves roles/owners and keeps recovery pending', async t => {

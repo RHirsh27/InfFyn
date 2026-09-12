@@ -43,10 +43,21 @@ export function childEnvironment(o, source = true, parent = process.env) {
     ...(source ? { PGOPTIONS: '-c default_transaction_read_only=on -c lock_timeout=5000' } : {}) };
 }
 
+async function canonicalBoundary(path) {
+  const absolute = resolve(path);
+  try { return await realpath(absolute); }
+  catch (error) {
+    if (error.code !== 'ENOENT' || dirname(absolute) === absolute) fail('support_boundary_unavailable');
+    // Output directories may not exist yet; resolve aliases in their existing ancestors.
+    return resolve(await canonicalBoundary(dirname(absolute)), basename(absolute));
+  }
+}
+
 export async function supportFile(file, forbidden = []) {
   if (!file || !isAbsolute(file) || /^\.env(?:\.|$)/i.test(basename(file))) fail('absolute_support_file_required');
   const actual = await realpath(file);
-  if (/^\.env(?:\.|$)/i.test(basename(actual)) || [ROOT, ...forbidden].some(p => inside(actual, p)) || /(?:^|[\\/])(?:Google Drive|My Drive|OneDrive|Dropbox)(?:[\\/]|$)/i.test(actual)) fail('support_file_must_be_outside_repository_and_shared_storage');
+  const boundaries = await Promise.all([ROOT, ...forbidden].map(canonicalBoundary));
+  if (/^\.env(?:\.|$)/i.test(basename(actual)) || boundaries.some(p => inside(actual, p)) || /(?:^|[\\/])(?:Google Drive|My Drive|OneDrive|Dropbox)(?:[\\/]|$)/i.test(actual)) fail('support_file_must_be_outside_repository_and_shared_storage');
   const meta = await stat(actual);
   if (!meta.isFile()) fail('support_file_must_be_regular');
   if (process.platform !== 'win32' && (meta.mode & 0o077)) fail('support_file_requires_owner_only_permissions');
