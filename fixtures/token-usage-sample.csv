@@ -1,0 +1,3 @@
+date,model,feature,customer_segment,input_tokens,output_tokens,requests,revenue_usd
+2026-01-15,gpt-4,chat,enterprise,10000,2500,150,45.00
+2026-01-16,claude-3-sonnet,summarize,smb,5000,800,80,12.50

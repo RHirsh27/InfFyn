@@ -1,0 +1,5 @@
+run_id,status,accepted_quantity,baseline_minutes,after_minutes,loaded_hourly_rate
+r-1,accepted,1,60,10,60
+r-2,accepted,1,90,45,60
+r-3,accepted,1,30,5,60
+r-4,failed,0,0,15,60

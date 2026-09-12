@@ -1,0 +1,5 @@
+cost_id,date,category,amount,currency,source,customer_id,feature,workflow,team,run_id
+c-1,2026-08-02,tools,10,USD,synthetic search bill,c-acme,Research,Research assistant,Product,r-1
+c-2,2026-08-02,human_review,45,USD,synthetic time record,c-beacon,Research,Research assistant,Product,r-2
+c-3,2026-08-03,compute,5,USD,synthetic compute bill,c-acme,Summary,Research assistant,Product,r-3
+c-4,2026-08-03,human_review,15,USD,synthetic failed review,c-beacon,Research,Research assistant,Product,r-4

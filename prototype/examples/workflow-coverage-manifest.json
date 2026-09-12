@@ -1,0 +1,73 @@
+{
+  "schema_version": "1",
+  "manifest_id": "synthetic-august-population",
+  "version": 1,
+  "tenant_id": "synthetic-workflow-client",
+  "recorded_at": "2026-09-02T00:00:00Z",
+  "expected_sources": [
+    {
+      "scope_id": "synthetic-acceptance-register",
+      "source": "synthetic-acceptance-register",
+      "kind": "outcome",
+      "currency": "USD",
+      "start": "2026-08-01T00:00:00Z",
+      "end": "2026-09-01T00:00:00Z"
+    },
+    {
+      "scope_id": "synthetic-attempts",
+      "source": "synthetic-attempts",
+      "kind": "usage",
+      "currency": "USD",
+      "start": "2026-08-01T00:00:00Z",
+      "end": "2026-09-01T00:00:00Z",
+      "provider": "synthetic-provider",
+      "account": "synthetic-account"
+    },
+    {
+      "scope_id": "synthetic-compute-charges",
+      "source": "synthetic-compute-charges",
+      "kind": "cost_component",
+      "currency": "USD",
+      "start": "2026-08-01T00:00:00Z",
+      "end": "2026-09-01T00:00:00Z",
+      "provider": "synthetic-cloud",
+      "account": "synthetic-cloud-account"
+    },
+    {
+      "scope_id": "synthetic-recognized-revenue",
+      "source": "synthetic-recognized-revenue",
+      "kind": "revenue",
+      "currency": "USD",
+      "start": "2026-08-01T00:00:00Z",
+      "end": "2026-09-01T00:00:00Z"
+    },
+    {
+      "scope_id": "synthetic-review-time",
+      "source": "synthetic-review-time",
+      "kind": "cost_component",
+      "currency": "USD",
+      "start": "2026-08-01T00:00:00Z",
+      "end": "2026-09-01T00:00:00Z"
+    },
+    {
+      "scope_id": "synthetic-search-charges",
+      "source": "synthetic-search-charges",
+      "kind": "cost_component",
+      "currency": "USD",
+      "start": "2026-08-01T00:00:00Z",
+      "end": "2026-09-01T00:00:00Z",
+      "provider": "synthetic-provider",
+      "account": "synthetic-account"
+    },
+    {
+      "scope_id": "synthetic-supplier-invoice",
+      "source": "synthetic-supplier-invoice",
+      "kind": "invoice",
+      "currency": "USD",
+      "start": "2026-08-01T00:00:00Z",
+      "end": "2026-09-01T00:00:00Z",
+      "provider": "synthetic-provider",
+      "account": "synthetic-account"
+    }
+  ]
+}

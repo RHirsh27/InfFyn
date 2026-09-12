@@ -33,3 +33,29 @@ Thumbs.db
 # Supabase
 supabase/.branches/
 supabase/.temp/
+
+engine/.build/
+engine/package.json
+engine/package-lock.json
+engine/.validation/
+/.validation/
+app/tsconfig.tsbuildinfo
+
+.vercel
+
+# Keep operational evidence and credentials out of the public source repository.
+.env.*
+!.env.example
+!**/.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.age
+*.dump
+*.sqlite
+*.sqlite3
+pgpass.conf
+outputs/
+prototype/.local/
+research/commercial-model-2026-09-11/*-paths.csv

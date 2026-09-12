@@ -1,0 +1,122 @@
+INFFYN NORMALIZED CSV EXAMPLES
+Synthetic Northstar Intelligence | August 2026 | USD
+
+These files are the August inputs used by InfFyn's synthetic company engine.
+No provider is connected. Amounts, model names and business activity are invented.
+The demonstration remains read-only. Downloading these files changes no data.
+
+WHERE TO USE THEM
+1. Extract the ZIP and choose ONE workload folder.
+2. The individual CSV audit at /review accepts event-based usage plus optional
+   costs, revenue and outcomes. Start with support-resolution or research-briefs.
+3. The authenticated company Monthly Review also supports expense-only evidence;
+   unallocated-ai-spend is a company example and cannot run in the individual audit.
+   Hosted company sign-in and persistence still require infrastructure acceptance.
+4. Select August 1-31, 2026 and the folder's product/internal classification.
+   Upload each CSV into the matching input. settings.json describes the settings;
+   it is a reference for the operator, not a file to upload in a CSV field.
+5. Review the included cost scope and outcome cohort before confirming them.
+   For product examples choose reviewed-file revenue and collections basis.
+   Allocated invoice portions stay Modeled. Do not upload the original $64,000
+   invoice in addition to its $46,000 and $18,000 portions.
+6. Compare with manifest.json. The five included workload costs sum to $43,400.
+   Research: $12,200 cost, $46,000 collections, $33,800 contribution.
+   Documents: $19,200 cost, $18,000 collections, ($1,200) contribution.
+   Support: $6,700 / 7,200 accepted cases = about $0.93 per accepted case.
+   Finance: $3,400 included cost vs $3,620 control = ($220) variance.
+   Unallocated: $1,900. It has no supported outcome denominator.
+
+SCOPE AND LINEAGE
+This CSV replay preserves the economic amounts, not a live Stripe connection.
+Revenue source is Reviewed file, not Stripe verified. The recorded allocation
+notes remain synthetic management assumptions. File-only revenue IDs begin
+synthetic-reviewed-file; reserved stripe-allocation IDs cannot be replayed
+without their retained original source. A connected invoice review must
+use its retained original and the allocation editor to preserve source lineage.
+CSV replay creates a new calculation basis/fingerprint; it does not reproduce
+the immutable demo report identity. The executive PDF uses the complete demo.
+
+FILE CONTRACT
+UTF-8 CSV, one header, comma delimiter, decimal point, dates YYYY-MM-DD, USD.
+Use plain numbers (12200.50), not currency symbols or thousands separators.
+Keep IDs stable, nonempty and unique within each file; use pseudonymous customer
+IDs. Do not include prompts, API credentials, customer names or email addresses.
+Extra columns are not a substitute for required headers. Header order need not
+match the example, but spelling/case must. Quote commas/newlines inside values.
+
+usage.csv required headers:
+event_id,date,provider,model,input_tokens,output_tokens,requests
+Optional detail includes customer_id,customer_segment,feature,workflow,team,
+run_id,billed_cost,cost_source,cached_input_tokens,currency.
+billed_cost with cost_source is customer-supplied evidence and takes precedence
+over a reference rate. A missing supplied cost and no effective reference rate
+leaves that usage unpriced; it is never silently treated as a zero charge.
+cached_input_tokens is a subset of input_tokens. Token/request counts are
+nonnegative integers. Unknown rates prevent complete margin and unit-cost claims.
+
+costs.csv required headers:
+cost_id,date,category,amount,currency,source
+Additional dimensions may include customer_id,feature,workflow,team,run_id.
+Event basis accepts tools,compute,human_review,other supporting costs. Put event
+inference charges in usage.csv. Company provider_totals/expenses basis also
+accepts inference and subscription, but cannot simultaneously add usage charges.
+Use signed documented adjustments for credits. Preserve the original evidence.
+Do not add a full provider control invoice as another cost when its charges
+are already included. Enter control totals in reconciliation instead.
+
+rates.csv required headers (optional; not needed for these supplied-cost files):
+rate_id,provider,model,effective_from,effective_to,input_per_million,
+output_per_million,cached_input_per_million,currency,source
+One matching effective date range per provider/model. Rates are reference
+estimates, not provider-billed verification. Record the source and date basis.
+
+revenue.csv required headers:
+revenue_id,date,amount,currency,customer_id,feature,method
+method is direct or allocated. allocated requires allocation_note.
+An imported payment is not recognized revenue by default. Collections versus
+recognized basis must be reviewed; use explicit source-supported adjustments.
+Internal workloads have no revenue. Association never establishes AI causation.
+
+outcomes.csv required headers:
+run_id,status,accepted_quantity
+status is accepted, rejected or failed. Rejected/failed quantities must be zero.
+Every outcome joins an included cost/usage run_id. Include failures in cost and
+the reviewed cohort. A run may be a batch; accepted_quantity counts business
+units. Acceptance rate counts runs, not those units. Don't invent run IDs for
+provider aggregates: use separately supported company evidence for outcomes.
+Optional baseline_minutes,after_minutes,loaded_hourly_rate must appear together.
+Minutes represent TOTAL effort for that run/batch, not minutes per accepted unit.
+Their modeled capacity value is not verified cash savings.
+
+LIMITS
+At most 20,000 data rows per file; individual field values at most 2,000 characters.
+Usage: 4,000,000 characters; costs/revenue/outcomes: 1,000,000 each; rates: 500,000.
+The full HTTP request is also bounded at 4 MB, so combined limits can reject a
+smaller bundle. Narrow the period/source; do not remove expensive/failed rows
+just to fit and then claim the scope is complete. Individual periods are at most
+367 inclusive days; monthly preparation requires the whole selected calendar month.
+
+IF AN IMPORT FAILS
+invalid_headers: compare required header names and remove duplicate headers.
+invalid_csv/invalid_row: repair quoting, missing cells or extra delimiters; export
+  UTF-8 CSV again. Preserve the original so the repair can be reviewed.
+duplicate_id: every row needs a stable unique ID. Investigate duplicates before
+  removing them; do not generate new IDs merely to bypass double-count checks.
+invalid_number: remove formatting; use finite decimals, at most 12 places, and
+  integers for token/request counts. Blank unknown costs should remain blank.
+outside_period/invalid_date: fix the date or choose the evidence's actual period.
+mixed_currency: separate currencies or supply a documented USD conversion basis.
+missing_source: add the actual evidence reference for a supplied billed cost.
+overlapping_rates: resolve overlapping provider/model date ranges explicitly.
+invalid_outcome: join to an included run; check status and rejected/failed quantity.
+partial_capacity: provide all three effort/rate fields or omit the modeled value.
+cost_basis: choose event charges OR aggregate expenses for the same activity.
+row_limit/field_limit/HTTP 413: reduce source scope or file size with a recorded
+  coverage limitation. Partial scope is not complete company spend.
+HTTP 409 on a company draft: reload the latest saved revision, compare changes
+  with your teammate, and review again before saving. Do not overwrite blindly.
+Expired evidence: re-import the authorized source and re-review; an old report
+  remains its own immutable version. A retry is not permission to extend retention.
+
+Confidence is a checklist of evidence conditions. It is not a probability, a
+financial-performance grade, independent verification, or proof of causation.

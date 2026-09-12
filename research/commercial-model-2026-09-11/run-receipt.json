@@ -1,0 +1,11 @@
+{
+  "seed": 20260911,
+  "main_paths": 150000,
+  "sensitivity_paths": 300000,
+  "numpy_version": "1.26.4",
+  "matplotlib_version": "3.10.6",
+  "script_sha256": "a7efbffd355d87ae1fd4b25a517a1d5784f453b5646b4dbcdc96ad55e7ebf865",
+  "results_sha256": "9c794e21974156a71c7e4bed1a4e3fc017d9c360599af4d312b0c3f15137ad68",
+  "checks": "passed",
+  "real_customer_observations": 0
+}

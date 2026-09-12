@@ -1,0 +1,188 @@
+{
+  "fixture_notice": "ALL DATA SYNTHETIC. No customer/provider evidence or market validation.",
+  "rates": [
+    {
+      "tenant_id": "synthetic-outreach-client",
+      "version": "synthetic-standard-2026-08",
+      "provider": "synthetic-provider",
+      "account": "account-shared-id",
+      "model": "synthetic-text-model",
+      "currency": "USD",
+      "effective_start": "2026-08-01T00:00:00Z",
+      "effective_end": "2026-09-01T00:00:00Z",
+      "received_at": "2026-08-01T00:00:00Z",
+      "source_ref": "SYNTHETIC contract; no real provider prices",
+      "per_million": {
+        "input_uncached": "2",
+        "input_cached": "0.5",
+        "cache_write": "3",
+        "output": "10"
+      }
+    }
+  ],
+  "events": [
+    {
+      "tenant_id": "synthetic-outreach-client",
+      "source": "synthetic-request-log",
+      "source_id": "attempt-001",
+      "kind": "usage",
+      "incurred_at": "2026-08-15T12:00:00Z",
+      "received_at": "2026-08-15T12:01:00Z",
+      "currency": "USD",
+      "provider": "synthetic-provider",
+      "account": "account-shared-id",
+      "customer_id": "campaign-owner-a",
+      "model": "synthetic-text-model",
+      "request_id": "attempt-001",
+      "rate_version": "synthetic-standard-2026-08",
+      "attempt": 1,
+      "outcome": "success",
+      "billable": true,
+      "input_total": 600000000,
+      "meters": {
+        "input_uncached": 400000000,
+        "input_cached": 200000000,
+        "cache_write": 0,
+        "output": 50000000
+      }
+    },
+    {
+      "tenant_id": "synthetic-outreach-client",
+      "source": "synthetic-request-log",
+      "source_id": "attempt-002",
+      "kind": "usage",
+      "incurred_at": "2026-08-15T12:00:00Z",
+      "received_at": "2026-08-15T12:01:00Z",
+      "currency": "USD",
+      "provider": "synthetic-provider",
+      "account": "account-shared-id",
+      "customer_id": "campaign-owner-b",
+      "model": "synthetic-text-model",
+      "request_id": "attempt-002",
+      "rate_version": "synthetic-standard-2026-08",
+      "attempt": 1,
+      "outcome": "success",
+      "billable": true,
+      "input_total": 400000000,
+      "meters": {
+        "input_uncached": 300000000,
+        "input_cached": 100000000,
+        "cache_write": 0,
+        "output": 40000000
+      }
+    },
+    {
+      "tenant_id": "synthetic-outreach-client",
+      "source": "synthetic-request-log",
+      "source_id": "retry-001",
+      "kind": "usage",
+      "incurred_at": "2026-08-15T12:00:00Z",
+      "received_at": "2026-08-15T12:01:00Z",
+      "currency": "USD",
+      "provider": "synthetic-provider",
+      "account": "account-shared-id",
+      "customer_id": "campaign-owner-b",
+      "model": "synthetic-text-model",
+      "request_id": "logical-retry",
+      "rate_version": "synthetic-standard-2026-08",
+      "attempt": 1,
+      "outcome": "error",
+      "billable": true,
+      "input_total": 50000000,
+      "meters": {
+        "input_uncached": 50000000,
+        "input_cached": 0,
+        "cache_write": 0,
+        "output": 5000000
+      }
+    },
+    {
+      "tenant_id": "synthetic-outreach-client",
+      "source": "synthetic-request-log",
+      "source_id": "retry-002",
+      "kind": "usage",
+      "incurred_at": "2026-08-15T12:00:00Z",
+      "received_at": "2026-08-15T12:01:00Z",
+      "currency": "USD",
+      "provider": "synthetic-provider",
+      "account": "account-shared-id",
+      "customer_id": "campaign-owner-b",
+      "model": "synthetic-text-model",
+      "request_id": "logical-retry",
+      "rate_version": "synthetic-standard-2026-08",
+      "attempt": 2,
+      "outcome": "success",
+      "billable": true,
+      "input_total": 50000000,
+      "meters": {
+        "input_uncached": 50000000,
+        "input_cached": 0,
+        "cache_write": 0,
+        "output": 5000000
+      }
+    },
+    {
+      "tenant_id": "synthetic-outreach-client",
+      "source": "synthetic-request-log",
+      "source_id": "unassigned-001",
+      "kind": "usage",
+      "incurred_at": "2026-08-15T12:00:00Z",
+      "received_at": "2026-08-15T12:01:00Z",
+      "currency": "USD",
+      "provider": "synthetic-provider",
+      "account": "account-shared-id",
+      "customer_id": null,
+      "model": "synthetic-text-model",
+      "request_id": "unassigned-001",
+      "rate_version": "synthetic-standard-2026-08",
+      "attempt": 1,
+      "outcome": "success",
+      "billable": true,
+      "input_total": 25000000,
+      "meters": {
+        "input_uncached": 25000000,
+        "input_cached": 0,
+        "cache_write": 0,
+        "output": 5000000
+      }
+    },
+    {
+      "tenant_id": "synthetic-outreach-client",
+      "source": "synthetic-recognized-revenue",
+      "source_id": "revenue-001",
+      "kind": "revenue",
+      "incurred_at": "2026-08-31T23:00:00Z",
+      "received_at": "2026-09-01T01:00:00Z",
+      "currency": "USD",
+      "customer_id": "campaign-owner-a",
+      "amount": "5000",
+      "basis": "recognized"
+    },
+    {
+      "tenant_id": "synthetic-outreach-client",
+      "source": "synthetic-recognized-revenue",
+      "source_id": "revenue-002",
+      "kind": "revenue",
+      "incurred_at": "2026-08-31T23:00:00Z",
+      "received_at": "2026-09-01T01:00:00Z",
+      "currency": "USD",
+      "customer_id": "campaign-owner-b",
+      "amount": "4000",
+      "basis": "recognized"
+    },
+    {
+      "tenant_id": "synthetic-outreach-client",
+      "source": "synthetic-provider-invoice",
+      "source_id": "invoice-001",
+      "kind": "invoice",
+      "incurred_at": "2026-09-01T00:00:00Z",
+      "received_at": "2026-09-02T00:00:00Z",
+      "currency": "USD",
+      "provider": "synthetic-provider",
+      "account": "account-shared-id",
+      "amount": "3200",
+      "service_start": "2026-08-01T00:00:00Z",
+      "service_end": "2026-09-01T00:00:00Z"
+    }
+  ]
+}

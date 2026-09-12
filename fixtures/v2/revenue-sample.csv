@@ -1,0 +1,5 @@
+revenue_id,date,amount,currency,customer_id,feature,method,allocation_note
+rev-1,2026-08-02,250,USD,c-acme,Research,direct,
+rev-2,2026-08-02,90,USD,c-beacon,Research,direct,
+rev-3,2026-08-03,50,USD,c-acme,Summary,direct,
+refund-1,2026-08-04,-10,USD,c-beacon,Research,direct,

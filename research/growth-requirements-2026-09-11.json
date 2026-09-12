@@ -1,0 +1,80 @@
+{
+  "type": "TARGET_REQUIREMENTS_NOT_FORECAST",
+  "price_usd": 349,
+  "months": 12,
+  "sales_lag_months": 2,
+  "monthly_logo_churn": 0.03,
+  "acquisition_months": 10,
+  "steady_wins_survival_factor": 8.75252910350239,
+  "targets": [
+    {
+      "target_active_customers": 50,
+      "mrr_usd": 17450,
+      "gross_wins_per_month": 5.713,
+      "opportunities_per_month": {
+        "0.15": 38.084,
+        "0.25": 22.851,
+        "0.4": 14.282
+      },
+      "rounded_monthly_plan_at_25pct": {
+        "gross_wins": 6,
+        "qualified_opportunities": 24
+      }
+    },
+    {
+      "target_active_customers": 100,
+      "mrr_usd": 34900,
+      "gross_wins_per_month": 11.425,
+      "opportunities_per_month": {
+        "0.15": 76.168,
+        "0.25": 45.701,
+        "0.4": 28.563
+      },
+      "rounded_monthly_plan_at_25pct": {
+        "gross_wins": 12,
+        "qualified_opportunities": 48
+      }
+    },
+    {
+      "target_active_customers": 144,
+      "mrr_usd": 50256,
+      "gross_wins_per_month": 16.452,
+      "opportunities_per_month": {
+        "0.15": 109.683,
+        "0.25": 65.81,
+        "0.4": 41.131
+      },
+      "rounded_monthly_plan_at_25pct": {
+        "gross_wins": 17,
+        "qualified_opportunities": 68
+      }
+    }
+  ],
+  "unit_economics": [
+    {
+      "recurring_operator_hours": 0.25,
+      "monthly_contribution_usd": 272.18,
+      "contribution_percent": 78.0
+    },
+    {
+      "recurring_operator_hours": 1,
+      "monthly_contribution_usd": 215.93,
+      "contribution_percent": 61.9
+    },
+    {
+      "recurring_operator_hours": 3,
+      "monthly_contribution_usd": 65.93,
+      "contribution_percent": 18.9
+    }
+  ],
+  "assumptions": [
+    "Zero starting customers; constant gross wins during months 3-12, churn at month start.",
+    "Qualified opportunity means completed discovery, suitable problem, buyer and usable-data path; not a cold lead or website visit.",
+    "Close rate and churn are planning sensitivities, not observed rates. Opportunity throughput must be available early enough for sales lag.",
+    "No acquisition ramp, supply constraint, onboarding capacity or failure-to-launch branch; actual staffing and funnel must be separately planned.",
+    "Required wins are expected-rate arithmetic, not a guaranteed quota outcome or a probability of hitting the target.",
+    "Recurring contribution deducts assumed 3.2% payments, 10% partner share, $12 platform cost and $75/hour labor.",
+    "Unit contribution excludes onboarding, acquisition, engineering, fixed overhead, tax and founder compensation; it is not net profit.",
+    "No change to approved pricing, partner contracts, payment activation or outreach authorization."
+  ]
+}
