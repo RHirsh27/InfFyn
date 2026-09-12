@@ -20,6 +20,7 @@ const CANDIDATES = [
   "20260911031800_company_monthly_preparation.sql",
   "20260911141814_reconcile_stripe_oauth_legacy_history.sql",
   "20260911155306_private_alpha_database_admission.sql",
+  "20260912190000_reviewed_csv_imports.sql",
 ];
 const STRIPE_COLUMNS = [
   ["id", "uuid", false],
@@ -138,7 +139,7 @@ export function buildActivationPlan(
     executable: false,
     release_ready: false,
     database_mutations: false,
-    private_alpha_database_configuration: "Install the sixth migration after the original five, then configure the private UUID list and enable alpha through reviewed service administration. This planner performs neither operation.",
+    private_alpha_database_configuration: "Install all seven candidates in order, including alpha admission and reviewed CSV imports, before configuring the private UUID list and enabling alpha through reviewed service administration. This planner performs neither operation.",
     metadata_baseline_matches: baselineMatches,
     evidence_checked_at_utc: checked.map((v) =>
       typeof v === "string" && Number.isFinite(Date.parse(v))

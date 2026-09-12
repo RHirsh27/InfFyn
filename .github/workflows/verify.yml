@@ -39,6 +39,8 @@ jobs:
         run: python -m pytest engine/tests -q
       - name: Verify PostgreSQL import controls
         run: node tests/reviewed-import-migration.test.mjs
+      - name: Verify database activation planning
+        run: node --test tests/database-activation.test.mjs tests/database-preflight.test.mjs
       - name: Verify app, alpha boundaries and recovery tooling
         run: node --test tests/alpha-app.test.mjs tests/private-alpha-acceptance.test.mjs tests/private-alpha-backup.test.mjs tests/private-alpha-database.test.mjs tests/private-alpha-setup.test.mjs
       - name: Build web application

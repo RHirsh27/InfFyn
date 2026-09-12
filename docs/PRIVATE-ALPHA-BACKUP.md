@@ -6,6 +6,10 @@ The destination is the existing private [inffyn data backup folder](https://driv
 
 ## Current evidence and dependencies
 
+September 12 live progress: native authentication and a complete database/roles capture succeeded against the existing InfFyn PostgreSQL 17.6 source, using PostgreSQL client 18.6 and age 1.3.1. All three archives are encrypted, and before/after schema, permission and row-count inventories matched. This is a local capture only: Chrome upload was blocked by the extension's file-URL access setting, so Drive retrieval has not passed. Storage is nonempty and its bytes are not included. Independent recovery of the newly prepared local age identity and restoration into a compatible runtime are also unverified. Keep migrations and real-data release gated on those remaining checks.
+
+For this capture, an independent native transaction briefly held SHARE locks on application-writable tables and rolled back afterward. Platform-owned tables without sufficient locking privileges were not altered or granted new privileges; ordinary application writes cannot modify those tables. The first broad lock attempt failed and rolled back before capture. The successful capture used only existing privileges, and left no locks or data changes behind. The startup read-only setting was not preserved by the session pooler; explicit `BEGIN READ ONLY` in inventory queries remains mandatory.
+
 ```powershell
 node scripts/backup/cli.mjs
 node scripts/backup/cli.mjs --help

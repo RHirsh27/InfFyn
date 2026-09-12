@@ -1,22 +1,30 @@
 # InfFyn private alpha: activation and acceptance
 
-Updated September 11, 2026. **Implementation is local; the private alpha is not yet activated.** This milestone accepts real CSV evidence from Ryan and Stephen after recovery and hosted checks pass. Provider imports, paid billing, managed backups and public launch remain deferred. Older all-provider launch gates apply to the later public release.
+Updated September 12, 2026. **Source is on GitHub and protected previews are deployed; the private alpha is not yet activated.** This milestone accepts real CSV evidence from Ryan and Stephen after recovery and hosted checks pass. Provider imports, paid billing, managed backups and public launch remain deferred. Older all-provider launch gates apply to the later public release.
 
-### September 12 access diagnosis
+### September 12 verified connection and recovery progress
 
 Source is now published on GitHub, and both Vercel projects build protected stateless previews from the feature branch. Company database activation is still pending; the previous local-only implementation description is historical.
 
 The Supabase Free plan includes database and authentication services. A paid-plan upgrade is not required to connect this application. The approved manual recovery requirement remains separate from managed-backup pricing.
 
-Two different access paths must not be confused: the app connector rejected project access, while the explicitly configured `supabase` MCP server failed OAuth token refresh. Chrome's currently signed-in account could see Blueprint OS but could not open the InfFyn project. Renewing authorization with explicit supported scopes reached the correct InfFyn organization and showed **Organization unavailable: Your account is not a member of the pre-selected organization.** This is an account/organization mismatch, not evidence that the database requires an upgrade.
+Native PostgreSQL authentication now succeeds against the dashboard-confirmed session pooler, `aws-1-ca-central-1.pooler.supabase.com:5432`, with project-bound user `postgres.jmfzmoqdvweeixxwzlma` and `verify-full` TLS. The source reports PostgreSQL **17.6**. The full read-only catalog inspection completed, confirming the legacy ledger through `0011` and all 11 existing public application tables with RLS enabled. No migration was applied.
 
-Default `codex mcp login supabase` also failed dynamic registration because requested scopes were rejected. The explicit-scope login below reached authorization successfully (authorization itself remains pending):
+The initial connection probe showed that the session pooler did not preserve the requested startup `default_transaction_read_only` setting. The existing catalog and backup inventory queries use explicit `BEGIN READ ONLY`; the live catalog returned `transaction_read_only=on`. Do not rely on `PGOPTIONS` alone as the read-only boundary.
+
+A full native database and roles capture completed and was encrypted through age. The schema/permissions and row-count inventories matched before and after capture. Application-writable tables were temporarily held in SHARE mode for that capture and the transaction was rolled back afterward; managed read-only tables and permissions were left intact. No application rows were changed. The trusted receipt and encrypted files remain outside the repository.
+
+**Recovery remains incomplete:** the designated Drive folder is still private to the authorized owner, but Chrome's file-upload permission blocked the archive upload. No successful upload or download verification is claimed. Storage API authorization works using the existing server configuration; Storage is nonempty and its object bytes still require separate encrypted capture. The local age identity is prepared, but independent key recovery is not verified. Docker Desktop failed to become ready for the compatible isolated restore runtime. Database restoration, Storage restoration and application acceptance remain pending.
+
+The activation planner now includes all seven outstanding migrations, ending with reviewed CSV imports. Its prior six-candidate list rejected the current 18-file repository. The planner still only prepares a review plan and never authorizes or executes database changes. GitHub Actions now runs the activation and catalog preflight regression suites.
+
+Historical MCP/account problems are separate from this verified native connection. Explicit-scope MCP authorization completed after selecting the correct account, although the existing tool client's token refresh remained unavailable. If reauthorization is needed in a fresh client, the previously accepted command was:
 
 ```powershell
 codex mcp login supabase --scopes organizations:read,projects:read,database:read,database:write,environment:read,environment:write,secrets:read,storage:read
 ```
 
-Complete that flow using the account granted access to the existing InfFyn organization. Do not authorize a substitute Blueprint OS organization, change the project reference, reset credentials or claim a configured MCP entry proves a working session. Do not publish authorization URLs or credentials. After authorization, verify project metadata before proceeding with the recovery, catalog, migration and hosting steps below.
+Use the account granted access to the existing InfFyn organization. Do not authorize a substitute Blueprint OS organization, change the project reference or claim a configured MCP entry proves a working session. Do not publish authorization URLs or credentials. The native connection uses its own protected password file; it is not evidence of working MCP access.
 
 ## Scope and current position
 
@@ -28,7 +36,7 @@ Complete that flow using the account granted access to the existing InfFyn organ
 | Reports | New server-owned alpha context enters immutable fingerprints; existing reports unchanged | Hosted report/export/dashboard agreement and corrections |
 | Recovery | Native PostgreSQL-to-age streaming, hashes, local-only restore, retention candidate report | Actual database capture, Drive retrieval, compatible restore, Storage and key coverage |
 | Local recovery rehearsal | Real PostgreSQL 18.6 and age 1.3.1 with separate disposable synthetic clusters | This does not establish recovery of hosted Supabase schema/extensions |
-| Supabase | Correct existing project metadata accessible; Ryan's account exists | Full catalog through supported authorized transport |
+| Supabase | Verified native connection and full read-only catalog through supported transport | Review discrepancies, preserve history, apply the seven missing migrations after recovery |
 | Stephen | Requested `stephen@fynscale.com` has no matching auth user | Pre-provision after recovery; leave older different-domain identity untouched |
 | Hosting | Existing app/engine projects identified | Secure Preview settings, protection, callback/email, deployment and acceptance |
 
@@ -81,6 +89,7 @@ Preserve remote `0009=drop_scaffold_healthcheck` and the existing ledger. Exact 
 4. `20260911031800_company_monthly_preparation.sql`
 5. `20260911141814_reconcile_stripe_oauth_legacy_history.sql`
 6. `20260911155306_private_alpha_database_admission.sql` — closes the direct provisioning/legacy-intake gap found during independent review; the original five keep their order.
+7. `20260912190000_reviewed_csv_imports.sql` — persists reviewed CSV preparation, version checks, accepted mappings and source lineage.
 
 Record hashes with the activation planner. Apply only after live catalog and actual recovery checks pass, through authorized tooling with transactions and bounded timeouts. Preserve historical rows and version identifiers. Do not run blanket `db push` or repair history to suppress differences. Re-run catalog/advisor checks afterward. Review any additional drift before proceeding.
 
@@ -139,7 +148,8 @@ Default is offline and reports pending. The alpha manifest extends the existing 
 - [x] Offline setup rejects wrong projects, unbound poolers and unsafe directories.
 - [ ] Actual pre-migration backup, private Drive retrieval and hosted-schema restore.
 - [ ] Storage bytes and recovery-key coverage resolved.
-- [ ] Full live catalog, five prepared migrations plus alpha admission, private database configuration and post-checks.
+- [x] Full live catalog through the authorized native PostgreSQL connection.
+- [ ] Seven prepared migrations, private database configuration and post-checks.
 - [ ] Named users sign in; excluded users cannot perform alpha operations.
 - [ ] Two companies isolated via app, direct engine and direct database.
 - [ ] CSV, assignment, saved draft, fresh-session return and report.
@@ -163,6 +173,6 @@ The service-only `inffyn_private.alpha_configuration` singleton and `inffyn_priv
 
 While database alpha mode is enabled, both direct provisioning RPCs (`create_tenant` and `ensure_inffyn_workspace`) require current-user admission. The latter remains idempotent. Restrictive Storage policies close **INSERT, UPDATE and DELETE** into the legacy `ingest` bucket for all browser users; legacy reads additionally require admission and the existing membership policy. Other buckets retain their existing rules. The monthly CSV flow uses the engine's company-scoped persistence and requires no legacy Storage upload permission. The allowlist never grants membership or gives Ryan's access-administrator identity Stephen's company data.
 
-Apply and inspect all six migrations before enabling the database flag. Add hosted probes for excluded direct provisioning calls, excluded/allowed legacy Storage mutations, admitted-member-only legacy reads, unconfirmed identities, empty/missing configuration and repeated workspace provisioning. Verify the service role can read/write private configuration while browser roles cannot. Retain an explicit disabled row if the later standard release turns alpha mode off; do not delete the configuration singleton or reverse historical migrations.
+The later **`20260912190000_reviewed_csv_imports.sql`** is the seventh activation migration. Apply and inspect all seven in the planner's order before enabling the database flag. Add hosted probes for excluded direct provisioning calls, excluded/allowed legacy Storage mutations, admitted-member-only legacy reads, unconfirmed identities, empty/missing configuration and repeated workspace provisioning. Verify the service role can read/write private configuration while browser roles cannot. Retain an explicit disabled row if the later standard release turns alpha mode off; do not delete the configuration singleton or reverse historical migrations.
 
 The read-only preflight now includes `alpha_catalog`, covering private schema grants, table/column grants, RLS, columns and constraint fingerprints without reading identity rows. Public helper definitions/grants are covered by the existing function inventory. Encrypted backup and restore inventory includes the private schema and its row counts; the full encrypted dump retains its actual records. Live DB configuration and these hosted checks remain pending.
