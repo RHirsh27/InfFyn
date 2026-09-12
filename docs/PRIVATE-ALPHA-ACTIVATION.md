@@ -2,6 +2,22 @@
 
 Updated September 11, 2026. **Implementation is local; the private alpha is not yet activated.** This milestone accepts real CSV evidence from Ryan and Stephen after recovery and hosted checks pass. Provider imports, paid billing, managed backups and public launch remain deferred. Older all-provider launch gates apply to the later public release.
 
+### September 12 access diagnosis
+
+Source is now published on GitHub, and both Vercel projects build protected stateless previews from the feature branch. Company database activation is still pending; the previous local-only implementation description is historical.
+
+The Supabase Free plan includes database and authentication services. A paid-plan upgrade is not required to connect this application. The approved manual recovery requirement remains separate from managed-backup pricing.
+
+Two different access paths must not be confused: the app connector rejected project access, while the explicitly configured `supabase` MCP server failed OAuth token refresh. Chrome's currently signed-in account could see Blueprint OS but could not open the InfFyn project. Renewing authorization with explicit supported scopes reached the correct InfFyn organization and showed **Organization unavailable: Your account is not a member of the pre-selected organization.** This is an account/organization mismatch, not evidence that the database requires an upgrade.
+
+Default `codex mcp login supabase` also failed dynamic registration because requested scopes were rejected. The explicit-scope login below reached authorization successfully (authorization itself remains pending):
+
+```powershell
+codex mcp login supabase --scopes organizations:read,projects:read,database:read,database:write,environment:read,environment:write,secrets:read,storage:read
+```
+
+Complete that flow using the account granted access to the existing InfFyn organization. Do not authorize a substitute Blueprint OS organization, change the project reference, reset credentials or claim a configured MCP entry proves a working session. Do not publish authorization URLs or credentials. After authorization, verify project metadata before proceeding with the recovery, catalog, migration and hosting steps below.
+
 ## Scope and current position
 
 | Area | Implemented or observed | Remaining acceptance |
