@@ -2,6 +2,8 @@
 
 Updated September 12, 2026. **Source is on GitHub and protected previews are deployed; the private alpha is not yet activated.** This milestone accepts real CSV evidence from Ryan and Stephen after recovery and hosted checks pass. Provider imports, paid billing, managed backups and public launch remain deferred. Older all-provider launch gates apply to the later public release.
 
+The persistent Python engine is now deployed on Render at https://inffyn-engine-alpha.onrender.com. Its health and twelve closed-route checks passed; the empty user allowlist and unapproved retention keep real-data operations unavailable. The frontend has not switched to this engine. See [the deployment evidence](RENDER-PRIVATE-ALPHA.md#hosted-verification-on-september-12-2026). No local Docker is required for this deployment.
+
 ### September 12 verified connection and recovery progress
 
 Source is now published on GitHub, and both Vercel projects build protected stateless previews from the feature branch. Company database activation is still pending; the previous local-only implementation description is historical.
@@ -32,13 +34,13 @@ Use the account granted access to the existing InfFyn organization. Do not autho
 | --- | --- | --- |
 | Company workflow | Workloads, CSV preparation, revision-checked drafts, reconciliation, reports and comparisons | Complete authenticated hosted workflow |
 | Alpha admission | Server-only UUID checks in both services, independent stage marker, verified identity and membership | Actual UUID configuration and excluded-user denial |
-| Closed routes | Positive route lists block legacy intake, anonymous persistence, provider and billing mutations | Direct app and engine probes |
+| Closed routes | Positive route lists block legacy intake, anonymous persistence, provider and billing mutations; twelve Render engine probes passed | App probes and authenticated exclusions after identity setup |
 | Reports | New server-owned alpha context enters immutable fingerprints; existing reports unchanged | Hosted report/export/dashboard agreement and corrections |
-| Recovery | Native PostgreSQL-to-age streaming, hashes, local-only restore, retention candidate report | Actual database capture, Drive retrieval, compatible restore, Storage and key coverage |
+| Recovery | Native database/roles capture encrypted with age; schema and row counts reconciled | Drive retrieval, compatible restore, Storage and key coverage |
 | Local recovery rehearsal | Real PostgreSQL 18.6 and age 1.3.1 with separate disposable synthetic clusters | This does not establish recovery of hosted Supabase schema/extensions |
 | Supabase | Verified native connection and full read-only catalog through supported transport | Review discrepancies, preserve history, apply the seven missing migrations after recovery |
 | Stephen | Requested `stephen@fynscale.com` has no matching auth user | Pre-provision after recovery; leave older different-domain identity untouched |
-| Hosting | Existing app/engine projects identified | Secure Preview settings, protection, callback/email, deployment and acceptance |
+| Hosting | Render native Python engine live with alpha access closed; Vercel review preserved | Frontend alpha configuration, callback/email, monitoring/retention and authenticated acceptance |
 
 Public aliases remain unchanged: [review](https://inffyn-preview.vercel.app/review), [synthetic company](https://inffyn-preview.vercel.app/demo/monthly), [methodology](https://inffyn-preview.vercel.app/methodology). They are not private-alpha acceptance evidence.
 

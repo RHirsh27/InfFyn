@@ -27,7 +27,7 @@ An empty UUID allowlist deliberately leaves company operations unavailable while
 
 1. Authenticate the official `render-oss/cli`, select the existing owner workspace, and inspect existing services before creating one. The unrelated npm package `render-cli` renders templates and is not the Render hosting CLI.
 2. Validate `render.yaml` with `render blueprints validate render.yaml --output json`. Use `render services create --help` for the installed CLI's supported flags. The prepared version is 2.28.0, verified against the official release checksum.
-3. Create only the named alpha service from the pushed feature branch, carrying the exact public configuration above and the secret file. Do not log an unfiltered service response because service metadata can contain deploy hooks and credentials. Record only service ID, URL, deployment status and Git SHA in the private operator receipt.
+3. Prepare a dedicated secret file containing only `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`; do not upload an unfiltered development `.env`. Run `engine\.venv\Scripts\python.exe scripts/check-render-secret-file.py --file <secure-file-path>` first. This read-only check rejects extra entries, parse errors and the wrong project without displaying credentials. Create only the named alpha service from the pushed feature branch, carrying the exact public configuration above and the validated file. For an existing service, use Render's documented [secret-file update API](https://api-docs.render.com/reference/add-or-update-secret-file) with credentials held only in process memory. Never echo an unfiltered API/service response. Record only service ID, URL, deployment status and Git SHA in the private operator receipt.
 4. Wait for the Git-based deployment and verify `/health` reports `private_alpha`. Confirm `/v2/status` reports company/audit availability false while the allowlist is unset; probe provider, billing, legacy intake and anonymous company routes for denial. A health response alone does not prove shared persistence.
 5. After recovery and database acceptance, configure the Vercel application's server-only `ENGINE_URL` to the verified Render service URL. Preserve the public aliases and existing Vercel engine until the new engine passes acceptance. Use the same server-side proxy credential when enabling the application path.
 6. Run the authenticated company workflow and isolated-tenant checks before Stephen's real-data session. Update [PRIVATE-ALPHA-ACTIVATION.md](PRIVATE-ALPHA-ACTIVATION.md) with actual results.
@@ -46,4 +46,16 @@ The source has `supabase_vault` 0.3.1. Render's managed Postgres supported-exten
 - [Free service limits](https://render.com/docs/free)
 - [Supported PostgreSQL extensions](https://render.com/docs/postgresql-extensions)
 
-Local verification: `engine/tests/test_render_config.py` and `engine/tests/test_private_alpha.py` passed 100 checks with synthetic configuration, including literal secret-file parsing and absent-file failure. Hosted deployment, authorized application sessions and recovery verification must be reported separately.
+Local verification: `engine/tests/test_render_config.py`, `engine/tests/test_render_secret_preflight.py` and `engine/tests/test_private_alpha.py` passed 104 checks with synthetic configuration, including literal secret-file parsing, unexpected entries, malformed syntax and absent-file failure. Hosted deployment, authorized application sessions and recovery verification must be reported separately.
+
+## Hosted verification on September 12, 2026
+
+- Service: [`inffyn-engine-alpha`](https://dashboard.render.com/web/srv-dais703m8hqs73e341lg), native Python, Ohio, Free. No Docker or Render database was used.
+- Backend URL: https://inffyn-engine-alpha.onrender.com. This is an API, not the company frontend.
+- First successful deployment: `dep-dais9j15efls73eobmbg`, source `6ae7a4f16712bf12e43f8c35460e84d1e6542f35`, Render status `live` at 21:33 UTC. Its GitHub Actions run passed.
+- The initial deployment failed safely because the uploaded development configuration included an unexpected entry. The hosted file was replaced with only the two approved settings using the official API. The source file and startup safeguards were preserved. The new operator preflight catches this before future uploads.
+- Automatic deployment is confirmed as `checksPass` for `codex/private-alpha-reviewed-imports`.
+- `/health` returned HTTP 200 with `release_stage=private_alpha`. `/v2/status` returned HTTP 200 with audit, monthly and billing availability false and no claimed retention approval.
+- Twelve unauthenticated probes passed: workloads, reports, reviewed imports and tenant verification returned the expected closed-configuration response; OpenAI/Anthropic connection writes, Stripe start/callback, checkout, anonymous preview, legacy ingestion and OpenAPI returned HTTP 403. All denial responses used `Cache-Control: no-store`.
+
+These are backend deployment and route-boundary checks. No customer record, migration, identity, provider connection or billing state was changed. The Vercel frontend still targets its existing review engine. Drive retrieval, Storage recovery, a compatible restore, migrations, identities, frontend configuration, monitoring/retention and authenticated company acceptance remain open before real-data use.
