@@ -1,0 +1,23 @@
+{
+  "$schema": "https://stripe.com/stripe-app.schema.json",
+  "id": "xyz.inffyn.audit",
+  "name": "InfFyn Profit Audit",
+  "version": "0.1.1",
+  "extensions": null,
+  "permissions": [
+    {
+      "permission": "invoice_read",
+      "purpose": "InfFyn reads your paid invoices to calculate the revenue side of your profit audit. Read-only — InfFyn never creates, edits, finalizes, or voids anything in your Stripe."
+    },
+    {
+      "permission": "charge_read",
+      "purpose": "InfFyn reads your charges so revenue that already appears on an invoice is not counted twice. Read-only — InfFyn never captures, refunds, or modifies any charge."
+    }
+  ],
+  "allowed_redirect_uris": [
+    "https://inffyn-engine.onrender.com/stripe/connect/callback"
+  ],
+  "distribution_type": "public",
+  "stripe_api_access_type": "oauth",
+  "sandbox_install_compatible": true
+}

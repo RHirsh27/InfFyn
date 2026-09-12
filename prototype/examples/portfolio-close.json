@@ -1,0 +1,620 @@
+{
+  "synthetic": true,
+  "portfolio_isolation_notice": "Client IDs are isolated in the ledger; portfolio access is this local operator only, not partner RBAC.",
+  "clients": [
+    {
+      "schema_version": 1,
+      "purpose": "synthetic/offline falsification harness; not accounting approval",
+      "tenant_id": "synthetic-outreach-client",
+      "name": "August initial review",
+      "period_start": "2026-08-01T00:00:00.000000+00:00",
+      "period_end": "2026-09-01T00:00:00.000000+00:00",
+      "as_of": "2026-09-03T00:00:00.000000+00:00",
+      "currency": "USD",
+      "status": "review_snapshot",
+      "approval_state": "not_approved",
+      "arithmetic_state": "needs_review",
+      "prior_snapshot": null,
+      "totals": {
+        "recognized_revenue": "9000",
+        "provider_invoice_total": "3200",
+        "known_cost": "3200",
+        "cost_total": "3200",
+        "cost_complete_within_imported_scope": true,
+        "customer_attributed_known_cost": "2750",
+        "unassigned_usage_cost": "100",
+        "signed_invoice_residual": "350",
+        "unallocated_cost": "450",
+        "unassigned_revenue": "0",
+        "profit_estimate": "5800",
+        "cost_conservation": true,
+        "unassigned_component_cost": "0",
+        "additional_component_known_cost": "0",
+        "unassigned_workflow_known_cost": "2850"
+      },
+      "customers": {
+        "campaign-owner-a": {
+          "recognized_revenue": "5000",
+          "revenue_basis": "imported_recognized_revenue",
+          "known_usage_cost": "1400",
+          "usage_cost": "1400",
+          "cost_basis": "usage_rated_estimate",
+          "profit_estimate": "3600",
+          "margin_percent_estimate": "72",
+          "unknown_usage_events": 0,
+          "source_references": [
+            {
+              "source": "synthetic-recognized-revenue",
+              "source_id": "revenue-001"
+            },
+            {
+              "source": "synthetic-request-log",
+              "source_id": "attempt-001"
+            }
+          ],
+          "known_component_cost": "0",
+          "known_economic_cost": "1400",
+          "economic_cost": "1400",
+          "cost_basis_composition": [
+            {
+              "category": "inference",
+              "basis": "rated",
+              "invoice_coverage": "covered_by_supplier_invoice",
+              "known_amount": "1400",
+              "unknown_events": 0
+            }
+          ],
+          "unknown_cost_events": 0,
+          "revenue_association": "customer-associated; not causal workflow revenue"
+        },
+        "campaign-owner-b": {
+          "recognized_revenue": "4000",
+          "revenue_basis": "imported_recognized_revenue",
+          "known_usage_cost": "1350",
+          "usage_cost": "1350",
+          "cost_basis": "usage_rated_estimate",
+          "profit_estimate": "2650",
+          "margin_percent_estimate": "66.25",
+          "unknown_usage_events": 0,
+          "source_references": [
+            {
+              "source": "synthetic-recognized-revenue",
+              "source_id": "revenue-002"
+            },
+            {
+              "source": "synthetic-request-log",
+              "source_id": "attempt-002"
+            },
+            {
+              "source": "synthetic-request-log",
+              "source_id": "retry-001"
+            },
+            {
+              "source": "synthetic-request-log",
+              "source_id": "retry-002"
+            }
+          ],
+          "known_component_cost": "0",
+          "known_economic_cost": "1350",
+          "economic_cost": "1350",
+          "cost_basis_composition": [
+            {
+              "category": "inference",
+              "basis": "rated",
+              "invoice_coverage": "covered_by_supplier_invoice",
+              "known_amount": "1350",
+              "unknown_events": 0
+            }
+          ],
+          "unknown_cost_events": 0,
+          "revenue_association": "customer-associated; not causal workflow revenue"
+        }
+      },
+      "reconciliation": [
+        {
+          "provider": "synthetic-provider",
+          "account": "account-shared-id",
+          "currency": "USD",
+          "service_start": "2026-08-01T00:00:00.000000+00:00",
+          "service_end": "2026-09-01T00:00:00.000000+00:00",
+          "rated_usage_known_subtotal": "2850",
+          "provider_invoice_total": "3200",
+          "provider_credit_total": "0",
+          "selected_known_cost": "3200",
+          "selected_cost_basis": "provider_invoice",
+          "signed_unallocated_difference": "350",
+          "unknown_usage_events": 0,
+          "usage_events": 5,
+          "invoice_documents": 1,
+          "principal_invoices": 1,
+          "covered_component_known_subtotal": "0",
+          "known_attribution_subtotal": "2850",
+          "unknown_component_events": 0
+        }
+      ],
+      "rated_usage": [
+        {
+          "source": "synthetic-request-log",
+          "source_id": "attempt-001",
+          "customer_id": "campaign-owner-a",
+          "request_id": "attempt-001",
+          "attempt": 1,
+          "outcome": "success",
+          "billable": true,
+          "rate_version": "synthetic-standard-2026-08",
+          "meters": {
+            "cache_write": 0,
+            "input_cached": 200000000,
+            "input_uncached": 400000000,
+            "output": 50000000
+          },
+          "cost": "1400",
+          "cost_basis": "usage_rated_estimate"
+        },
+        {
+          "source": "synthetic-request-log",
+          "source_id": "attempt-002",
+          "customer_id": "campaign-owner-b",
+          "request_id": "attempt-002",
+          "attempt": 1,
+          "outcome": "success",
+          "billable": true,
+          "rate_version": "synthetic-standard-2026-08",
+          "meters": {
+            "cache_write": 0,
+            "input_cached": 100000000,
+            "input_uncached": 300000000,
+            "output": 40000000
+          },
+          "cost": "1050",
+          "cost_basis": "usage_rated_estimate"
+        },
+        {
+          "source": "synthetic-request-log",
+          "source_id": "retry-001",
+          "customer_id": "campaign-owner-b",
+          "request_id": "logical-retry",
+          "attempt": 1,
+          "outcome": "error",
+          "billable": true,
+          "rate_version": "synthetic-standard-2026-08",
+          "meters": {
+            "cache_write": 0,
+            "input_cached": 0,
+            "input_uncached": 50000000,
+            "output": 5000000
+          },
+          "cost": "150",
+          "cost_basis": "usage_rated_estimate"
+        },
+        {
+          "source": "synthetic-request-log",
+          "source_id": "retry-002",
+          "customer_id": "campaign-owner-b",
+          "request_id": "logical-retry",
+          "attempt": 2,
+          "outcome": "success",
+          "billable": true,
+          "rate_version": "synthetic-standard-2026-08",
+          "meters": {
+            "cache_write": 0,
+            "input_cached": 0,
+            "input_uncached": 50000000,
+            "output": 5000000
+          },
+          "cost": "150",
+          "cost_basis": "usage_rated_estimate"
+        },
+        {
+          "source": "synthetic-request-log",
+          "source_id": "unassigned-001",
+          "customer_id": null,
+          "request_id": "unassigned-001",
+          "attempt": 1,
+          "outcome": "success",
+          "billable": true,
+          "rate_version": "synthetic-standard-2026-08",
+          "meters": {
+            "cache_write": 0,
+            "input_cached": 0,
+            "input_uncached": 25000000,
+            "output": 5000000
+          },
+          "cost": "100",
+          "cost_basis": "usage_rated_estimate"
+        }
+      ],
+      "issues": [
+        {
+          "code": "unassigned_usage",
+          "source": "synthetic-request-log",
+          "source_id": "unassigned-001"
+        },
+        {
+          "code": "invoice_usage_difference",
+          "provider": "synthetic-provider",
+          "account": "account-shared-id",
+          "signed_amount": "350"
+        }
+      ],
+      "manifest": {
+        "events": [
+          {
+            "source": "synthetic-provider-invoice",
+            "source_id": "invoice-001",
+            "hash": "ce207ec0f9957280cc9f541caaacdbf0a66d1e5ce4ee8ef7e59ec9990a388e64"
+          },
+          {
+            "source": "synthetic-recognized-revenue",
+            "source_id": "revenue-001",
+            "hash": "23985c2b4974f9f69ce0c92f3bbbdbac914c54d297aa22e74b0ebfbdba628f7e"
+          },
+          {
+            "source": "synthetic-recognized-revenue",
+            "source_id": "revenue-002",
+            "hash": "3ba5622bc890de568e4366d29fe41b24684087b691ebbd5da82f8b937f0de8bc"
+          },
+          {
+            "source": "synthetic-request-log",
+            "source_id": "attempt-001",
+            "hash": "9b1a5c8fd9f2d3ca6a688df20c4e8591d4d39a626de5a132836ee6880d731926"
+          },
+          {
+            "source": "synthetic-request-log",
+            "source_id": "attempt-002",
+            "hash": "0156c711c1ade14f176e5671efc7586b518bda27cedea904c4456e73fd34a77d"
+          },
+          {
+            "source": "synthetic-request-log",
+            "source_id": "retry-001",
+            "hash": "309c14878a224613bb800daa5300488749ee38f206ad14e5faafbb9420530fc3"
+          },
+          {
+            "source": "synthetic-request-log",
+            "source_id": "retry-002",
+            "hash": "a97938128e8c8d2499a9dfeb037323045c88c6a87f52fb57462bbaf5e38aad2d"
+          },
+          {
+            "source": "synthetic-request-log",
+            "source_id": "unassigned-001",
+            "hash": "566c9decfe8d93e03692f6c02f5786f9d3d200aacd6e0ab191d8e04ba58f33fc"
+          }
+        ],
+        "rates": [
+          {
+            "version": "synthetic-standard-2026-08",
+            "hash": "86d1d147a48bc590fef73ccc2f6368ee2432098a68350e79a5781ba5ad37aa09",
+            "source_ref": "SYNTHETIC contract; no real provider prices",
+            "per_million": {
+              "cache_write": "3",
+              "input_cached": "0.5",
+              "input_uncached": "2",
+              "output": "10"
+            }
+          }
+        ],
+        "superseded_source_ids": [],
+        "other_currency_events_excluded": 0
+      },
+      "cost_components": [],
+      "attributed_cost_basis_composition": [
+        {
+          "category": "inference",
+          "basis": "rated",
+          "invoice_coverage": "covered_by_supplier_invoice",
+          "known_amount": "2850",
+          "unknown_events": 0
+        }
+      ],
+      "workflow_economics": [],
+      "snapshot_hash": "3d9ffa6bfa4a13be213e8487a9072ba9c582ca3625f452f8f4785926659234e9"
+    },
+    {
+      "schema_version": 1,
+      "purpose": "synthetic/offline falsification harness; not accounting approval",
+      "tenant_id": "synthetic-second-client",
+      "name": "August initial review",
+      "period_start": "2026-08-01T00:00:00.000000+00:00",
+      "period_end": "2026-09-01T00:00:00.000000+00:00",
+      "as_of": "2026-09-03T00:00:00.000000+00:00",
+      "currency": "USD",
+      "status": "review_snapshot",
+      "approval_state": "not_approved",
+      "arithmetic_state": "needs_review",
+      "prior_snapshot": null,
+      "totals": {
+        "recognized_revenue": "18000",
+        "provider_invoice_total": "6400",
+        "known_cost": "6400",
+        "cost_total": "6400",
+        "cost_complete_within_imported_scope": true,
+        "customer_attributed_known_cost": "5500",
+        "unassigned_usage_cost": "200",
+        "signed_invoice_residual": "700",
+        "unallocated_cost": "900",
+        "unassigned_revenue": "0",
+        "profit_estimate": "11600",
+        "cost_conservation": true,
+        "unassigned_component_cost": "0",
+        "additional_component_known_cost": "0",
+        "unassigned_workflow_known_cost": "5700"
+      },
+      "customers": {
+        "campaign-owner-a": {
+          "recognized_revenue": "10000",
+          "revenue_basis": "imported_recognized_revenue",
+          "known_usage_cost": "2800",
+          "usage_cost": "2800",
+          "cost_basis": "usage_rated_estimate",
+          "profit_estimate": "7200",
+          "margin_percent_estimate": "72",
+          "unknown_usage_events": 0,
+          "source_references": [
+            {
+              "source": "synthetic-recognized-revenue",
+              "source_id": "revenue-001"
+            },
+            {
+              "source": "synthetic-request-log",
+              "source_id": "attempt-001"
+            }
+          ],
+          "known_component_cost": "0",
+          "known_economic_cost": "2800",
+          "economic_cost": "2800",
+          "cost_basis_composition": [
+            {
+              "category": "inference",
+              "basis": "rated",
+              "invoice_coverage": "covered_by_supplier_invoice",
+              "known_amount": "2800",
+              "unknown_events": 0
+            }
+          ],
+          "unknown_cost_events": 0,
+          "revenue_association": "customer-associated; not causal workflow revenue"
+        },
+        "campaign-owner-b": {
+          "recognized_revenue": "8000",
+          "revenue_basis": "imported_recognized_revenue",
+          "known_usage_cost": "2700",
+          "usage_cost": "2700",
+          "cost_basis": "usage_rated_estimate",
+          "profit_estimate": "5300",
+          "margin_percent_estimate": "66.25",
+          "unknown_usage_events": 0,
+          "source_references": [
+            {
+              "source": "synthetic-recognized-revenue",
+              "source_id": "revenue-002"
+            },
+            {
+              "source": "synthetic-request-log",
+              "source_id": "attempt-002"
+            },
+            {
+              "source": "synthetic-request-log",
+              "source_id": "retry-001"
+            },
+            {
+              "source": "synthetic-request-log",
+              "source_id": "retry-002"
+            }
+          ],
+          "known_component_cost": "0",
+          "known_economic_cost": "2700",
+          "economic_cost": "2700",
+          "cost_basis_composition": [
+            {
+              "category": "inference",
+              "basis": "rated",
+              "invoice_coverage": "covered_by_supplier_invoice",
+              "known_amount": "2700",
+              "unknown_events": 0
+            }
+          ],
+          "unknown_cost_events": 0,
+          "revenue_association": "customer-associated; not causal workflow revenue"
+        }
+      },
+      "reconciliation": [
+        {
+          "provider": "synthetic-provider",
+          "account": "account-shared-id",
+          "currency": "USD",
+          "service_start": "2026-08-01T00:00:00.000000+00:00",
+          "service_end": "2026-09-01T00:00:00.000000+00:00",
+          "rated_usage_known_subtotal": "5700",
+          "provider_invoice_total": "6400",
+          "provider_credit_total": "0",
+          "selected_known_cost": "6400",
+          "selected_cost_basis": "provider_invoice",
+          "signed_unallocated_difference": "700",
+          "unknown_usage_events": 0,
+          "usage_events": 5,
+          "invoice_documents": 1,
+          "principal_invoices": 1,
+          "covered_component_known_subtotal": "0",
+          "known_attribution_subtotal": "5700",
+          "unknown_component_events": 0
+        }
+      ],
+      "rated_usage": [
+        {
+          "source": "synthetic-request-log",
+          "source_id": "attempt-001",
+          "customer_id": "campaign-owner-a",
+          "request_id": "attempt-001",
+          "attempt": 1,
+          "outcome": "success",
+          "billable": true,
+          "rate_version": "synthetic-standard-2026-08",
+          "meters": {
+            "cache_write": 0,
+            "input_cached": 400000000,
+            "input_uncached": 800000000,
+            "output": 100000000
+          },
+          "cost": "2800",
+          "cost_basis": "usage_rated_estimate"
+        },
+        {
+          "source": "synthetic-request-log",
+          "source_id": "attempt-002",
+          "customer_id": "campaign-owner-b",
+          "request_id": "attempt-002",
+          "attempt": 1,
+          "outcome": "success",
+          "billable": true,
+          "rate_version": "synthetic-standard-2026-08",
+          "meters": {
+            "cache_write": 0,
+            "input_cached": 200000000,
+            "input_uncached": 600000000,
+            "output": 80000000
+          },
+          "cost": "2100",
+          "cost_basis": "usage_rated_estimate"
+        },
+        {
+          "source": "synthetic-request-log",
+          "source_id": "retry-001",
+          "customer_id": "campaign-owner-b",
+          "request_id": "logical-retry",
+          "attempt": 1,
+          "outcome": "error",
+          "billable": true,
+          "rate_version": "synthetic-standard-2026-08",
+          "meters": {
+            "cache_write": 0,
+            "input_cached": 0,
+            "input_uncached": 100000000,
+            "output": 10000000
+          },
+          "cost": "300",
+          "cost_basis": "usage_rated_estimate"
+        },
+        {
+          "source": "synthetic-request-log",
+          "source_id": "retry-002",
+          "customer_id": "campaign-owner-b",
+          "request_id": "logical-retry",
+          "attempt": 2,
+          "outcome": "success",
+          "billable": true,
+          "rate_version": "synthetic-standard-2026-08",
+          "meters": {
+            "cache_write": 0,
+            "input_cached": 0,
+            "input_uncached": 100000000,
+            "output": 10000000
+          },
+          "cost": "300",
+          "cost_basis": "usage_rated_estimate"
+        },
+        {
+          "source": "synthetic-request-log",
+          "source_id": "unassigned-001",
+          "customer_id": null,
+          "request_id": "unassigned-001",
+          "attempt": 1,
+          "outcome": "success",
+          "billable": true,
+          "rate_version": "synthetic-standard-2026-08",
+          "meters": {
+            "cache_write": 0,
+            "input_cached": 0,
+            "input_uncached": 50000000,
+            "output": 10000000
+          },
+          "cost": "200",
+          "cost_basis": "usage_rated_estimate"
+        }
+      ],
+      "issues": [
+        {
+          "code": "unassigned_usage",
+          "source": "synthetic-request-log",
+          "source_id": "unassigned-001"
+        },
+        {
+          "code": "invoice_usage_difference",
+          "provider": "synthetic-provider",
+          "account": "account-shared-id",
+          "signed_amount": "700"
+        }
+      ],
+      "manifest": {
+        "events": [
+          {
+            "source": "synthetic-provider-invoice",
+            "source_id": "invoice-001",
+            "hash": "004fbc8f4795bf50d4e0149e0af56e263745ee7970852d9e954e6bee0b5ff1c7"
+          },
+          {
+            "source": "synthetic-recognized-revenue",
+            "source_id": "revenue-001",
+            "hash": "a0c86a58f9cb9d4595400394d7ccabe909d7287f44dbd2d6c61068a4f18d42b5"
+          },
+          {
+            "source": "synthetic-recognized-revenue",
+            "source_id": "revenue-002",
+            "hash": "d22a379bf1177df69044a782cd0b6a8e50001bb82abe47cbd4b698e12650b395"
+          },
+          {
+            "source": "synthetic-request-log",
+            "source_id": "attempt-001",
+            "hash": "dc7926aeddc2a50f2665c9a2fd7dd183c4fe23e1e7b2922c039560d69752505b"
+          },
+          {
+            "source": "synthetic-request-log",
+            "source_id": "attempt-002",
+            "hash": "9d7807f7ffc5942294abd97d85c26b1109196944b1896efba5692e8c0b81d907"
+          },
+          {
+            "source": "synthetic-request-log",
+            "source_id": "retry-001",
+            "hash": "31bc8e582097fbfd8ded21ad3f5366f17233827d6a8ac2ab71377ce7c85153cb"
+          },
+          {
+            "source": "synthetic-request-log",
+            "source_id": "retry-002",
+            "hash": "718fa80c358aed0df00d9f00d5cacf7b7d3139035c174b558cbbd4007e1d0be4"
+          },
+          {
+            "source": "synthetic-request-log",
+            "source_id": "unassigned-001",
+            "hash": "eadf31e96de23b8a6dc8889bc6a1166573fa66cc528e04069c0c7e296c67ef3b"
+          }
+        ],
+        "rates": [
+          {
+            "version": "synthetic-standard-2026-08",
+            "hash": "fd43380c9cda23010d39bc980745cb08ccfcaed3f556c60a29bad9009c18c707",
+            "source_ref": "SYNTHETIC contract; no real provider prices",
+            "per_million": {
+              "cache_write": "3",
+              "input_cached": "0.5",
+              "input_uncached": "2",
+              "output": "10"
+            }
+          }
+        ],
+        "superseded_source_ids": [],
+        "other_currency_events_excluded": 0
+      },
+      "cost_components": [],
+      "attributed_cost_basis_composition": [
+        {
+          "category": "inference",
+          "basis": "rated",
+          "invoice_coverage": "covered_by_supplier_invoice",
+          "known_amount": "5700",
+          "unknown_events": 0
+        }
+      ],
+      "workflow_economics": [],
+      "snapshot_hash": "6d8992f4eb908c1bdac00536a448a0d497610328f62afd63a2983e8d3068e0a8"
+    }
+  ]
+}

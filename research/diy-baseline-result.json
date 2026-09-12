@@ -1,0 +1,344 @@
+{
+  "notice": "SYNTHETIC independent DIY counterexample; not provider validation or accounting approval",
+  "upstream_dependencies": "Already-normalized batch records, supplied rates, mappings, coverage declarations, and recognized revenue",
+  "variant_scope": "Calculation-level mutations after parsing; variants do not claim newly verified export hashes or external completeness",
+  "comparison_to_generated_reference": {
+    "total_cost": true,
+    "recognized_revenue": true,
+    "contribution": true,
+    "accepted_outcomes": true,
+    "cost_per_accepted_outcome": true,
+    "customers": true
+  },
+  "adversarial_checks": {
+    "missing_price_withholds_unit_ratio": true,
+    "invoice_gap_stays_signed": true,
+    "invoice_gap_withholds_unit_ratio": true,
+    "unknown_labor_is_not_zero": true,
+    "conflicting_identity_rejected": true,
+    "partial_source_withholds_unit_ratio": true,
+    "partial_run_withholds_unit_ratio": true,
+    "identical_replay_is_noop": true,
+    "missing_revenue_is_not_zero": true
+  },
+  "cases": {
+    "clean_final_exports": {
+      "status": "calculated_from_declared_exports",
+      "recognized_revenue": "200",
+      "known_cost": "101.510",
+      "total_cost": "101.510",
+      "known_category_costs": {
+        "inference": "0.260",
+        "compute": "0.250",
+        "human_review": "100.00",
+        "search": "1.0"
+      },
+      "customer_associated_contribution": "98.490",
+      "customers": {
+        "customer-a": {
+          "recognized_revenue": "120",
+          "known_attributed_cost": "50.755",
+          "contribution": "69.245"
+        },
+        "customer-b": {
+          "recognized_revenue": "80",
+          "known_attributed_cost": "50.755",
+          "contribution": "29.245"
+        }
+      },
+      "supplier_bridge": [
+        {
+          "provider": "synthetic-provider",
+          "account": "synthetic-account",
+          "known_attribution": "1.260",
+          "supplier_net": "1.26",
+          "residual": "0.000"
+        }
+      ],
+      "accepted_outcomes": 8,
+      "failed_attempts": 10,
+      "rejected_runs": 2,
+      "cost_per_accepted_outcome": "12.68875",
+      "issues": [],
+      "source_rows": 63
+    },
+    "initial_partial_source": {
+      "status": "calculated_with_exceptions",
+      "recognized_revenue": "200",
+      "known_cost": "101.510",
+      "total_cost": "101.510",
+      "known_category_costs": {
+        "inference": "0.260",
+        "compute": "0.250",
+        "human_review": "100.00",
+        "search": "1.0"
+      },
+      "customer_associated_contribution": null,
+      "customers": {
+        "customer-a": {
+          "recognized_revenue": "120",
+          "known_attributed_cost": "50.755",
+          "contribution": null
+        },
+        "customer-b": {
+          "recognized_revenue": "80",
+          "known_attributed_cost": "50.755",
+          "contribution": null
+        }
+      },
+      "supplier_bridge": [
+        {
+          "provider": "synthetic-provider",
+          "account": "synthetic-account",
+          "known_attribution": "1.260",
+          "supplier_net": "1.26",
+          "residual": "0.000"
+        }
+      ],
+      "accepted_outcomes": 8,
+      "failed_attempts": 10,
+      "rejected_runs": 2,
+      "cost_per_accepted_outcome": null,
+      "issues": [
+        "source_declared_partial:synthetic-acceptance-register"
+      ],
+      "source_rows": 63
+    },
+    "missing_output_price": {
+      "status": "calculated_with_exceptions",
+      "recognized_revenue": "200",
+      "known_cost": "101.510",
+      "total_cost": "101.510",
+      "known_category_costs": {
+        "compute": "0.250",
+        "human_review": "100.00",
+        "search": "1.0"
+      },
+      "customer_associated_contribution": "98.490",
+      "customers": {
+        "customer-a": {
+          "recognized_revenue": "120",
+          "known_attributed_cost": "50.625",
+          "contribution": null
+        },
+        "customer-b": {
+          "recognized_revenue": "80",
+          "known_attributed_cost": "50.625",
+          "contribution": null
+        }
+      },
+      "supplier_bridge": [
+        {
+          "provider": "synthetic-provider",
+          "account": "synthetic-account",
+          "known_attribution": "1.0",
+          "supplier_net": "1.26",
+          "residual": "0.26"
+        }
+      ],
+      "accepted_outcomes": 8,
+      "failed_attempts": 10,
+      "rejected_runs": 2,
+      "cost_per_accepted_outcome": null,
+      "issues": [
+        "invoice_gap:synthetic-provider/synthetic-account",
+        "unpriced:attempt-01-1",
+        "unpriced:attempt-01-2",
+        "unpriced:attempt-02-1",
+        "unpriced:attempt-02-2",
+        "unpriced:attempt-03-1",
+        "unpriced:attempt-03-2",
+        "unpriced:attempt-04-1",
+        "unpriced:attempt-04-2",
+        "unpriced:attempt-05-1",
+        "unpriced:attempt-05-2",
+        "unpriced:attempt-06-1",
+        "unpriced:attempt-06-2",
+        "unpriced:attempt-07-1",
+        "unpriced:attempt-07-2",
+        "unpriced:attempt-08-1",
+        "unpriced:attempt-08-2",
+        "unpriced:attempt-09-1",
+        "unpriced:attempt-09-2",
+        "unpriced:attempt-10-1",
+        "unpriced:attempt-10-2"
+      ],
+      "source_rows": 63
+    },
+    "invoice_gap": {
+      "status": "calculated_with_exceptions",
+      "recognized_revenue": "200",
+      "known_cost": "102.250",
+      "total_cost": "102.250",
+      "known_category_costs": {
+        "inference": "0.260",
+        "compute": "0.250",
+        "human_review": "100.00",
+        "search": "1.0"
+      },
+      "customer_associated_contribution": "97.750",
+      "customers": {
+        "customer-a": {
+          "recognized_revenue": "120",
+          "known_attributed_cost": "50.755",
+          "contribution": null
+        },
+        "customer-b": {
+          "recognized_revenue": "80",
+          "known_attributed_cost": "50.755",
+          "contribution": null
+        }
+      },
+      "supplier_bridge": [
+        {
+          "provider": "synthetic-provider",
+          "account": "synthetic-account",
+          "known_attribution": "1.260",
+          "supplier_net": "2",
+          "residual": "0.740"
+        }
+      ],
+      "accepted_outcomes": 8,
+      "failed_attempts": 10,
+      "rejected_runs": 2,
+      "cost_per_accepted_outcome": null,
+      "issues": [
+        "invoice_gap:synthetic-provider/synthetic-account"
+      ],
+      "source_rows": 63
+    },
+    "unknown_labor": {
+      "status": "calculated_with_exceptions",
+      "recognized_revenue": "200",
+      "known_cost": "91.510",
+      "total_cost": null,
+      "known_category_costs": {
+        "inference": "0.260",
+        "compute": "0.250",
+        "human_review": "90.00",
+        "search": "1.0"
+      },
+      "customer_associated_contribution": null,
+      "customers": {
+        "customer-a": {
+          "recognized_revenue": "120",
+          "known_attributed_cost": "40.755",
+          "contribution": null
+        },
+        "customer-b": {
+          "recognized_revenue": "80",
+          "known_attributed_cost": "50.755",
+          "contribution": null
+        }
+      },
+      "supplier_bridge": [
+        {
+          "provider": "synthetic-provider",
+          "account": "synthetic-account",
+          "known_attribution": "1.260",
+          "supplier_net": "1.26",
+          "residual": "0.000"
+        }
+      ],
+      "accepted_outcomes": 8,
+      "failed_attempts": 10,
+      "rejected_runs": 2,
+      "cost_per_accepted_outcome": null,
+      "issues": [
+        "unpriced:review-01"
+      ],
+      "source_rows": 63
+    },
+    "conflicting_source_duplicate": {
+      "status": "rejected",
+      "reason": "Conflicting duplicate source identity"
+    },
+    "partial_run_cohort": {
+      "status": "calculated_with_exceptions",
+      "recognized_revenue": "200",
+      "known_cost": "101.510",
+      "total_cost": "101.510",
+      "known_category_costs": {
+        "inference": "0.260",
+        "compute": "0.250",
+        "human_review": "100.00",
+        "search": "1.0"
+      },
+      "customer_associated_contribution": "98.490",
+      "customers": {
+        "customer-a": {
+          "recognized_revenue": "120",
+          "known_attributed_cost": "50.755",
+          "contribution": "69.245"
+        },
+        "customer-b": {
+          "recognized_revenue": "80",
+          "known_attributed_cost": "50.755",
+          "contribution": "29.245"
+        }
+      },
+      "supplier_bridge": [
+        {
+          "provider": "synthetic-provider",
+          "account": "synthetic-account",
+          "known_attribution": "1.260",
+          "supplier_net": "1.26",
+          "residual": "0.000"
+        }
+      ],
+      "accepted_outcomes": 8,
+      "failed_attempts": 10,
+      "rejected_runs": 2,
+      "cost_per_accepted_outcome": null,
+      "issues": [
+        "partial_or_unknown_cohort"
+      ],
+      "source_rows": 63
+    },
+    "identical_replay": {
+      "status": "calculated_from_declared_exports",
+      "recognized_revenue": "200",
+      "known_cost": "101.510",
+      "total_cost": "101.510",
+      "known_category_costs": {
+        "inference": "0.260",
+        "compute": "0.250",
+        "human_review": "100.00",
+        "search": "1.0"
+      },
+      "customer_associated_contribution": "98.490",
+      "customers": {
+        "customer-a": {
+          "recognized_revenue": "120",
+          "known_attributed_cost": "50.755",
+          "contribution": "69.245"
+        },
+        "customer-b": {
+          "recognized_revenue": "80",
+          "known_attributed_cost": "50.755",
+          "contribution": "29.245"
+        }
+      },
+      "supplier_bridge": [
+        {
+          "provider": "synthetic-provider",
+          "account": "synthetic-account",
+          "known_attribution": "1.260",
+          "supplier_net": "1.26",
+          "residual": "0.000"
+        }
+      ],
+      "accepted_outcomes": 8,
+      "failed_attempts": 10,
+      "rejected_runs": 2,
+      "cost_per_accepted_outcome": "12.68875",
+      "issues": [],
+      "source_rows": 63
+    },
+    "missing_revenue": {
+      "status": "rejected",
+      "reason": "Recognized revenue evidence missing; absence is not zero revenue"
+    }
+  },
+  "runtime_seconds": 0.012428
+}

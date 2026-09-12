@@ -1,0 +1,4437 @@
+{
+  "date": "2026-09-11",
+  "seed": 20260911,
+  "main_paths": 150000,
+  "months": 24,
+  "status": "JUDGMENT_BASED_CONDITIONAL_SCENARIOS_NOT_CUSTOMER_CALIBRATED",
+  "assumptions": {
+    "limited": {
+      "label": "Limited reach / difficult onboarding",
+      "introductions": [
+        2,
+        4,
+        8
+      ],
+      "discovery": [
+        0.35,
+        0.55,
+        0.75
+      ],
+      "data_ready": [
+        0.25,
+        0.45,
+        0.7
+      ],
+      "paid_conversion": [
+        0.12,
+        0.25,
+        0.4
+      ],
+      "monthly_churn": [
+        0.04,
+        0.07,
+        0.12
+      ],
+      "lead_growth": [
+        -0.01,
+        0,
+        0.015
+      ],
+      "support_hours": [
+        2,
+        3,
+        5
+      ],
+      "onboarding_hours": [
+        5,
+        9,
+        16
+      ],
+      "service_capacity": 60,
+      "partner_share": [
+        0,
+        0.05,
+        0.1
+      ],
+      "fixed_opex": 1000
+    },
+    "focused": {
+      "label": "Focused CFO-led business",
+      "introductions": [
+        4,
+        8,
+        14
+      ],
+      "discovery": [
+        0.5,
+        0.7,
+        0.85
+      ],
+      "data_ready": [
+        0.45,
+        0.65,
+        0.85
+      ],
+      "paid_conversion": [
+        0.25,
+        0.4,
+        0.6
+      ],
+      "monthly_churn": [
+        0.015,
+        0.03,
+        0.055
+      ],
+      "lead_growth": [
+        0,
+        0.02,
+        0.04
+      ],
+      "support_hours": [
+        0.6,
+        1.25,
+        2.5
+      ],
+      "onboarding_hours": [
+        3,
+        6,
+        10
+      ],
+      "service_capacity": 80,
+      "partner_share": [
+        0,
+        0.1,
+        0.2
+      ],
+      "fixed_opex": 1500
+    },
+    "channel": {
+      "label": "Repeatable multi-advisor channel",
+      "introductions": [
+        6,
+        12,
+        20
+      ],
+      "discovery": [
+        0.55,
+        0.75,
+        0.9
+      ],
+      "data_ready": [
+        0.55,
+        0.75,
+        0.9
+      ],
+      "paid_conversion": [
+        0.3,
+        0.5,
+        0.65
+      ],
+      "monthly_churn": [
+        0.008,
+        0.02,
+        0.04
+      ],
+      "lead_growth": [
+        0.025,
+        0.05,
+        0.075
+      ],
+      "support_hours": [
+        0.3,
+        0.65,
+        1.25
+      ],
+      "onboarding_hours": [
+        2,
+        3,
+        6
+      ],
+      "service_capacity": 160,
+      "partner_share": [
+        0.1,
+        0.2,
+        0.3
+      ],
+      "fixed_opex": 3000
+    }
+  },
+  "price": 349.0,
+  "owner_allowance": 8000.0,
+  "notes": [
+    "Zero starting customers; paid service begins after successful activation and billing authorization.",
+    "Month 1 is the planning start, not a promised calendar launch. Activation delay 0/1/2 months with assumed weights .5/.3/.2.",
+    "Persistent business parameters vary by run; Poisson lead arrivals and binomial funnel/churn vary monthly.",
+    "Two-month intro-to-paid lag. First billing month is half-month. All paid customers use same price; no expansion or setup fee.",
+    "Churn occurs at month start; departing customers contribute no revenue or support hours that month. Contract collection timing is not modeled.",
+    "Capacity rejected candidates are lost, not backlogged. Service capacity is hours allocated to this product, not total working time.",
+    "Six adoption/friction parameters share a .5 latent-normal factor with directional signs. This correlation is assumed.",
+    "Labor $50/$75/$120 per delivered hour, platform $8/$12/$25 per billable account month; 3.2% payment cost.",
+    "Partner share and fixed nonlabor overhead are scenario-specific; $8k monthly combined owner allowance covers non-delivery work.",
+    "Delivery labor is costed even if founders perform it; owner allowance is additional for sales/engineering/admin, avoiding free labor.",
+    "Surplus is pre-tax after modeled costs/allowance, not owner take-home. Excludes sunk build costs, VAT, financing, bad debts, annual contract timing.",
+    "Cumulative surplus includes imputed delivery labor and owner allowance; it is not required external financing or cash burn unless all costs are actually paid.",
+    "Assumes business continues 24 months with resources to cover modeled deficits. No estimated probability of getting access, survival, PMF or any scenario.",
+    "High-price outputs reuse acquisition/retention paths. Demand elasticity is unknown; they are arithmetic sensitivity, not higher-price forecasts.",
+    "Advisor case presupposes recruiting and enabling multiple advisors; Stephen alone has not been shown to provide this throughput.",
+    "Monthly introductions cap at 60; the reachable market and exhaustion of the contact network have not been measured."
+  ],
+  "baseline": {
+    "limited": {
+      "scenario": "limited",
+      "runs": 50000,
+      "price": 349.0,
+      "cumulative_24m_revenue": {
+        "mean": 16405.2,
+        "p10": 3141.0,
+        "p25": 7154.5,
+        "median": 13611.0,
+        "p75": 22685.0,
+        "p90": 33329.5
+      },
+      "cumulative_24m_surplus": {
+        "mean": -219078.4,
+        "p10": -225161.81,
+        "p25": -221346.16,
+        "median": -218459.11,
+        "p75": -216488.32,
+        "p90": -214123.55
+      },
+      "capacity_lost_24m": {
+        "mean": 0.02,
+        "p10": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 0.0,
+        "p90": 0.0
+      },
+      "month_12": {
+        "customers": {
+          "mean": 2.28,
+          "p10": 0.0,
+          "p25": 1.0,
+          "median": 2.0,
+          "p75": 3.0,
+          "p90": 5.0
+        },
+        "mrr": {
+          "mean": 794.99,
+          "p10": 0.0,
+          "p25": 349.0,
+          "median": 698.0,
+          "p75": 1047.0,
+          "p90": 1745.0
+        },
+        "run_rate_arr": {
+          "mean": 9539.85,
+          "p10": 0.0,
+          "p25": 4188.0,
+          "median": 8376.0,
+          "p75": 12564.0,
+          "p90": 20940.0
+        },
+        "revenue_in_month": {
+          "mean": 738.48,
+          "p10": 0.0,
+          "p25": 349.0,
+          "median": 698.0,
+          "p75": 1047.0,
+          "p90": 1570.5
+        },
+        "contribution": {
+          "mean": -147.31,
+          "p10": -857.24,
+          "p25": -217.06,
+          "median": 0.0,
+          "p75": 94.26,
+          "p90": 259.01
+        },
+        "surplus": {
+          "mean": -9147.31,
+          "p10": -9857.24,
+          "p25": -9217.06,
+          "median": -9000.0,
+          "p75": -8905.74,
+          "p90": -8740.99
+        },
+        "before_owner_allowance": {
+          "mean": -1147.31,
+          "p10": -1857.24,
+          "p25": -1217.06,
+          "median": -1000.0,
+          "p75": -905.74,
+          "p90": -740.99
+        },
+        "delivery_hours": {
+          "mean": 9.7,
+          "p10": 0.0,
+          "p25": 3.15,
+          "median": 7.3,
+          "p75": 14.61,
+          "p90": 22.07
+        },
+        "share_paths_mrr_over_10k": 0.0,
+        "share_paths_mrr_over_25k": 0.0,
+        "share_paths_mrr_over_50k": 0.0,
+        "share_paths_positive_surplus": 0.0
+      },
+      "month_24": {
+        "customers": {
+          "mean": 3.67,
+          "p10": 1.0,
+          "p25": 1.0,
+          "median": 3.0,
+          "p75": 5.0,
+          "p90": 8.0
+        },
+        "mrr": {
+          "mean": 1281.72,
+          "p10": 349.0,
+          "p25": 349.0,
+          "median": 1047.0,
+          "p75": 1745.0,
+          "p90": 2792.0
+        },
+        "run_rate_arr": {
+          "mean": 15380.6,
+          "p10": 4188.0,
+          "p25": 4188.0,
+          "median": 12564.0,
+          "p75": 20940.0,
+          "p90": 33504.0
+        },
+        "revenue_in_month": {
+          "mean": 1223.37,
+          "p10": 174.5,
+          "p25": 349.0,
+          "median": 1047.0,
+          "p75": 1745.0,
+          "p90": 2617.5
+        },
+        "contribution": {
+          "mean": -81.98,
+          "p10": -843.92,
+          "p25": -210.48,
+          "median": 0.0,
+          "p75": 178.75,
+          "p90": 450.34
+        },
+        "surplus": {
+          "mean": -9081.98,
+          "p10": -9843.92,
+          "p25": -9210.48,
+          "median": -9000.0,
+          "p75": -8821.25,
+          "p90": -8549.66
+        },
+        "before_owner_allowance": {
+          "mean": -1081.98,
+          "p10": -1843.92,
+          "p25": -1210.48,
+          "median": -1000.0,
+          "p75": -821.25,
+          "p90": -549.66
+        },
+        "delivery_hours": {
+          "mean": 14.1,
+          "p10": 2.63,
+          "p25": 5.52,
+          "median": 11.72,
+          "p75": 20.32,
+          "p90": 29.72
+        },
+        "share_paths_mrr_over_10k": 0.0,
+        "share_paths_mrr_over_25k": 0.0,
+        "share_paths_mrr_over_50k": 0.0,
+        "share_paths_positive_surplus": 0.0
+      }
+    },
+    "focused": {
+      "scenario": "focused",
+      "runs": 50000,
+      "price": 349.0,
+      "cumulative_24m_revenue": {
+        "mean": 119996.47,
+        "p10": 55316.5,
+        "p25": 78525.0,
+        "median": 111680.0,
+        "p75": 152862.0,
+        "p90": 195789.0
+      },
+      "cumulative_24m_surplus": {
+        "mean": -187804.79,
+        "p10": -223039.9,
+        "p25": -211917.76,
+        "median": -194638.51,
+        "p75": -170813.82,
+        "p90": -142996.88
+      },
+      "capacity_lost_24m": {
+        "mean": 1.92,
+        "p10": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 1.0,
+        "p90": 6.0
+      },
+      "month_12": {
+        "customers": {
+          "mean": 14.7,
+          "p10": 6.0,
+          "p25": 9.0,
+          "median": 14.0,
+          "p75": 19.0,
+          "p90": 25.0
+        },
+        "mrr": {
+          "mean": 5129.58,
+          "p10": 2094.0,
+          "p25": 3141.0,
+          "median": 4886.0,
+          "p75": 6631.0,
+          "p90": 8725.0
+        },
+        "run_rate_arr": {
+          "mean": 61554.97,
+          "p10": 25128.0,
+          "p25": 37692.0,
+          "median": 58632.0,
+          "p75": 79572.0,
+          "p90": 104700.0
+        },
+        "revenue_in_month": {
+          "mean": 4790.7,
+          "p10": 2094.0,
+          "p25": 2966.5,
+          "median": 4362.5,
+          "p75": 6107.5,
+          "p90": 8027.0
+        },
+        "contribution": {
+          "mean": 1461.44,
+          "p10": -214.4,
+          "p25": 459.59,
+          "median": 1259.12,
+          "p75": 2257.53,
+          "p90": 3447.93
+        },
+        "surplus": {
+          "mean": -8038.56,
+          "p10": -9714.4,
+          "p25": -9040.41,
+          "median": -8240.88,
+          "p75": -7242.47,
+          "p90": -6052.07
+        },
+        "before_owner_allowance": {
+          "mean": -38.56,
+          "p10": -1714.4,
+          "p25": -1040.41,
+          "median": -240.88,
+          "p75": 757.53,
+          "p90": 1947.93
+        },
+        "delivery_hours": {
+          "mean": 30.48,
+          "p10": 12.62,
+          "p25": 19.26,
+          "median": 28.51,
+          "p75": 39.49,
+          "p90": 51.19
+        },
+        "share_paths_mrr_over_10k": 0.052,
+        "share_paths_mrr_over_25k": 0.0,
+        "share_paths_mrr_over_50k": 0.0,
+        "share_paths_positive_surplus": 0.0002
+      },
+      "month_24": {
+        "customers": {
+          "mean": 31.1,
+          "p10": 15.0,
+          "p25": 21.0,
+          "median": 30.0,
+          "p75": 39.0,
+          "p90": 49.0
+        },
+        "mrr": {
+          "mean": 10855.32,
+          "p10": 5235.0,
+          "p25": 7329.0,
+          "median": 10470.0,
+          "p75": 13611.0,
+          "p90": 17101.0
+        },
+        "run_rate_arr": {
+          "mean": 130263.8,
+          "p10": 62820.0,
+          "p25": 87948.0,
+          "median": 125640.0,
+          "p75": 163332.0,
+          "p90": 205212.0
+        },
+        "revenue_in_month": {
+          "mean": 10488.04,
+          "p10": 4886.0,
+          "p25": 6980.0,
+          "median": 9946.5,
+          "p75": 13262.0,
+          "p90": 16752.0
+        },
+        "contribution": {
+          "mean": 4280.91,
+          "p10": 890.23,
+          "p25": 2029.79,
+          "median": 3716.89,
+          "p75": 5965.22,
+          "p90": 8474.47
+        },
+        "surplus": {
+          "mean": -5219.09,
+          "p10": -8609.77,
+          "p25": -7470.21,
+          "median": -5783.11,
+          "p75": -3534.78,
+          "p90": -1025.53
+        },
+        "before_owner_allowance": {
+          "mean": 2780.91,
+          "p10": -609.77,
+          "p25": 529.79,
+          "median": 2216.89,
+          "p75": 4465.22,
+          "p90": 6974.47
+        },
+        "delivery_hours": {
+          "mean": 53.48,
+          "p10": 27.95,
+          "p25": 39.12,
+          "median": 54.19,
+          "p75": 71.24,
+          "p90": 76.73
+        },
+        "share_paths_mrr_over_10k": 0.5317,
+        "share_paths_mrr_over_25k": 0.0078,
+        "share_paths_mrr_over_50k": 0.0,
+        "share_paths_positive_surplus": 0.0661
+      }
+    },
+    "channel": {
+      "scenario": "channel",
+      "runs": 50000,
+      "price": 349.0,
+      "cumulative_24m_revenue": {
+        "mean": 332973.49,
+        "p10": 172406.0,
+        "p25": 230689.0,
+        "median": 313576.5,
+        "p75": 413216.0,
+        "p90": 520201.95
+      },
+      "cumulative_24m_surplus": {
+        "mean": -112213.17,
+        "p10": -202207.47,
+        "p25": -171997.7,
+        "median": -126420.75,
+        "p75": -68163.02,
+        "p90": -3116.6
+      },
+      "capacity_lost_24m": {
+        "mean": 1.17,
+        "p10": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 0.0,
+        "p90": 0.0
+      },
+      "month_12": {
+        "customers": {
+          "mean": 35.7,
+          "p10": 18.0,
+          "p25": 25.0,
+          "median": 34.0,
+          "p75": 45.0,
+          "p90": 56.0
+        },
+        "mrr": {
+          "mean": 12457.58,
+          "p10": 6282.0,
+          "p25": 8725.0,
+          "median": 11866.0,
+          "p75": 15705.0,
+          "p90": 19544.0
+        },
+        "run_rate_arr": {
+          "mean": 149490.91,
+          "p10": 75384.0,
+          "p25": 104700.0,
+          "median": 142392.0,
+          "p75": 188460.0,
+          "p90": 234528.0
+        },
+        "revenue_in_month": {
+          "mean": 11573.05,
+          "p10": 5758.5,
+          "p25": 7852.5,
+          "median": 10819.0,
+          "p75": 14483.5,
+          "p90": 18322.5
+        },
+        "contribution": {
+          "mean": 5040.0,
+          "p10": 1785.45,
+          "p25": 2921.19,
+          "median": 4560.4,
+          "p75": 6667.53,
+          "p90": 8980.2
+        },
+        "surplus": {
+          "mean": -5960.0,
+          "p10": -9214.55,
+          "p25": -8078.81,
+          "median": -6439.6,
+          "p75": -4332.47,
+          "p90": -2019.8
+        },
+        "before_owner_allowance": {
+          "mean": 2040.0,
+          "p10": -1214.55,
+          "p25": -78.81,
+          "median": 1560.4,
+          "p75": 3667.53,
+          "p90": 5980.2
+        },
+        "delivery_hours": {
+          "mean": 40.97,
+          "p10": 21.3,
+          "p25": 28.91,
+          "median": 38.96,
+          "p75": 50.85,
+          "p90": 63.39
+        },
+        "share_paths_mrr_over_10k": 0.6396,
+        "share_paths_mrr_over_25k": 0.0236,
+        "share_paths_mrr_over_50k": 0.0,
+        "share_paths_positive_surplus": 0.0396
+      },
+      "month_24": {
+        "customers": {
+          "mean": 103.28,
+          "p10": 53.0,
+          "p25": 72.0,
+          "median": 98.0,
+          "p75": 129.0,
+          "p90": 161.0
+        },
+        "mrr": {
+          "mean": 36043.25,
+          "p10": 18497.0,
+          "p25": 25128.0,
+          "median": 34202.0,
+          "p75": 45021.0,
+          "p90": 56189.0
+        },
+        "run_rate_arr": {
+          "mean": 432518.97,
+          "p10": 221964.0,
+          "p25": 301536.0,
+          "median": 410424.0,
+          "p75": 540252.0,
+          "p90": 674268.0
+        },
+        "revenue_in_month": {
+          "mean": 34520.29,
+          "p10": 17799.0,
+          "p25": 23906.5,
+          "median": 32631.5,
+          "p75": 43101.5,
+          "p90": 53920.5
+        },
+        "contribution": {
+          "mean": 16900.81,
+          "p10": 7124.67,
+          "p25": 10444.1,
+          "median": 15409.14,
+          "p75": 21733.92,
+          "p90": 28724.28
+        },
+        "surplus": {
+          "mean": 5900.81,
+          "p10": -3875.33,
+          "p25": -555.9,
+          "median": 4409.14,
+          "p75": 10733.92,
+          "p90": 17724.28
+        },
+        "before_owner_allowance": {
+          "mean": 13900.81,
+          "p10": 4124.67,
+          "p25": 7444.1,
+          "median": 12409.14,
+          "p75": 18733.92,
+          "p90": 25724.28
+        },
+        "delivery_hours": {
+          "mean": 99.4,
+          "p10": 56.38,
+          "p25": 73.35,
+          "median": 96.63,
+          "p75": 124.42,
+          "p90": 153.68
+        },
+        "share_paths_mrr_over_10k": 0.9944,
+        "share_paths_mrr_over_25k": 0.7518,
+        "share_paths_mrr_over_50k": 0.1678,
+        "share_paths_positive_surplus": 0.7225
+      }
+    }
+  },
+  "repricing_900": {
+    "limited": {
+      "scenario": "limited",
+      "runs": 50000,
+      "price": 900,
+      "cumulative_24m_revenue": {
+        "mean": 42305.66,
+        "p10": 8100.0,
+        "p25": 18450.0,
+        "median": 35100.0,
+        "p75": 58500.0,
+        "p90": 85950.0
+      },
+      "cumulative_24m_surplus": {
+        "mean": -195304.59,
+        "p10": -214132.65,
+        "p25": -209176.77,
+        "median": -200383.6,
+        "p75": -186930.35,
+        "p90": -169954.69
+      },
+      "capacity_lost_24m": {
+        "mean": 0.02,
+        "p10": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 0.0,
+        "p90": 0.0
+      },
+      "month_12": {
+        "customers": {
+          "mean": 2.28,
+          "p10": 0.0,
+          "p25": 1.0,
+          "median": 2.0,
+          "p75": 3.0,
+          "p90": 5.0
+        },
+        "mrr": {
+          "mean": 2050.11,
+          "p10": 0.0,
+          "p25": 900.0,
+          "median": 1800.0,
+          "p75": 2700.0,
+          "p90": 4500.0
+        },
+        "run_rate_arr": {
+          "mean": 24601.32,
+          "p10": 0.0,
+          "p25": 10800.0,
+          "median": 21600.0,
+          "p75": 32400.0,
+          "p90": 54000.0
+        },
+        "revenue_in_month": {
+          "mean": 1904.4,
+          "p10": 0.0,
+          "p25": 900.0,
+          "median": 1800.0,
+          "p75": 2700.0,
+          "p90": 4050.0
+        },
+        "contribution": {
+          "mean": 922.86,
+          "p10": 0.0,
+          "p25": 0.0,
+          "median": 608.35,
+          "p75": 1433.06,
+          "p90": 2346.97
+        },
+        "surplus": {
+          "mean": -8077.14,
+          "p10": -9000.0,
+          "p25": -9000.0,
+          "median": -8391.65,
+          "p75": -7566.94,
+          "p90": -6653.03
+        },
+        "before_owner_allowance": {
+          "mean": -77.14,
+          "p10": -1000.0,
+          "p25": -1000.0,
+          "median": -391.65,
+          "p75": 433.06,
+          "p90": 1346.97
+        },
+        "delivery_hours": {
+          "mean": 9.7,
+          "p10": 0.0,
+          "p25": 3.15,
+          "median": 7.3,
+          "p75": 14.61,
+          "p90": 22.07
+        },
+        "share_paths_mrr_over_10k": 0.0014,
+        "share_paths_mrr_over_25k": 0.0,
+        "share_paths_mrr_over_50k": 0.0,
+        "share_paths_positive_surplus": 0.0
+      },
+      "month_24": {
+        "customers": {
+          "mean": 3.67,
+          "p10": 1.0,
+          "p25": 1.0,
+          "median": 3.0,
+          "p75": 5.0,
+          "p90": 8.0
+        },
+        "mrr": {
+          "mean": 3305.29,
+          "p10": 900.0,
+          "p25": 900.0,
+          "median": 2700.0,
+          "p75": 4500.0,
+          "p90": 7200.0
+        },
+        "run_rate_arr": {
+          "mean": 39663.43,
+          "p10": 10800.0,
+          "p25": 10800.0,
+          "median": 32400.0,
+          "p75": 54000.0,
+          "p90": 86400.0
+        },
+        "revenue_in_month": {
+          "mean": 3154.82,
+          "p10": 450.0,
+          "p25": 900.0,
+          "median": 2700.0,
+          "p75": 4500.0,
+          "p90": 6750.0
+        },
+        "contribution": {
+          "mean": 1690.97,
+          "p10": 0.0,
+          "p25": 531.1,
+          "median": 1263.98,
+          "p75": 2450.44,
+          "p90": 3863.9
+        },
+        "surplus": {
+          "mean": -7309.03,
+          "p10": -9000.0,
+          "p25": -8468.9,
+          "median": -7736.02,
+          "p75": -6549.56,
+          "p90": -5136.1
+        },
+        "before_owner_allowance": {
+          "mean": 690.97,
+          "p10": -1000.0,
+          "p25": -468.9,
+          "median": 263.98,
+          "p75": 1450.44,
+          "p90": 2863.9
+        },
+        "delivery_hours": {
+          "mean": 14.1,
+          "p10": 2.63,
+          "p25": 5.52,
+          "median": 11.72,
+          "p75": 20.32,
+          "p90": 29.72
+        },
+        "share_paths_mrr_over_10k": 0.0216,
+        "share_paths_mrr_over_25k": 0.0,
+        "share_paths_mrr_over_50k": 0.0,
+        "share_paths_positive_surplus": 0.0029
+      }
+    },
+    "focused": {
+      "scenario": "focused",
+      "runs": 50000,
+      "price": 900,
+      "cumulative_24m_revenue": {
+        "mean": 309446.48,
+        "p10": 142650.0,
+        "p25": 202500.0,
+        "median": 288000.0,
+        "p75": 394200.0,
+        "p90": 504900.0
+      },
+      "cumulative_24m_surplus": {
+        "mean": -23406.35,
+        "p10": -143082.65,
+        "p25": -102828.76,
+        "median": -42377.58,
+        "p75": 35709.75,
+        "p90": 121441.86
+      },
+      "capacity_lost_24m": {
+        "mean": 1.92,
+        "p10": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 1.0,
+        "p90": 6.0
+      },
+      "month_12": {
+        "customers": {
+          "mean": 14.7,
+          "p10": 6.0,
+          "p25": 9.0,
+          "median": 14.0,
+          "p75": 19.0,
+          "p90": 25.0
+        },
+        "mrr": {
+          "mean": 13228.15,
+          "p10": 5400.0,
+          "p25": 8100.0,
+          "median": 12600.0,
+          "p75": 17100.0,
+          "p90": 22500.0
+        },
+        "run_rate_arr": {
+          "mean": 158737.75,
+          "p10": 64800.0,
+          "p25": 97200.0,
+          "median": 151200.0,
+          "p75": 205200.0,
+          "p90": 270000.0
+        },
+        "revenue_in_month": {
+          "mean": 12354.24,
+          "p10": 5400.0,
+          "p25": 7650.0,
+          "median": 11250.0,
+          "p75": 15750.0,
+          "p90": 20700.0
+        },
+        "contribution": {
+          "mean": 8024.58,
+          "p10": 2872.83,
+          "p25": 4644.85,
+          "median": 7189.49,
+          "p75": 10535.94,
+          "p90": 14226.25
+        },
+        "surplus": {
+          "mean": -1475.42,
+          "p10": -6627.17,
+          "p25": -4855.15,
+          "median": -2310.51,
+          "p75": 1035.94,
+          "p90": 4726.25
+        },
+        "before_owner_allowance": {
+          "mean": 6524.58,
+          "p10": 1372.83,
+          "p25": 3144.85,
+          "median": 5689.49,
+          "p75": 9035.94,
+          "p90": 12726.25
+        },
+        "delivery_hours": {
+          "mean": 30.48,
+          "p10": 12.62,
+          "p25": 19.26,
+          "median": 28.51,
+          "p75": 39.49,
+          "p90": 51.19
+        },
+        "share_paths_mrr_over_10k": 0.6149,
+        "share_paths_mrr_over_25k": 0.0618,
+        "share_paths_mrr_over_50k": 0.0001,
+        "share_paths_positive_surplus": 0.3147
+      },
+      "month_24": {
+        "customers": {
+          "mean": 31.1,
+          "p10": 15.0,
+          "p25": 21.0,
+          "median": 30.0,
+          "p75": 39.0,
+          "p90": 49.0
+        },
+        "mrr": {
+          "mean": 27993.65,
+          "p10": 13500.0,
+          "p25": 18900.0,
+          "median": 27000.0,
+          "p75": 35100.0,
+          "p90": 44100.0
+        },
+        "run_rate_arr": {
+          "mean": 335923.85,
+          "p10": 162000.0,
+          "p25": 226800.0,
+          "median": 324000.0,
+          "p75": 421200.0,
+          "p90": 529200.0
+        },
+        "revenue_in_month": {
+          "mean": 27046.51,
+          "p10": 12600.0,
+          "p25": 18000.0,
+          "median": 25650.0,
+          "p75": 34200.0,
+          "p90": 43200.0
+        },
+        "contribution": {
+          "mean": 18650.93,
+          "p10": 7933.02,
+          "p25": 11705.0,
+          "median": 17224.74,
+          "p75": 23998.34,
+          "p90": 31324.11
+        },
+        "surplus": {
+          "mean": 9150.93,
+          "p10": -1566.98,
+          "p25": 2205.0,
+          "median": 7724.74,
+          "p75": 14498.34,
+          "p90": 21824.11
+        },
+        "before_owner_allowance": {
+          "mean": 17150.93,
+          "p10": 6433.02,
+          "p25": 10205.0,
+          "median": 15724.74,
+          "p75": 22498.34,
+          "p90": 29824.11
+        },
+        "delivery_hours": {
+          "mean": 53.48,
+          "p10": 27.95,
+          "p25": 39.12,
+          "median": 54.19,
+          "p75": 71.24,
+          "p90": 76.73
+        },
+        "share_paths_mrr_over_10k": 0.9537,
+        "share_paths_mrr_over_25k": 0.5598,
+        "share_paths_mrr_over_50k": 0.0522,
+        "share_paths_positive_surplus": 0.8445
+      }
+    },
+    "channel": {
+      "scenario": "channel",
+      "runs": 50000,
+      "price": 900,
+      "cumulative_24m_revenue": {
+        "mean": 858670.88,
+        "p10": 444600.0,
+        "p25": 594900.0,
+        "median": 808650.0,
+        "p75": 1065600.0,
+        "p90": 1341495.0
+      },
+      "cumulative_24m_surplus": {
+        "mean": 291445.16,
+        "p10": 9670.98,
+        "p25": 108352.42,
+        "median": 253267.32,
+        "p75": 431480.81,
+        "p90": 627132.37
+      },
+      "capacity_lost_24m": {
+        "mean": 1.17,
+        "p10": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 0.0,
+        "p90": 0.0
+      },
+      "month_12": {
+        "customers": {
+          "mean": 35.7,
+          "p10": 18.0,
+          "p25": 25.0,
+          "median": 34.0,
+          "p75": 45.0,
+          "p90": 56.0
+        },
+        "mrr": {
+          "mean": 32125.55,
+          "p10": 16200.0,
+          "p25": 22500.0,
+          "median": 30600.0,
+          "p75": 40500.0,
+          "p90": 50400.0
+        },
+        "run_rate_arr": {
+          "mean": 385506.65,
+          "p10": 194400.0,
+          "p25": 270000.0,
+          "median": 367200.0,
+          "p75": 486000.0,
+          "p90": 604800.0
+        },
+        "revenue_in_month": {
+          "mean": 29844.54,
+          "p10": 14850.0,
+          "p25": 20250.0,
+          "median": 27900.0,
+          "p75": 37350.0,
+          "p90": 47250.0
+        },
+        "contribution": {
+          "mean": 19069.88,
+          "p10": 8998.5,
+          "p25": 12578.84,
+          "median": 17676.48,
+          "p75": 24128.27,
+          "p90": 31037.6
+        },
+        "surplus": {
+          "mean": 8069.88,
+          "p10": -2001.5,
+          "p25": 1578.84,
+          "median": 6676.48,
+          "p75": 13128.27,
+          "p90": 20037.6
+        },
+        "before_owner_allowance": {
+          "mean": 16069.88,
+          "p10": 5998.5,
+          "p25": 9578.84,
+          "median": 14676.48,
+          "p75": 21128.27,
+          "p90": 28037.6
+        },
+        "delivery_hours": {
+          "mean": 40.97,
+          "p10": 21.3,
+          "p25": 28.91,
+          "median": 38.96,
+          "p75": 50.85,
+          "p90": 63.39
+        },
+        "share_paths_mrr_over_10k": 0.9814,
+        "share_paths_mrr_over_25k": 0.6693,
+        "share_paths_mrr_over_50k": 0.1067,
+        "share_paths_positive_surplus": 0.8207
+      },
+      "month_24": {
+        "customers": {
+          "mean": 103.28,
+          "p10": 53.0,
+          "p25": 72.0,
+          "median": 98.0,
+          "p75": 129.0,
+          "p90": 161.0
+        },
+        "mrr": {
+          "mean": 92948.2,
+          "p10": 47700.0,
+          "p25": 64800.0,
+          "median": 88200.0,
+          "p75": 116100.0,
+          "p90": 144900.0
+        },
+        "run_rate_arr": {
+          "mean": 1115378.42,
+          "p10": 572400.0,
+          "p25": 777600.0,
+          "median": 1058400.0,
+          "p75": 1393200.0,
+          "p90": 1738800.0
+        },
+        "revenue_in_month": {
+          "mean": 89020.82,
+          "p10": 45900.0,
+          "p25": 61650.0,
+          "median": 84150.0,
+          "p75": 111150.0,
+          "p90": 139050.0
+        },
+        "contribution": {
+          "mean": 58749.81,
+          "p10": 28889.15,
+          "p25": 39410.75,
+          "median": 54865.99,
+          "p75": 73702.32,
+          "p90": 94035.15
+        },
+        "surplus": {
+          "mean": 47749.81,
+          "p10": 17889.15,
+          "p25": 28410.75,
+          "median": 43865.99,
+          "p75": 62702.32,
+          "p90": 83035.15
+        },
+        "before_owner_allowance": {
+          "mean": 55749.81,
+          "p10": 25889.15,
+          "p25": 36410.75,
+          "median": 51865.99,
+          "p75": 70702.32,
+          "p90": 91035.15
+        },
+        "delivery_hours": {
+          "mean": 99.4,
+          "p10": 56.38,
+          "p25": 73.35,
+          "median": 96.63,
+          "p75": 124.42,
+          "p90": 153.68
+        },
+        "share_paths_mrr_over_10k": 1.0,
+        "share_paths_mrr_over_25k": 0.9956,
+        "share_paths_mrr_over_50k": 0.8849,
+        "share_paths_positive_surplus": 0.999
+      }
+    }
+  },
+  "trajectories": {
+    "limited": [
+      {
+        "month": 1,
+        "mean": 0.0,
+        "p10": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 0.0,
+        "p90": 0.0
+      },
+      {
+        "month": 2,
+        "mean": 0.0,
+        "p10": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 0.0,
+        "p90": 0.0
+      },
+      {
+        "month": 3,
+        "mean": 55.2,
+        "p10": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 0.0,
+        "p90": 349.0
+      },
+      {
+        "month": 4,
+        "mean": 141.76,
+        "p10": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 349.0,
+        "p90": 349.0
+      },
+      {
+        "month": 5,
+        "mean": 243.64,
+        "p10": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 349.0,
+        "p90": 698.0
+      },
+      {
+        "month": 6,
+        "mean": 340.14,
+        "p10": 0.0,
+        "p25": 0.0,
+        "median": 349.0,
+        "p75": 698.0,
+        "p90": 698.0
+      },
+      {
+        "month": 7,
+        "mean": 430.06,
+        "p10": 0.0,
+        "p25": 0.0,
+        "median": 349.0,
+        "p75": 698.0,
+        "p90": 1047.0
+      },
+      {
+        "month": 8,
+        "mean": 514.57,
+        "p10": 0.0,
+        "p25": 0.0,
+        "median": 349.0,
+        "p75": 698.0,
+        "p90": 1047.0
+      },
+      {
+        "month": 9,
+        "mean": 592.62,
+        "p10": 0.0,
+        "p25": 0.0,
+        "median": 349.0,
+        "p75": 1047.0,
+        "p90": 1396.0
+      },
+      {
+        "month": 10,
+        "mean": 664.94,
+        "p10": 0.0,
+        "p25": 349.0,
+        "median": 698.0,
+        "p75": 1047.0,
+        "p90": 1396.0
+      },
+      {
+        "month": 11,
+        "mean": 734.59,
+        "p10": 0.0,
+        "p25": 349.0,
+        "median": 698.0,
+        "p75": 1047.0,
+        "p90": 1745.0
+      },
+      {
+        "month": 12,
+        "mean": 794.99,
+        "p10": 0.0,
+        "p25": 349.0,
+        "median": 698.0,
+        "p75": 1047.0,
+        "p90": 1745.0
+      },
+      {
+        "month": 13,
+        "mean": 854.39,
+        "p10": 0.0,
+        "p25": 349.0,
+        "median": 698.0,
+        "p75": 1396.0,
+        "p90": 1745.0
+      },
+      {
+        "month": 14,
+        "mean": 908.95,
+        "p10": 0.0,
+        "p25": 349.0,
+        "median": 698.0,
+        "p75": 1396.0,
+        "p90": 2094.0
+      },
+      {
+        "month": 15,
+        "mean": 958.47,
+        "p10": 0.0,
+        "p25": 349.0,
+        "median": 698.0,
+        "p75": 1396.0,
+        "p90": 2094.0
+      },
+      {
+        "month": 16,
+        "mean": 1005.74,
+        "p10": 0.0,
+        "p25": 349.0,
+        "median": 698.0,
+        "p75": 1396.0,
+        "p90": 2094.0
+      },
+      {
+        "month": 17,
+        "mean": 1049.67,
+        "p10": 0.0,
+        "p25": 349.0,
+        "median": 698.0,
+        "p75": 1396.0,
+        "p90": 2094.0
+      },
+      {
+        "month": 18,
+        "mean": 1090.74,
+        "p10": 0.0,
+        "p25": 349.0,
+        "median": 1047.0,
+        "p75": 1396.0,
+        "p90": 2443.0
+      },
+      {
+        "month": 19,
+        "mean": 1128.34,
+        "p10": 0.0,
+        "p25": 349.0,
+        "median": 1047.0,
+        "p75": 1745.0,
+        "p90": 2443.0
+      },
+      {
+        "month": 20,
+        "mean": 1162.79,
+        "p10": 0.0,
+        "p25": 349.0,
+        "median": 1047.0,
+        "p75": 1745.0,
+        "p90": 2443.0
+      },
+      {
+        "month": 21,
+        "mean": 1194.99,
+        "p10": 0.0,
+        "p25": 349.0,
+        "median": 1047.0,
+        "p75": 1745.0,
+        "p90": 2443.0
+      },
+      {
+        "month": 22,
+        "mean": 1225.97,
+        "p10": 349.0,
+        "p25": 349.0,
+        "median": 1047.0,
+        "p75": 1745.0,
+        "p90": 2443.0
+      },
+      {
+        "month": 23,
+        "mean": 1254.95,
+        "p10": 349.0,
+        "p25": 349.0,
+        "median": 1047.0,
+        "p75": 1745.0,
+        "p90": 2443.0
+      },
+      {
+        "month": 24,
+        "mean": 1281.72,
+        "p10": 349.0,
+        "p25": 349.0,
+        "median": 1047.0,
+        "p75": 1745.0,
+        "p90": 2792.0
+      }
+    ],
+    "focused": [
+      {
+        "month": 1,
+        "mean": 0.0,
+        "p10": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 0.0,
+        "p90": 0.0
+      },
+      {
+        "month": 2,
+        "mean": 0.0,
+        "p10": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 0.0,
+        "p90": 0.0
+      },
+      {
+        "month": 3,
+        "mean": 287.83,
+        "p10": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 349.0,
+        "p90": 1047.0
+      },
+      {
+        "month": 4,
+        "mean": 746.58,
+        "p10": 0.0,
+        "p25": 0.0,
+        "median": 698.0,
+        "p75": 1047.0,
+        "p90": 1745.0
+      },
+      {
+        "month": 5,
+        "mean": 1311.81,
+        "p10": 349.0,
+        "p25": 698.0,
+        "median": 1047.0,
+        "p75": 1745.0,
+        "p90": 2792.0
+      },
+      {
+        "month": 6,
+        "mean": 1873.2,
+        "p10": 349.0,
+        "p25": 1047.0,
+        "median": 1745.0,
+        "p75": 2443.0,
+        "p90": 3490.0
+      },
+      {
+        "month": 7,
+        "mean": 2427.97,
+        "p10": 698.0,
+        "p25": 1396.0,
+        "median": 2094.0,
+        "p75": 3141.0,
+        "p90": 4537.0
+      },
+      {
+        "month": 8,
+        "mean": 2976.12,
+        "p10": 1047.0,
+        "p25": 1745.0,
+        "median": 2792.0,
+        "p75": 3839.0,
+        "p90": 5235.0
+      },
+      {
+        "month": 9,
+        "mean": 3521.83,
+        "p10": 1396.0,
+        "p25": 2094.0,
+        "median": 3141.0,
+        "p75": 4537.0,
+        "p90": 5933.0
+      },
+      {
+        "month": 10,
+        "mean": 4060.34,
+        "p10": 1745.0,
+        "p25": 2443.0,
+        "median": 3839.0,
+        "p75": 5235.0,
+        "p90": 6980.0
+      },
+      {
+        "month": 11,
+        "mean": 4596.17,
+        "p10": 1745.0,
+        "p25": 2792.0,
+        "median": 4188.0,
+        "p75": 5933.0,
+        "p90": 7678.0
+      },
+      {
+        "month": 12,
+        "mean": 5129.58,
+        "p10": 2094.0,
+        "p25": 3141.0,
+        "median": 4886.0,
+        "p75": 6631.0,
+        "p90": 8725.0
+      },
+      {
+        "month": 13,
+        "mean": 5655.69,
+        "p10": 2443.0,
+        "p25": 3490.0,
+        "median": 5235.0,
+        "p75": 7329.0,
+        "p90": 9423.0
+      },
+      {
+        "month": 14,
+        "mean": 6179.02,
+        "p10": 2792.0,
+        "p25": 3839.0,
+        "median": 5584.0,
+        "p75": 8027.0,
+        "p90": 10470.0
+      },
+      {
+        "month": 15,
+        "mean": 6690.27,
+        "p10": 2792.0,
+        "p25": 4188.0,
+        "median": 6282.0,
+        "p75": 8725.0,
+        "p90": 11168.0
+      },
+      {
+        "month": 16,
+        "mean": 7199.73,
+        "p10": 3141.0,
+        "p25": 4537.0,
+        "median": 6631.0,
+        "p75": 9074.0,
+        "p90": 11866.0
+      },
+      {
+        "month": 17,
+        "mean": 7697.73,
+        "p10": 3490.0,
+        "p25": 4886.0,
+        "median": 6980.0,
+        "p75": 9772.0,
+        "p90": 12564.0
+      },
+      {
+        "month": 18,
+        "mean": 8187.14,
+        "p10": 3839.0,
+        "p25": 5235.0,
+        "median": 7678.0,
+        "p75": 10470.0,
+        "p90": 13262.0
+      },
+      {
+        "month": 19,
+        "mean": 8667.55,
+        "p10": 3839.0,
+        "p25": 5584.0,
+        "median": 8027.0,
+        "p75": 11168.0,
+        "p90": 14309.0
+      },
+      {
+        "month": 20,
+        "mean": 9130.36,
+        "p10": 4188.0,
+        "p25": 5933.0,
+        "median": 8725.0,
+        "p75": 11517.0,
+        "p90": 15007.0
+      },
+      {
+        "month": 21,
+        "mean": 9584.47,
+        "p10": 4537.0,
+        "p25": 6282.0,
+        "median": 9074.0,
+        "p75": 12215.0,
+        "p90": 15356.0
+      },
+      {
+        "month": 22,
+        "mean": 10025.59,
+        "p10": 4537.0,
+        "p25": 6631.0,
+        "median": 9423.0,
+        "p75": 12913.0,
+        "p90": 16054.0
+      },
+      {
+        "month": 23,
+        "mean": 10450.41,
+        "p10": 4886.0,
+        "p25": 6980.0,
+        "median": 9772.0,
+        "p75": 13262.0,
+        "p90": 16752.0
+      },
+      {
+        "month": 24,
+        "mean": 10855.32,
+        "p10": 5235.0,
+        "p25": 7329.0,
+        "median": 10470.0,
+        "p75": 13611.0,
+        "p90": 17101.0
+      }
+    ],
+    "channel": [
+      {
+        "month": 1,
+        "mean": 0.0,
+        "p10": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 0.0,
+        "p90": 0.0
+      },
+      {
+        "month": 2,
+        "mean": 0.0,
+        "p10": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 0.0,
+        "p90": 0.0
+      },
+      {
+        "month": 3,
+        "mean": 583.15,
+        "p10": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 1047.0,
+        "p90": 1745.0
+      },
+      {
+        "month": 4,
+        "mean": 1535.86,
+        "p10": 0.0,
+        "p25": 349.0,
+        "median": 1396.0,
+        "p75": 2443.0,
+        "p90": 3490.0
+      },
+      {
+        "month": 5,
+        "mean": 2750.25,
+        "p10": 698.0,
+        "p25": 1396.0,
+        "median": 2443.0,
+        "p75": 3839.0,
+        "p90": 5235.0
+      },
+      {
+        "month": 6,
+        "mean": 4006.55,
+        "p10": 1396.0,
+        "p25": 2443.0,
+        "median": 3839.0,
+        "p75": 5235.0,
+        "p90": 6980.0
+      },
+      {
+        "month": 7,
+        "mean": 5294.45,
+        "p10": 2443.0,
+        "p25": 3490.0,
+        "median": 4886.0,
+        "p75": 6631.0,
+        "p90": 8725.0
+      },
+      {
+        "month": 8,
+        "mean": 6632.44,
+        "p10": 3141.0,
+        "p25": 4188.0,
+        "median": 6282.0,
+        "p75": 8376.0,
+        "p90": 10819.0
+      },
+      {
+        "month": 9,
+        "mean": 8012.0,
+        "p10": 3839.0,
+        "p25": 5235.0,
+        "median": 7329.0,
+        "p75": 10121.0,
+        "p90": 12913.0
+      },
+      {
+        "month": 10,
+        "mean": 9444.98,
+        "p10": 4537.0,
+        "p25": 6282.0,
+        "median": 8725.0,
+        "p75": 11866.0,
+        "p90": 15007.0
+      },
+      {
+        "month": 11,
+        "mean": 10924.4,
+        "p10": 5584.0,
+        "p25": 7329.0,
+        "median": 10121.0,
+        "p75": 13611.0,
+        "p90": 17450.0
+      },
+      {
+        "month": 12,
+        "mean": 12457.58,
+        "p10": 6282.0,
+        "p25": 8725.0,
+        "median": 11866.0,
+        "p75": 15705.0,
+        "p90": 19544.0
+      },
+      {
+        "month": 13,
+        "mean": 14042.68,
+        "p10": 6980.0,
+        "p25": 9772.0,
+        "median": 13262.0,
+        "p75": 17450.0,
+        "p90": 21987.0
+      },
+      {
+        "month": 14,
+        "mean": 15695.6,
+        "p10": 8027.0,
+        "p25": 10819.0,
+        "median": 14658.0,
+        "p75": 19544.0,
+        "p90": 24779.0
+      },
+      {
+        "month": 15,
+        "mean": 17410.49,
+        "p10": 9074.0,
+        "p25": 11866.0,
+        "median": 16403.0,
+        "p75": 21638.0,
+        "p90": 27222.0
+      },
+      {
+        "month": 16,
+        "mean": 19191.32,
+        "p10": 9772.0,
+        "p25": 13262.0,
+        "median": 18148.0,
+        "p75": 23732.0,
+        "p90": 30014.0
+      },
+      {
+        "month": 17,
+        "mean": 21038.84,
+        "p10": 10819.0,
+        "p25": 14658.0,
+        "median": 19893.0,
+        "p75": 26175.0,
+        "p90": 32806.0
+      },
+      {
+        "month": 18,
+        "mean": 22968.06,
+        "p10": 11866.0,
+        "p25": 16054.0,
+        "median": 21638.0,
+        "p75": 28618.0,
+        "p90": 35947.0
+      },
+      {
+        "month": 19,
+        "mean": 24972.06,
+        "p10": 12913.0,
+        "p25": 17101.0,
+        "median": 23383.0,
+        "p75": 31061.0,
+        "p90": 39088.0
+      },
+      {
+        "month": 20,
+        "mean": 27048.04,
+        "p10": 13960.0,
+        "p25": 18846.0,
+        "median": 25477.0,
+        "p75": 33504.0,
+        "p90": 42578.0
+      },
+      {
+        "month": 21,
+        "mean": 29200.85,
+        "p10": 15007.0,
+        "p25": 20242.0,
+        "median": 27571.0,
+        "p75": 36296.0,
+        "p90": 45719.0
+      },
+      {
+        "month": 22,
+        "mean": 31428.56,
+        "p10": 16054.0,
+        "p25": 21638.0,
+        "median": 29665.0,
+        "p75": 39088.0,
+        "p90": 49209.0
+      },
+      {
+        "month": 23,
+        "mean": 33711.59,
+        "p10": 17450.0,
+        "p25": 23383.0,
+        "median": 31759.0,
+        "p75": 41880.0,
+        "p90": 52699.0
+      },
+      {
+        "month": 24,
+        "mean": 36043.25,
+        "p10": 18497.0,
+        "p25": 25128.0,
+        "median": 34202.0,
+        "p75": 45021.0,
+        "p90": 56189.0
+      }
+    ]
+  },
+  "sensitivity": {
+    "introductions": [
+      {
+        "value": 4,
+        "summary": {
+          "scenario": "focused",
+          "runs": 20000,
+          "price": 349.0,
+          "cumulative_24m_revenue": {
+            "mean": 56491.16,
+            "p10": 26175.0,
+            "p25": 37168.5,
+            "median": 52699.0,
+            "p75": 71894.0,
+            "p90": 92136.0
+          },
+          "cumulative_24m_surplus": {
+            "mean": -209233.74,
+            "p10": -226060.29,
+            "p25": -220767.24,
+            "median": -212210.28,
+            "p75": -200934.56,
+            "p90": -187959.17
+          },
+          "capacity_lost_24m": {
+            "mean": 0.0,
+            "p10": 0.0,
+            "p25": 0.0,
+            "median": 0.0,
+            "p75": 0.0,
+            "p90": 0.0
+          },
+          "month_12": {
+            "customers": {
+              "mean": 6.81,
+              "p10": 3.0,
+              "p25": 4.0,
+              "median": 6.0,
+              "p75": 9.0,
+              "p90": 12.0
+            },
+            "mrr": {
+              "mean": 2375.64,
+              "p10": 1047.0,
+              "p25": 1396.0,
+              "median": 2094.0,
+              "p75": 3141.0,
+              "p90": 4188.0
+            },
+            "run_rate_arr": {
+              "mean": 28507.72,
+              "p10": 12564.0,
+              "p25": 16752.0,
+              "median": 25128.0,
+              "p75": 37692.0,
+              "p90": 50256.0
+            },
+            "revenue_in_month": {
+              "mean": 2220.43,
+              "p10": 872.5,
+              "p25": 1396.0,
+              "median": 2094.0,
+              "p75": 2966.5,
+              "p90": 3839.0
+            },
+            "contribution": {
+              "mean": 686.67,
+              "p10": -258.56,
+              "p25": 182.78,
+              "median": 618.16,
+              "p75": 1147.18,
+              "p90": 1730.53
+            },
+            "surplus": {
+              "mean": -8813.33,
+              "p10": -9758.56,
+              "p25": -9317.22,
+              "median": -8881.84,
+              "p75": -8352.82,
+              "p90": -7769.47
+            },
+            "before_owner_allowance": {
+              "mean": -813.33,
+              "p10": -1758.56,
+              "p25": -1317.22,
+              "median": -881.84,
+              "p75": -352.82,
+              "p90": 230.53
+            },
+            "delivery_hours": {
+              "mean": 14.08,
+              "p10": 4.47,
+              "p25": 7.76,
+              "median": 12.9,
+              "p75": 18.75,
+              "p90": 25.25
+            },
+            "share_paths_mrr_over_10k": 0.0,
+            "share_paths_mrr_over_25k": 0.0,
+            "share_paths_mrr_over_50k": 0.0,
+            "share_paths_positive_surplus": 0.0
+          },
+          "month_24": {
+            "customers": {
+              "mean": 15.16,
+              "p10": 7.0,
+              "p25": 10.0,
+              "median": 14.0,
+              "p75": 19.0,
+              "p90": 25.0
+            },
+            "mrr": {
+              "mean": 5292.2,
+              "p10": 2443.0,
+              "p25": 3490.0,
+              "median": 4886.0,
+              "p75": 6631.0,
+              "p90": 8725.0
+            },
+            "run_rate_arr": {
+              "mean": 63506.41,
+              "p10": 29316.0,
+              "p25": 41880.0,
+              "median": 58632.0,
+              "p75": 79572.0,
+              "p90": 104700.0
+            },
+            "revenue_in_month": {
+              "mean": 5090.64,
+              "p10": 2268.5,
+              "p25": 3315.5,
+              "median": 4711.5,
+              "p75": 6456.5,
+              "p90": 8376.0
+            },
+            "contribution": {
+              "mean": 2018.03,
+              "p10": 314.32,
+              "p25": 912.09,
+              "median": 1776.1,
+              "p75": 2880.03,
+              "p90": 4103.64
+            },
+            "surplus": {
+              "mean": -7481.97,
+              "p10": -9185.68,
+              "p25": -8587.91,
+              "median": -7723.9,
+              "p75": -6619.97,
+              "p90": -5396.36
+            },
+            "before_owner_allowance": {
+              "mean": 518.03,
+              "p10": -1185.68,
+              "p25": -587.91,
+              "median": 276.1,
+              "p75": 1380.03,
+              "p90": 2603.64
+            },
+            "delivery_hours": {
+              "mean": 26.8,
+              "p10": 12.47,
+              "p25": 17.88,
+              "median": 25.4,
+              "p75": 34.04,
+              "p90": 42.88
+            },
+            "share_paths_mrr_over_10k": 0.0493,
+            "share_paths_mrr_over_25k": 0.0,
+            "share_paths_mrr_over_50k": 0.0,
+            "share_paths_positive_surplus": 0.0006
+          }
+        }
+      },
+      {
+        "value": 8,
+        "summary": {
+          "scenario": "focused",
+          "runs": 20000,
+          "price": 349.0,
+          "cumulative_24m_revenue": {
+            "mean": 112012.68,
+            "p10": 57061.5,
+            "p25": 77434.38,
+            "median": 106096.0,
+            "p75": 139774.5,
+            "p90": 175547.0
+          },
+          "cumulative_24m_surplus": {
+            "mean": -190503.21,
+            "p10": -223205.99,
+            "p25": -212181.74,
+            "median": -195797.59,
+            "p75": -174539.51,
+            "p90": -150140.25
+          },
+          "capacity_lost_24m": {
+            "mean": 0.72,
+            "p10": 0.0,
+            "p25": 0.0,
+            "median": 0.0,
+            "p75": 0.0,
+            "p90": 2.0
+          },
+          "month_12": {
+            "customers": {
+              "mean": 13.58,
+              "p10": 6.0,
+              "p25": 9.0,
+              "median": 13.0,
+              "p75": 17.0,
+              "p90": 22.0
+            },
+            "mrr": {
+              "mean": 4740.01,
+              "p10": 2094.0,
+              "p25": 3141.0,
+              "median": 4537.0,
+              "p75": 5933.0,
+              "p90": 7678.0
+            },
+            "run_rate_arr": {
+              "mean": 56880.16,
+              "p10": 25128.0,
+              "p25": 37692.0,
+              "median": 54444.0,
+              "p75": 71196.0,
+              "p90": 92136.0
+            },
+            "revenue_in_month": {
+              "mean": 4425.64,
+              "p10": 2094.0,
+              "p25": 2966.5,
+              "median": 4188.0,
+              "p75": 5584.0,
+              "p90": 7154.5
+            },
+            "contribution": {
+              "mean": 1357.89,
+              "p10": -216.03,
+              "p25": 451.41,
+              "median": 1214.31,
+              "p75": 2127.51,
+              "p90": 3165.05
+            },
+            "surplus": {
+              "mean": -8142.11,
+              "p10": -9716.03,
+              "p25": -9048.59,
+              "median": -8285.69,
+              "p75": -7372.49,
+              "p90": -6334.95
+            },
+            "before_owner_allowance": {
+              "mean": -142.11,
+              "p10": -1716.03,
+              "p25": -1048.59,
+              "median": -285.69,
+              "p75": 627.51,
+              "p90": 1665.05
+            },
+            "delivery_hours": {
+              "mean": 28.15,
+              "p10": 12.77,
+              "p25": 18.81,
+              "median": 26.73,
+              "p75": 35.78,
+              "p90": 45.23
+            },
+            "share_paths_mrr_over_10k": 0.0209,
+            "share_paths_mrr_over_25k": 0.0,
+            "share_paths_mrr_over_50k": 0.0,
+            "share_paths_positive_surplus": 0.0
+          },
+          "month_24": {
+            "customers": {
+              "mean": 29.63,
+              "p10": 15.0,
+              "p25": 21.0,
+              "median": 28.0,
+              "p75": 37.0,
+              "p90": 46.0
+            },
+            "mrr": {
+              "mean": 10341.43,
+              "p10": 5235.0,
+              "p25": 7329.0,
+              "median": 9772.0,
+              "p75": 12913.0,
+              "p90": 16054.0
+            },
+            "run_rate_arr": {
+              "mean": 124097.14,
+              "p10": 62820.0,
+              "p25": 87948.0,
+              "median": 117264.0,
+              "p75": 154956.0,
+              "p90": 192648.0
+            },
+            "revenue_in_month": {
+              "mean": 9972.74,
+              "p10": 5060.5,
+              "p25": 6980.0,
+              "median": 9423.0,
+              "p75": 12389.5,
+              "p90": 15530.5
+            },
+            "contribution": {
+              "mean": 4030.79,
+              "p10": 847.01,
+              "p25": 1982.21,
+              "median": 3565.52,
+              "p75": 5583.29,
+              "p90": 7921.34
+            },
+            "surplus": {
+              "mean": -5469.21,
+              "p10": -8652.99,
+              "p25": -7517.79,
+              "median": -5934.48,
+              "p75": -3916.71,
+              "p90": -1578.66
+            },
+            "before_owner_allowance": {
+              "mean": 2530.79,
+              "p10": -652.99,
+              "p25": 482.21,
+              "median": 2065.52,
+              "p75": 4083.29,
+              "p90": 6421.34
+            },
+            "delivery_hours": {
+              "mean": 51.5,
+              "p10": 29.33,
+              "p25": 38.68,
+              "median": 51.27,
+              "p75": 64.97,
+              "p90": 75.18
+            },
+            "share_paths_mrr_over_10k": 0.4918,
+            "share_paths_mrr_over_25k": 0.0026,
+            "share_paths_mrr_over_50k": 0.0,
+            "share_paths_positive_surplus": 0.0497
+          }
+        }
+      },
+      {
+        "value": 16,
+        "summary": {
+          "scenario": "focused",
+          "runs": 20000,
+          "price": 349.0,
+          "cumulative_24m_revenue": {
+            "mean": 199505.33,
+            "p10": 116915.0,
+            "p25": 149895.5,
+            "median": 191950.0,
+            "p75": 241857.0,
+            "p90": 291764.0
+          },
+          "cumulative_24m_surplus": {
+            "mean": -157433.15,
+            "p10": -215238.34,
+            "p25": -194951.42,
+            "median": -165790.84,
+            "p75": -128335.72,
+            "p90": -88003.13
+          },
+          "capacity_lost_24m": {
+            "mean": 17.37,
+            "p10": 0.0,
+            "p25": 3.0,
+            "median": 12.0,
+            "p75": 26.0,
+            "p90": 42.0
+          },
+          "month_12": {
+            "customers": {
+              "mean": 26.48,
+              "p10": 14.0,
+              "p25": 19.0,
+              "median": 25.0,
+              "p75": 33.0,
+              "p90": 40.0
+            },
+            "mrr": {
+              "mean": 9242.41,
+              "p10": 4886.0,
+              "p25": 6631.0,
+              "median": 8725.0,
+              "p75": 11517.0,
+              "p90": 13960.0
+            },
+            "run_rate_arr": {
+              "mean": 110908.92,
+              "p10": 58632.0,
+              "p25": 79572.0,
+              "median": 104700.0,
+              "p75": 138204.0,
+              "p90": 167520.0
+            },
+            "revenue_in_month": {
+              "mean": 8664.52,
+              "p10": 4537.0,
+              "p25": 6107.5,
+              "median": 8201.5,
+              "p75": 10819.0,
+              "p90": 13262.0
+            },
+            "contribution": {
+              "mean": 2768.97,
+              "p10": 0.18,
+              "p25": 1079.92,
+              "median": 2443.01,
+              "p75": 4165.6,
+              "p90": 6023.13
+            },
+            "surplus": {
+              "mean": -6731.03,
+              "p10": -9499.82,
+              "p25": -8420.08,
+              "median": -7056.99,
+              "p75": -5334.4,
+              "p90": -3476.87
+            },
+            "before_owner_allowance": {
+              "mean": 1268.97,
+              "p10": -1499.82,
+              "p25": -420.08,
+              "median": 943.01,
+              "p75": 2665.6,
+              "p90": 4523.13
+            },
+            "delivery_hours": {
+              "mean": 53.81,
+              "p10": 31.34,
+              "p25": 41.5,
+              "median": 53.97,
+              "p75": 68.21,
+              "p90": 76.02
+            },
+            "share_paths_mrr_over_10k": 0.3871,
+            "share_paths_mrr_over_25k": 0.0001,
+            "share_paths_mrr_over_50k": 0.0,
+            "share_paths_positive_surplus": 0.0126
+          },
+          "month_24": {
+            "customers": {
+              "mean": 45.29,
+              "p10": 29.0,
+              "p25": 35.0,
+              "median": 43.0,
+              "p75": 54.0,
+              "p90": 64.0
+            },
+            "mrr": {
+              "mean": 15805.22,
+              "p10": 10121.0,
+              "p25": 12215.0,
+              "median": 15007.0,
+              "p75": 18846.0,
+              "p90": 22336.0
+            },
+            "run_rate_arr": {
+              "mean": 189662.58,
+              "p10": 121452.0,
+              "p25": 146580.0,
+              "median": 180084.0,
+              "p75": 226152.0,
+              "p90": 268032.0
+            },
+            "revenue_in_month": {
+              "mean": 15426.5,
+              "p10": 9772.0,
+              "p25": 11866.0,
+              "median": 14832.5,
+              "p75": 18322.5,
+              "p90": 21987.0
+            },
+            "contribution": {
+              "mean": 6798.65,
+              "p10": 2165.34,
+              "p25": 3856.4,
+              "median": 6191.32,
+              "p75": 9141.13,
+              "p90": 12267.31
+            },
+            "surplus": {
+              "mean": -2701.35,
+              "p10": -7334.66,
+              "p25": -5643.6,
+              "median": -3308.68,
+              "p75": -358.87,
+              "p90": 2767.31
+            },
+            "before_owner_allowance": {
+              "mean": 5298.65,
+              "p10": 665.34,
+              "p25": 2356.4,
+              "median": 4691.32,
+              "p75": 7641.13,
+              "p90": 10767.31
+            },
+            "delivery_hours": {
+              "mean": 72.84,
+              "p10": 61.57,
+              "p25": 72.53,
+              "median": 75.54,
+              "p75": 77.69,
+              "p90": 79.09
+            },
+            "share_paths_mrr_over_10k": 0.9062,
+            "share_paths_mrr_over_25k": 0.0537,
+            "share_paths_mrr_over_50k": 0.0,
+            "share_paths_positive_surplus": 0.2251
+          }
+        }
+      }
+    ],
+    "data_ready": [
+      {
+        "value": 0.35,
+        "summary": {
+          "scenario": "focused",
+          "runs": 20000,
+          "price": 349.0,
+          "cumulative_24m_revenue": {
+            "mean": 64393.48,
+            "p10": 30363.0,
+            "p25": 43276.0,
+            "median": 60202.5,
+            "p75": 81142.5,
+            "p90": 103827.5
+          },
+          "cumulative_24m_surplus": {
+            "mean": -207138.47,
+            "p10": -225579.93,
+            "p25": -219409.21,
+            "median": -210185.56,
+            "p75": -198052.52,
+            "p90": -184589.03
+          },
+          "capacity_lost_24m": {
+            "mean": 0.02,
+            "p10": 0.0,
+            "p25": 0.0,
+            "median": 0.0,
+            "p75": 0.0,
+            "p90": 0.0
+          },
+          "month_12": {
+            "customers": {
+              "mean": 7.77,
+              "p10": 3.0,
+              "p25": 5.0,
+              "median": 7.0,
+              "p75": 10.0,
+              "p90": 13.0
+            },
+            "mrr": {
+              "mean": 2711.03,
+              "p10": 1047.0,
+              "p25": 1745.0,
+              "median": 2443.0,
+              "p75": 3490.0,
+              "p90": 4537.0
+            },
+            "run_rate_arr": {
+              "mean": 32532.38,
+              "p10": 12564.0,
+              "p25": 20940.0,
+              "median": 29316.0,
+              "p75": 41880.0,
+              "p90": 54444.0
+            },
+            "revenue_in_month": {
+              "mean": 2530.83,
+              "p10": 1047.0,
+              "p25": 1570.5,
+              "median": 2443.0,
+              "p75": 3315.5,
+              "p90": 4362.5
+            },
+            "contribution": {
+              "mean": 751.61,
+              "p10": -274.76,
+              "p25": 215.43,
+              "median": 682.53,
+              "p75": 1249.08,
+              "p90": 1843.6
+            },
+            "surplus": {
+              "mean": -8748.39,
+              "p10": -9774.76,
+              "p25": -9284.57,
+              "median": -8817.47,
+              "p75": -8250.92,
+              "p90": -7656.4
+            },
+            "before_owner_allowance": {
+              "mean": -748.39,
+              "p10": -1774.76,
+              "p25": -1284.57,
+              "median": -817.47,
+              "p75": -250.92,
+              "p90": 343.6
+            },
+            "delivery_hours": {
+              "mean": 16.42,
+              "p10": 5.37,
+              "p25": 9.24,
+              "median": 14.78,
+              "p75": 21.87,
+              "p90": 29.62
+            },
+            "share_paths_mrr_over_10k": 0.0001,
+            "share_paths_mrr_over_25k": 0.0,
+            "share_paths_mrr_over_50k": 0.0,
+            "share_paths_positive_surplus": 0.0
+          },
+          "month_24": {
+            "customers": {
+              "mean": 17.27,
+              "p10": 8.0,
+              "p25": 12.0,
+              "median": 16.0,
+              "p75": 22.0,
+              "p90": 28.0
+            },
+            "mrr": {
+              "mean": 6028.03,
+              "p10": 2792.0,
+              "p25": 4188.0,
+              "median": 5584.0,
+              "p75": 7678.0,
+              "p90": 9772.0
+            },
+            "run_rate_arr": {
+              "mean": 72336.39,
+              "p10": 33504.0,
+              "p25": 50256.0,
+              "median": 67008.0,
+              "p75": 92136.0,
+              "p90": 117264.0
+            },
+            "revenue_in_month": {
+              "mean": 5798.14,
+              "p10": 2792.0,
+              "p25": 3839.0,
+              "median": 5409.5,
+              "p75": 7329.0,
+              "p90": 9423.0
+            },
+            "contribution": {
+              "mean": 2258.97,
+              "p10": 388.74,
+              "p25": 1085.87,
+              "median": 2006.52,
+              "p75": 3164.98,
+              "p90": 4485.67
+            },
+            "surplus": {
+              "mean": -7241.03,
+              "p10": -9111.26,
+              "p25": -8414.13,
+              "median": -7493.48,
+              "p75": -6335.02,
+              "p90": -5014.33
+            },
+            "before_owner_allowance": {
+              "mean": 758.97,
+              "p10": -1111.26,
+              "p25": -414.13,
+              "median": 506.52,
+              "p75": 1664.98,
+              "p90": 2985.67
+            },
+            "delivery_hours": {
+              "mean": 31.01,
+              "p10": 14.18,
+              "p25": 20.35,
+              "median": 29.0,
+              "p75": 39.66,
+              "p90": 50.62
+            },
+            "share_paths_mrr_over_10k": 0.0921,
+            "share_paths_mrr_over_25k": 0.0,
+            "share_paths_mrr_over_50k": 0.0,
+            "share_paths_positive_surplus": 0.0014
+          }
+        }
+      },
+      {
+        "value": 0.65,
+        "summary": {
+          "scenario": "focused",
+          "runs": 20000,
+          "price": 349.0,
+          "cumulative_24m_revenue": {
+            "mean": 117914.12,
+            "p10": 61424.0,
+            "p25": 82713.0,
+            "median": 111854.5,
+            "p75": 146274.62,
+            "p90": 182352.5
+          },
+          "cumulative_24m_surplus": {
+            "mean": -189312.35,
+            "p10": -222056.96,
+            "p25": -210808.39,
+            "median": -194214.94,
+            "p75": -173074.8,
+            "p90": -149266.08
+          },
+          "capacity_lost_24m": {
+            "mean": 1.55,
+            "p10": 0.0,
+            "p25": 0.0,
+            "median": 0.0,
+            "p75": 1.0,
+            "p90": 5.0
+          },
+          "month_12": {
+            "customers": {
+              "mean": 14.39,
+              "p10": 7.0,
+              "p25": 10.0,
+              "median": 14.0,
+              "p75": 18.0,
+              "p90": 23.0
+            },
+            "mrr": {
+              "mean": 5023.44,
+              "p10": 2443.0,
+              "p25": 3490.0,
+              "median": 4886.0,
+              "p75": 6282.0,
+              "p90": 8027.0
+            },
+            "run_rate_arr": {
+              "mean": 60281.23,
+              "p10": 29316.0,
+              "p25": 41880.0,
+              "median": 58632.0,
+              "p75": 75384.0,
+              "p90": 96324.0
+            },
+            "revenue_in_month": {
+              "mean": 4689.14,
+              "p10": 2268.5,
+              "p25": 3141.0,
+              "median": 4362.5,
+              "p75": 5933.0,
+              "p90": 7503.5
+            },
+            "contribution": {
+              "mean": 1391.11,
+              "p10": -213.42,
+              "p25": 484.77,
+              "median": 1260.14,
+              "p75": 2190.92,
+              "p90": 3188.9
+            },
+            "surplus": {
+              "mean": -8108.89,
+              "p10": -9713.42,
+              "p25": -9015.23,
+              "median": -8239.86,
+              "p75": -7309.08,
+              "p90": -6311.1
+            },
+            "before_owner_allowance": {
+              "mean": -108.89,
+              "p10": -1713.42,
+              "p25": -1015.23,
+              "median": -239.86,
+              "p75": 690.92,
+              "p90": 1688.9
+            },
+            "delivery_hours": {
+              "mean": 30.39,
+              "p10": 13.34,
+              "p25": 19.74,
+              "median": 28.35,
+              "p75": 38.95,
+              "p90": 50.16
+            },
+            "share_paths_mrr_over_10k": 0.0296,
+            "share_paths_mrr_over_25k": 0.0,
+            "share_paths_mrr_over_50k": 0.0,
+            "share_paths_positive_surplus": 0.0
+          },
+          "month_24": {
+            "customers": {
+              "mean": 30.76,
+              "p10": 16.0,
+              "p25": 22.0,
+              "median": 30.0,
+              "p75": 38.0,
+              "p90": 47.0
+            },
+            "mrr": {
+              "mean": 10735.31,
+              "p10": 5584.0,
+              "p25": 7678.0,
+              "median": 10470.0,
+              "p75": 13262.0,
+              "p90": 16403.0
+            },
+            "run_rate_arr": {
+              "mean": 128823.72,
+              "p10": 67008.0,
+              "p25": 92136.0,
+              "median": 125640.0,
+              "p75": 159144.0,
+              "p90": 196836.0
+            },
+            "revenue_in_month": {
+              "mean": 10364.65,
+              "p10": 5584.0,
+              "p25": 7329.0,
+              "median": 9946.5,
+              "p75": 12738.5,
+              "p90": 15705.0
+            },
+            "contribution": {
+              "mean": 4169.51,
+              "p10": 1012.6,
+              "p25": 2151.08,
+              "median": 3744.59,
+              "p75": 5719.89,
+              "p90": 7930.14
+            },
+            "surplus": {
+              "mean": -5330.49,
+              "p10": -8487.4,
+              "p25": -7348.92,
+              "median": -5755.41,
+              "p75": -3780.11,
+              "p90": -1569.86
+            },
+            "before_owner_allowance": {
+              "mean": 2669.51,
+              "p10": -487.4,
+              "p25": 651.08,
+              "median": 2244.59,
+              "p75": 4219.89,
+              "p90": 6430.14
+            },
+            "delivery_hours": {
+              "mean": 53.79,
+              "p10": 29.83,
+              "p25": 40.22,
+              "median": 54.11,
+              "p75": 70.26,
+              "p90": 76.43
+            },
+            "share_paths_mrr_over_10k": 0.5375,
+            "share_paths_mrr_over_25k": 0.003,
+            "share_paths_mrr_over_50k": 0.0,
+            "share_paths_positive_surplus": 0.0483
+          }
+        }
+      },
+      {
+        "value": 0.85,
+        "summary": {
+          "scenario": "focused",
+          "runs": 20000,
+          "price": 349.0,
+          "cumulative_24m_revenue": {
+            "mean": 149828.99,
+            "p10": 82015.0,
+            "p25": 108015.5,
+            "median": 144137.0,
+            "p75": 184272.0,
+            "p90": 226326.5
+          },
+          "cumulative_24m_surplus": {
+            "mean": -177779.65,
+            "p10": -219716.49,
+            "p25": -204682.45,
+            "median": -183752.99,
+            "p75": -156883.21,
+            "p90": -127508.91
+          },
+          "capacity_lost_24m": {
+            "mean": 5.29,
+            "p10": 0.0,
+            "p25": 0.0,
+            "median": 1.0,
+            "p75": 7.0,
+            "p90": 17.0
+          },
+          "month_12": {
+            "customers": {
+              "mean": 18.76,
+              "p10": 9.0,
+              "p25": 13.0,
+              "median": 18.0,
+              "p75": 24.0,
+              "p90": 30.0
+            },
+            "mrr": {
+              "mean": 6546.38,
+              "p10": 3141.0,
+              "p25": 4537.0,
+              "median": 6282.0,
+              "p75": 8376.0,
+              "p90": 10470.0
+            },
+            "run_rate_arr": {
+              "mean": 78556.62,
+              "p10": 37692.0,
+              "p25": 54444.0,
+              "median": 75384.0,
+              "p75": 100512.0,
+              "p90": 125640.0
+            },
+            "revenue_in_month": {
+              "mean": 6118.48,
+              "p10": 2966.5,
+              "p25": 4188.0,
+              "median": 5758.5,
+              "p75": 7678.0,
+              "p90": 9772.0
+            },
+            "contribution": {
+              "mean": 1844.91,
+              "p10": -135.64,
+              "p25": 698.26,
+              "median": 1663.29,
+              "p75": 2840.56,
+              "p90": 4125.56
+            },
+            "surplus": {
+              "mean": -7655.09,
+              "p10": -9635.64,
+              "p25": -8801.74,
+              "median": -7836.71,
+              "p75": -6659.44,
+              "p90": -5374.44
+            },
+            "before_owner_allowance": {
+              "mean": 344.91,
+              "p10": -1635.64,
+              "p25": -801.74,
+              "median": 163.29,
+              "p75": 1340.56,
+              "p90": 2625.56
+            },
+            "delivery_hours": {
+              "mean": 39.34,
+              "p10": 18.85,
+              "p25": 26.84,
+              "median": 37.36,
+              "p75": 50.41,
+              "p90": 63.6
+            },
+            "share_paths_mrr_over_10k": 0.1204,
+            "share_paths_mrr_over_25k": 0.0,
+            "share_paths_mrr_over_50k": 0.0,
+            "share_paths_positive_surplus": 0.0006
+          },
+          "month_24": {
+            "customers": {
+              "mean": 37.37,
+              "p10": 22.0,
+              "p25": 28.0,
+              "median": 36.0,
+              "p75": 45.0,
+              "p90": 54.0
+            },
+            "mrr": {
+              "mean": 13043.54,
+              "p10": 7678.0,
+              "p25": 9772.0,
+              "median": 12564.0,
+              "p75": 15705.0,
+              "p90": 18846.0
+            },
+            "run_rate_arr": {
+              "mean": 156522.52,
+              "p10": 92136.0,
+              "p25": 117264.0,
+              "median": 150768.0,
+              "p75": 188460.0,
+              "p90": 226152.0
+            },
+            "revenue_in_month": {
+              "mean": 12644.9,
+              "p10": 7329.0,
+              "p25": 9423.0,
+              "median": 12215.0,
+              "p75": 15356.0,
+              "p90": 18497.0
+            },
+            "contribution": {
+              "mean": 5265.36,
+              "p10": 1466.49,
+              "p25": 2886.27,
+              "median": 4776.93,
+              "p75": 7170.03,
+              "p90": 9754.85
+            },
+            "surplus": {
+              "mean": -4234.64,
+              "p10": -8033.51,
+              "p25": -6613.73,
+              "median": -4723.07,
+              "p75": -2329.97,
+              "p90": 254.85
+            },
+            "before_owner_allowance": {
+              "mean": 3765.36,
+              "p10": -33.51,
+              "p25": 1386.27,
+              "median": 3276.93,
+              "p75": 5670.03,
+              "p90": 8254.85
+            },
+            "delivery_hours": {
+              "mean": 63.46,
+              "p10": 40.31,
+              "p25": 52.98,
+              "median": 69.33,
+              "p75": 75.88,
+              "p90": 78.29
+            },
+            "share_paths_mrr_over_10k": 0.7441,
+            "share_paths_mrr_over_25k": 0.0134,
+            "share_paths_mrr_over_50k": 0.0,
+            "share_paths_positive_surplus": 0.1098
+          }
+        }
+      }
+    ],
+    "monthly_churn": [
+      {
+        "value": 0.01,
+        "summary": {
+          "scenario": "focused",
+          "runs": 20000,
+          "price": 349.0,
+          "cumulative_24m_revenue": {
+            "mean": 136433.06,
+            "p10": 67008.0,
+            "p25": 92615.88,
+            "median": 128868.25,
+            "p75": 171882.5,
+            "p90": 215699.45
+          },
+          "cumulative_24m_surplus": {
+            "mean": -178786.74,
+            "p10": -218196.9,
+            "p25": -205236.8,
+            "median": -185689.67,
+            "p75": -159589.93,
+            "p90": -130180.23
+          },
+          "capacity_lost_24m": {
+            "mean": 3.2,
+            "p10": 0.0,
+            "p25": 0.0,
+            "median": 0.0,
+            "p75": 3.0,
+            "p90": 11.0
+          },
+          "month_12": {
+            "customers": {
+              "mean": 15.97,
+              "p10": 7.0,
+              "p25": 10.0,
+              "median": 15.0,
+              "p75": 20.0,
+              "p90": 26.0
+            },
+            "mrr": {
+              "mean": 5575.08,
+              "p10": 2443.0,
+              "p25": 3490.0,
+              "median": 5235.0,
+              "p75": 6980.0,
+              "p90": 9074.0
+            },
+            "run_rate_arr": {
+              "mean": 66901.0,
+              "p10": 29316.0,
+              "p25": 41880.0,
+              "median": 62820.0,
+              "p75": 83760.0,
+              "p90": 108888.0
+            },
+            "revenue_in_month": {
+              "mean": 5236.21,
+              "p10": 2268.5,
+              "p25": 3315.5,
+              "median": 4886.0,
+              "p75": 6631.0,
+              "p90": 8725.0
+            },
+            "contribution": {
+              "mean": 1689.74,
+              "p10": -67.61,
+              "p25": 621.64,
+              "median": 1476.58,
+              "p75": 2529.97,
+              "p90": 3759.79
+            },
+            "surplus": {
+              "mean": -7810.26,
+              "p10": -9567.61,
+              "p25": -8878.36,
+              "median": -8023.42,
+              "p75": -6970.03,
+              "p90": -5740.21
+            },
+            "before_owner_allowance": {
+              "mean": 189.74,
+              "p10": -1567.61,
+              "p25": -878.36,
+              "median": -23.42,
+              "p75": 1029.97,
+              "p90": 2259.79
+            },
+            "delivery_hours": {
+              "mean": 32.29,
+              "p10": 14.15,
+              "p25": 20.87,
+              "median": 30.13,
+              "p75": 41.69,
+              "p90": 53.74
+            },
+            "share_paths_mrr_over_10k": 0.0709,
+            "share_paths_mrr_over_25k": 0.0,
+            "share_paths_mrr_over_50k": 0.0,
+            "share_paths_positive_surplus": 0.0007
+          },
+          "month_24": {
+            "customers": {
+              "mean": 36.5,
+              "p10": 19.0,
+              "p25": 26.0,
+              "median": 35.0,
+              "p75": 45.0,
+              "p90": 55.0
+            },
+            "mrr": {
+              "mean": 12738.85,
+              "p10": 6631.0,
+              "p25": 9074.0,
+              "median": 12215.0,
+              "p75": 15705.0,
+              "p90": 19195.0
+            },
+            "run_rate_arr": {
+              "mean": 152866.19,
+              "p10": 79572.0,
+              "p25": 108888.0,
+              "median": 146580.0,
+              "p75": 188460.0,
+              "p90": 230340.0
+            },
+            "revenue_in_month": {
+              "mean": 12419.28,
+              "p10": 6631.0,
+              "p25": 8899.5,
+              "median": 12040.5,
+              "p75": 15356.0,
+              "p90": 18846.0
+            },
+            "contribution": {
+              "mean": 5394.37,
+              "p10": 1579.28,
+              "p25": 2905.75,
+              "median": 4857.74,
+              "p75": 7285.72,
+              "p90": 10008.4
+            },
+            "surplus": {
+              "mean": -4105.63,
+              "p10": -7920.72,
+              "p25": -6594.25,
+              "median": -4642.26,
+              "p75": -2214.28,
+              "p90": 508.4
+            },
+            "before_owner_allowance": {
+              "mean": 3894.37,
+              "p10": 79.28,
+              "p25": 1405.75,
+              "median": 3357.74,
+              "p75": 5785.72,
+              "p90": 8508.4
+            },
+            "delivery_hours": {
+              "mean": 59.59,
+              "p10": 34.69,
+              "p25": 47.08,
+              "median": 63.3,
+              "p75": 74.85,
+              "p90": 77.72
+            },
+            "share_paths_mrr_over_10k": 0.6983,
+            "share_paths_mrr_over_25k": 0.0158,
+            "share_paths_mrr_over_50k": 0.0,
+            "share_paths_positive_surplus": 0.1187
+          }
+        }
+      },
+      {
+        "value": 0.03,
+        "summary": {
+          "scenario": "focused",
+          "runs": 20000,
+          "price": 349.0,
+          "cumulative_24m_revenue": {
+            "mean": 120978.95,
+            "p10": 58806.5,
+            "p25": 80968.0,
+            "median": 113599.5,
+            "p75": 152513.0,
+            "p90": 193520.5
+          },
+          "cumulative_24m_surplus": {
+            "mean": -187271.52,
+            "p10": -221838.35,
+            "p25": -210346.56,
+            "median": -193444.09,
+            "p75": -170623.22,
+            "p90": -144156.59
+          },
+          "capacity_lost_24m": {
+            "mean": 1.91,
+            "p10": 0.0,
+            "p25": 0.0,
+            "median": 0.0,
+            "p75": 1.0,
+            "p90": 6.0
+          },
+          "month_12": {
+            "customers": {
+              "mean": 14.76,
+              "p10": 6.0,
+              "p25": 9.0,
+              "median": 14.0,
+              "p75": 19.0,
+              "p90": 25.0
+            },
+            "mrr": {
+              "mean": 5152.44,
+              "p10": 2094.0,
+              "p25": 3141.0,
+              "median": 4886.0,
+              "p75": 6631.0,
+              "p90": 8725.0
+            },
+            "run_rate_arr": {
+              "mean": 61829.33,
+              "p10": 25128.0,
+              "p25": 37692.0,
+              "median": 58632.0,
+              "p75": 79572.0,
+              "p90": 104700.0
+            },
+            "revenue_in_month": {
+              "mean": 4812.88,
+              "p10": 2094.0,
+              "p25": 3141.0,
+              "median": 4362.5,
+              "p75": 6107.5,
+              "p90": 8027.0
+            },
+            "contribution": {
+              "mean": 1472.94,
+              "p10": -183.61,
+              "p25": 486.1,
+              "median": 1289.22,
+              "p75": 2269.89,
+              "p90": 3428.17
+            },
+            "surplus": {
+              "mean": -8027.06,
+              "p10": -9683.61,
+              "p25": -9013.9,
+              "median": -8210.78,
+              "p75": -7230.11,
+              "p90": -6071.83
+            },
+            "before_owner_allowance": {
+              "mean": -27.06,
+              "p10": -1683.61,
+              "p25": -1013.9,
+              "median": -210.78,
+              "p75": 769.89,
+              "p90": 1928.17
+            },
+            "delivery_hours": {
+              "mean": 30.66,
+              "p10": 12.98,
+              "p25": 19.49,
+              "median": 28.54,
+              "p75": 39.75,
+              "p90": 51.3
+            },
+            "share_paths_mrr_over_10k": 0.0502,
+            "share_paths_mrr_over_25k": 0.0,
+            "share_paths_mrr_over_50k": 0.0,
+            "share_paths_positive_surplus": 0.0003
+          },
+          "month_24": {
+            "customers": {
+              "mean": 31.46,
+              "p10": 16.0,
+              "p25": 22.0,
+              "median": 30.0,
+              "p75": 39.0,
+              "p90": 48.0
+            },
+            "mrr": {
+              "mean": 10979.42,
+              "p10": 5584.0,
+              "p25": 7678.0,
+              "median": 10470.0,
+              "p75": 13611.0,
+              "p90": 16752.0
+            },
+            "run_rate_arr": {
+              "mean": 131753.01,
+              "p10": 67008.0,
+              "p25": 92136.0,
+              "median": 125640.0,
+              "p75": 163332.0,
+              "p90": 201024.0
+            },
+            "revenue_in_month": {
+              "mean": 10612.7,
+              "p10": 5235.0,
+              "p25": 7329.0,
+              "median": 10121.0,
+              "p75": 13262.0,
+              "p90": 16403.0
+            },
+            "contribution": {
+              "mean": 4340.36,
+              "p10": 1063.87,
+              "p25": 2227.91,
+              "median": 3850.13,
+              "p75": 5965.73,
+              "p90": 8303.64
+            },
+            "surplus": {
+              "mean": -5159.64,
+              "p10": -8436.13,
+              "p25": -7272.09,
+              "median": -5649.87,
+              "p75": -3534.27,
+              "p90": -1196.36
+            },
+            "before_owner_allowance": {
+              "mean": 2840.36,
+              "p10": -436.13,
+              "p25": 727.91,
+              "median": 2350.13,
+              "p75": 4465.73,
+              "p90": 6803.64
+            },
+            "delivery_hours": {
+              "mean": 54.21,
+              "p10": 29.42,
+              "p25": 40.29,
+              "median": 55.12,
+              "p75": 71.58,
+              "p90": 76.64
+            },
+            "share_paths_mrr_over_10k": 0.5555,
+            "share_paths_mrr_over_25k": 0.0052,
+            "share_paths_mrr_over_50k": 0.0,
+            "share_paths_positive_surplus": 0.0585
+          }
+        }
+      },
+      {
+        "value": 0.07,
+        "summary": {
+          "scenario": "focused",
+          "runs": 20000,
+          "price": 349.0,
+          "cumulative_24m_revenue": {
+            "mean": 96322.88,
+            "p10": 45719.0,
+            "p25": 64041.5,
+            "median": 89867.5,
+            "p75": 121801.0,
+            "p90": 155305.0
+          },
+          "cumulative_24m_surplus": {
+            "mean": -200412.93,
+            "p10": -227161.98,
+            "p25": -218219.68,
+            "median": -205112.42,
+            "p75": -187448.31,
+            "p90": -167464.41
+          },
+          "capacity_lost_24m": {
+            "mean": 0.7,
+            "p10": 0.0,
+            "p25": 0.0,
+            "median": 0.0,
+            "p75": 0.0,
+            "p90": 2.0
+          },
+          "month_12": {
+            "customers": {
+              "mean": 12.67,
+              "p10": 5.0,
+              "p25": 8.0,
+              "median": 12.0,
+              "p75": 16.0,
+              "p90": 21.0
+            },
+            "mrr": {
+              "mean": 4423.4,
+              "p10": 1745.0,
+              "p25": 2792.0,
+              "median": 4188.0,
+              "p75": 5584.0,
+              "p90": 7329.0
+            },
+            "run_rate_arr": {
+              "mean": 53080.81,
+              "p10": 20940.0,
+              "p25": 33504.0,
+              "median": 50256.0,
+              "p75": 67008.0,
+              "p90": 87948.0
+            },
+            "revenue_in_month": {
+              "mean": 4083.59,
+              "p10": 1745.0,
+              "p25": 2617.5,
+              "median": 3839.0,
+              "p75": 5235.0,
+              "p90": 6805.5
+            },
+            "contribution": {
+              "mean": 1102.5,
+              "p10": -385.55,
+              "p25": 261.28,
+              "median": 971.38,
+              "p75": 1833.51,
+              "p90": 2787.02
+            },
+            "surplus": {
+              "mean": -8397.5,
+              "p10": -9885.55,
+              "p25": -9238.72,
+              "median": -8528.62,
+              "p75": -7666.49,
+              "p90": -6712.98
+            },
+            "before_owner_allowance": {
+              "mean": -397.5,
+              "p10": -1885.55,
+              "p25": -1238.72,
+              "median": -528.62,
+              "p75": 333.51,
+              "p90": 1287.02
+            },
+            "delivery_hours": {
+              "mean": 27.82,
+              "p10": 10.99,
+              "p25": 17.15,
+              "median": 25.72,
+              "p75": 36.03,
+              "p90": 47.48
+            },
+            "share_paths_mrr_over_10k": 0.0215,
+            "share_paths_mrr_over_25k": 0.0,
+            "share_paths_mrr_over_50k": 0.0,
+            "share_paths_positive_surplus": 0.0
+          },
+          "month_24": {
+            "customers": {
+              "mean": 23.62,
+              "p10": 11.0,
+              "p25": 16.0,
+              "median": 22.0,
+              "p75": 30.0,
+              "p90": 38.0
+            },
+            "mrr": {
+              "mean": 8242.0,
+              "p10": 3839.0,
+              "p25": 5584.0,
+              "median": 7678.0,
+              "p75": 10470.0,
+              "p90": 13262.0
+            },
+            "run_rate_arr": {
+              "mean": 98904.02,
+              "p10": 46068.0,
+              "p25": 67008.0,
+              "median": 92136.0,
+              "p75": 125640.0,
+              "p90": 159144.0
+            },
+            "revenue_in_month": {
+              "mean": 7830.17,
+              "p10": 3664.5,
+              "p25": 5235.0,
+              "median": 7329.0,
+              "p75": 9946.5,
+              "p90": 12564.0
+            },
+            "contribution": {
+              "mean": 2794.16,
+              "p10": 362.48,
+              "p25": 1223.32,
+              "median": 2450.22,
+              "p75": 3999.09,
+              "p90": 5751.43
+            },
+            "surplus": {
+              "mean": -6705.84,
+              "p10": -9137.52,
+              "p25": -8276.68,
+              "median": -7049.78,
+              "p75": -5500.91,
+              "p90": -3748.57
+            },
+            "before_owner_allowance": {
+              "mean": 1294.16,
+              "p10": -1137.52,
+              "p25": -276.68,
+              "median": 950.22,
+              "p75": 2499.09,
+              "p90": 4251.43
+            },
+            "delivery_hours": {
+              "mean": 44.98,
+              "p10": 22.05,
+              "p25": 30.9,
+              "median": 43.43,
+              "p75": 58.41,
+              "p90": 72.91
+            },
+            "share_paths_mrr_over_10k": 0.2896,
+            "share_paths_mrr_over_25k": 0.0003,
+            "share_paths_mrr_over_50k": 0.0,
+            "share_paths_positive_surplus": 0.0097
+          }
+        }
+      }
+    ],
+    "support_hours": [
+      {
+        "value": 0.5,
+        "summary": {
+          "scenario": "focused",
+          "runs": 20000,
+          "price": 349.0,
+          "cumulative_24m_revenue": {
+            "mean": 122178.65,
+            "p10": 55840.0,
+            "p25": 78525.0,
+            "median": 112203.5,
+            "p75": 154607.0,
+            "p90": 202071.0
+          },
+          "cumulative_24m_surplus": {
+            "mean": -162820.71,
+            "p10": -202546.61,
+            "p25": -189815.17,
+            "median": -169703.87,
+            "p75": -143521.29,
+            "p90": -113984.77
+          },
+          "capacity_lost_24m": {
+            "mean": 0.08,
+            "p10": 0.0,
+            "p25": 0.0,
+            "median": 0.0,
+            "p75": 0.0,
+            "p90": 0.0
+          },
+          "month_12": {
+            "customers": {
+              "mean": 14.71,
+              "p10": 6.0,
+              "p25": 9.0,
+              "median": 13.0,
+              "p75": 19.0,
+              "p90": 25.0
+            },
+            "mrr": {
+              "mean": 5133.88,
+              "p10": 2094.0,
+              "p25": 3141.0,
+              "median": 4537.0,
+              "p75": 6631.0,
+              "p90": 8725.0
+            },
+            "run_rate_arr": {
+              "mean": 61606.53,
+              "p10": 25128.0,
+              "p25": 37692.0,
+              "median": 54444.0,
+              "p75": 79572.0,
+              "p90": 104700.0
+            },
+            "revenue_in_month": {
+              "mean": 4792.6,
+              "p10": 2094.0,
+              "p25": 2966.5,
+              "median": 4362.5,
+              "p75": 6107.5,
+              "p90": 8201.5
+            },
+            "contribution": {
+              "mean": 2430.69,
+              "p10": 555.58,
+              "p25": 1282.02,
+              "median": 2205.66,
+              "p75": 3352.46,
+              "p90": 4605.71
+            },
+            "surplus": {
+              "mean": -7069.31,
+              "p10": -8944.42,
+              "p25": -8217.98,
+              "median": -7294.34,
+              "p75": -6147.54,
+              "p90": -4894.29
+            },
+            "before_owner_allowance": {
+              "mean": 930.69,
+              "p10": -944.42,
+              "p25": -217.98,
+              "median": 705.66,
+              "p75": 1852.46,
+              "p90": 3105.71
+            },
+            "delivery_hours": {
+              "mean": 18.7,
+              "p10": 4.5,
+              "p25": 10.5,
+              "median": 16.92,
+              "p75": 25.22,
+              "p90": 34.28
+            },
+            "share_paths_mrr_over_10k": 0.0522,
+            "share_paths_mrr_over_25k": 0.0,
+            "share_paths_mrr_over_50k": 0.0,
+            "share_paths_positive_surplus": 0.0011
+          },
+          "month_24": {
+            "customers": {
+              "mean": 32.82,
+              "p10": 15.0,
+              "p25": 21.0,
+              "median": 30.0,
+              "p75": 42.0,
+              "p90": 55.0
+            },
+            "mrr": {
+              "mean": 11453.69,
+              "p10": 5235.0,
+              "p25": 7329.0,
+              "median": 10470.0,
+              "p75": 14658.0,
+              "p90": 19195.0
+            },
+            "run_rate_arr": {
+              "mean": 137444.3,
+              "p10": 62820.0,
+              "p25": 87948.0,
+              "median": 125640.0,
+              "p75": 175896.0,
+              "p90": 230340.0
+            },
+            "revenue_in_month": {
+              "mean": 11023.1,
+              "p10": 4886.0,
+              "p25": 6980.0,
+              "median": 10121.0,
+              "p75": 13960.0,
+              "p90": 18339.95
+            },
+            "contribution": {
+              "mean": 6593.32,
+              "p10": 2572.65,
+              "p25": 3961.37,
+              "median": 5946.72,
+              "p75": 8584.44,
+              "p90": 11410.51
+            },
+            "surplus": {
+              "mean": -2906.68,
+              "p10": -6927.35,
+              "p25": -5538.63,
+              "median": -3553.28,
+              "p75": -915.56,
+              "p90": 1910.51
+            },
+            "before_owner_allowance": {
+              "mean": 5093.32,
+              "p10": 1072.65,
+              "p25": 2461.37,
+              "median": 4446.72,
+              "p75": 7084.44,
+              "p90": 9910.51
+            },
+            "delivery_hours": {
+              "mean": 30.72,
+              "p10": 12.04,
+              "p25": 18.89,
+              "median": 28.3,
+              "p75": 40.14,
+              "p90": 52.97
+            },
+            "share_paths_mrr_over_10k": 0.5394,
+            "share_paths_mrr_over_25k": 0.0256,
+            "share_paths_mrr_over_50k": 0.0,
+            "share_paths_positive_surplus": 0.1885
+          }
+        }
+      },
+      {
+        "value": 1.25,
+        "summary": {
+          "scenario": "focused",
+          "runs": 20000,
+          "price": 349.0,
+          "cumulative_24m_revenue": {
+            "mean": 120090.59,
+            "p10": 55840.0,
+            "p25": 78525.0,
+            "median": 112203.5,
+            "p75": 153909.0,
+            "p90": 197010.5
+          },
+          "cumulative_24m_surplus": {
+            "mean": -184527.05,
+            "p10": -214403.37,
+            "p25": -204880.2,
+            "median": -189777.74,
+            "p75": -169491.98,
+            "p90": -147224.87
+          },
+          "capacity_lost_24m": {
+            "mean": 1.89,
+            "p10": 0.0,
+            "p25": 0.0,
+            "median": 0.0,
+            "p75": 0.0,
+            "p90": 5.0
+          },
+          "month_12": {
+            "customers": {
+              "mean": 14.69,
+              "p10": 6.0,
+              "p25": 9.0,
+              "median": 13.0,
+              "p75": 19.0,
+              "p90": 25.0
+            },
+            "mrr": {
+              "mean": 5126.11,
+              "p10": 2094.0,
+              "p25": 3141.0,
+              "median": 4537.0,
+              "p75": 6631.0,
+              "p90": 8725.0
+            },
+            "run_rate_arr": {
+              "mean": 61513.34,
+              "p10": 25128.0,
+              "p25": 37692.0,
+              "median": 54444.0,
+              "p75": 79572.0,
+              "p90": 104700.0
+            },
+            "revenue_in_month": {
+              "mean": 4786.78,
+              "p10": 2094.0,
+              "p25": 2966.5,
+              "median": 4362.5,
+              "p75": 6107.5,
+              "p90": 8201.5
+            },
+            "contribution": {
+              "mean": 1594.19,
+              "p10": 75.59,
+              "p25": 709.15,
+              "median": 1449.81,
+              "p75": 2344.94,
+              "p90": 3330.42
+            },
+            "surplus": {
+              "mean": -7905.81,
+              "p10": -9424.41,
+              "p25": -8790.85,
+              "median": -8050.19,
+              "p75": -7155.06,
+              "p90": -6169.58
+            },
+            "before_owner_allowance": {
+              "mean": 94.19,
+              "p10": -1424.41,
+              "p25": -790.85,
+              "median": -50.19,
+              "p75": 844.94,
+              "p90": 1830.42
+            },
+            "delivery_hours": {
+              "mean": 28.91,
+              "p10": 11.25,
+              "p25": 17.5,
+              "median": 26.74,
+              "p75": 37.91,
+              "p90": 49.66
+            },
+            "share_paths_mrr_over_10k": 0.0517,
+            "share_paths_mrr_over_25k": 0.0,
+            "share_paths_mrr_over_50k": 0.0,
+            "share_paths_positive_surplus": 0.0001
+          },
+          "month_24": {
+            "customers": {
+              "mean": 31.15,
+              "p10": 15.0,
+              "p25": 21.0,
+              "median": 30.0,
+              "p75": 41.0,
+              "p90": 50.0
+            },
+            "mrr": {
+              "mean": 10869.99,
+              "p10": 5235.0,
+              "p25": 7329.0,
+              "median": 10470.0,
+              "p75": 14309.0,
+              "p90": 17450.0
+            },
+            "run_rate_arr": {
+              "mean": 130439.87,
+              "p10": 62820.0,
+              "p25": 87948.0,
+              "median": 125640.0,
+              "p75": 171708.0,
+              "p90": 209400.0
+            },
+            "revenue_in_month": {
+              "mean": 10503.48,
+              "p10": 4886.0,
+              "p25": 6980.0,
+              "median": 10121.0,
+              "p75": 13785.5,
+              "p90": 16926.5
+            },
+            "contribution": {
+              "mean": 4547.54,
+              "p10": 1566.04,
+              "p25": 2651.71,
+              "median": 4198.57,
+              "p75": 6165.16,
+              "p90": 8124.51
+            },
+            "surplus": {
+              "mean": -4952.46,
+              "p10": -7933.96,
+              "p25": -6848.29,
+              "median": -5301.43,
+              "p75": -3334.84,
+              "p90": -1375.49
+            },
+            "before_owner_allowance": {
+              "mean": 3047.54,
+              "p10": 66.04,
+              "p25": 1151.71,
+              "median": 2698.57,
+              "p75": 4665.16,
+              "p90": 6624.51
+            },
+            "delivery_hours": {
+              "mean": 50.56,
+              "p10": 24.21,
+              "p25": 35.2,
+              "median": 50.37,
+              "p75": 68.47,
+              "p90": 76.58
+            },
+            "share_paths_mrr_over_10k": 0.5384,
+            "share_paths_mrr_over_25k": 0.0,
+            "share_paths_mrr_over_50k": 0.0,
+            "share_paths_positive_surplus": 0.0418
+          }
+        }
+      },
+      {
+        "value": 3,
+        "summary": {
+          "scenario": "focused",
+          "runs": 20000,
+          "price": 349.0,
+          "cumulative_24m_revenue": {
+            "mean": 100425.18,
+            "p10": 55665.5,
+            "p25": 77652.5,
+            "median": 103827.5,
+            "p75": 124767.5,
+            "p90": 139774.5
+          },
+          "cumulative_24m_surplus": {
+            "mean": -230910.68,
+            "p10": -253241.14,
+            "p25": -241905.04,
+            "median": -230598.1,
+            "p75": -219798.49,
+            "p90": -209131.96
+          },
+          "capacity_lost_24m": {
+            "mean": 12.96,
+            "p10": 0.0,
+            "p25": 0.0,
+            "median": 7.0,
+            "p75": 20.0,
+            "p90": 35.0
+          },
+          "month_12": {
+            "customers": {
+              "mean": 13.91,
+              "p10": 6.0,
+              "p25": 9.0,
+              "median": 13.0,
+              "p75": 19.0,
+              "p90": 23.0
+            },
+            "mrr": {
+              "mean": 4854.97,
+              "p10": 2094.0,
+              "p25": 3141.0,
+              "median": 4537.0,
+              "p75": 6631.0,
+              "p90": 8027.0
+            },
+            "run_rate_arr": {
+              "mean": 58259.69,
+              "p10": 25128.0,
+              "p25": 37692.0,
+              "median": 54444.0,
+              "p75": 79572.0,
+              "p90": 96324.0
+            },
+            "revenue_in_month": {
+              "mean": 4570.57,
+              "p10": 2094.0,
+              "p25": 2966.5,
+              "median": 4362.5,
+              "p75": 6107.5,
+              "p90": 7503.5
+            },
+            "contribution": {
+              "mean": -248.24,
+              "p10": -1622.83,
+              "p25": -851.42,
+              "median": -149.62,
+              "p75": 419.18,
+              "p90": 967.66
+            },
+            "surplus": {
+              "mean": -9748.24,
+              "p10": -11122.83,
+              "p25": -10351.42,
+              "median": -9649.62,
+              "p75": -9080.82,
+              "p90": -8532.34
+            },
+            "before_owner_allowance": {
+              "mean": -1748.24,
+              "p10": -3122.83,
+              "p25": -2351.42,
+              "median": -1649.62,
+              "p75": -1080.82,
+              "p90": -532.34
+            },
+            "delivery_hours": {
+              "mean": 49.34,
+              "p10": 22.85,
+              "p25": 33.29,
+              "median": 49.13,
+              "p75": 67.6,
+              "p90": 75.98
+            },
+            "share_paths_mrr_over_10k": 0.0,
+            "share_paths_mrr_over_25k": 0.0,
+            "share_paths_mrr_over_50k": 0.0,
+            "share_paths_positive_surplus": 0.0
+          },
+          "month_24": {
+            "customers": {
+              "mean": 21.55,
+              "p10": 15.0,
+              "p25": 20.0,
+              "median": 23.0,
+              "p75": 25.0,
+              "p90": 25.0
+            },
+            "mrr": {
+              "mean": 7520.57,
+              "p10": 5235.0,
+              "p25": 6980.0,
+              "median": 8027.0,
+              "p75": 8725.0,
+              "p90": 8725.0
+            },
+            "run_rate_arr": {
+              "mean": 90246.79,
+              "p10": 62820.0,
+              "p25": 83760.0,
+              "median": 96324.0,
+              "p75": 104700.0,
+              "p90": 104700.0
+            },
+            "revenue_in_month": {
+              "mean": 7350.99,
+              "p10": 4886.0,
+              "p25": 6805.5,
+              "median": 7852.5,
+              "p75": 8550.5,
+              "p90": 8725.0
+            },
+            "contribution": {
+              "mean": 405.21,
+              "p10": -1213.3,
+              "p25": -394.2,
+              "median": 447.07,
+              "p75": 1264.53,
+              "p90": 1946.23
+            },
+            "surplus": {
+              "mean": -9094.79,
+              "p10": -10713.3,
+              "p25": -9894.2,
+              "median": -9052.93,
+              "p75": -8235.47,
+              "p90": -7553.77
+            },
+            "before_owner_allowance": {
+              "mean": -1094.79,
+              "p10": -2713.3,
+              "p25": -1894.2,
+              "median": -1052.93,
+              "p75": -235.47,
+              "p90": 446.23
+            },
+            "delivery_hours": {
+              "mean": 69.48,
+              "p10": 50.94,
+              "p25": 67.85,
+              "median": 75.0,
+              "p75": 77.06,
+              "p90": 78.79
+            },
+            "share_paths_mrr_over_10k": 0.0,
+            "share_paths_mrr_over_25k": 0.0,
+            "share_paths_mrr_over_50k": 0.0,
+            "share_paths_positive_surplus": 0.0
+          }
+        }
+      }
+    ]
+  },
+  "stress": {
+    "six_month_80pct_referral_pause": {
+      "scenario": "focused",
+      "runs": 20000,
+      "price": 349.0,
+      "cumulative_24m_revenue": {
+        "mean": 87468.06,
+        "p10": 38564.5,
+        "p25": 55491.0,
+        "median": 80095.5,
+        "p75": 111680.0,
+        "p90": 146580.0
+      },
+      "cumulative_24m_surplus": {
+        "mean": -200114.19,
+        "p10": -225905.8,
+        "p25": -218163.22,
+        "median": -205358.3,
+        "p75": -187874.57,
+        "p90": -166693.8
+      },
+      "capacity_lost_24m": {
+        "mean": 0.77,
+        "p10": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 0.0,
+        "p90": 2.0
+      },
+      "month_12": {
+        "customers": {
+          "mean": 8.94,
+          "p10": 3.0,
+          "p25": 5.0,
+          "median": 8.0,
+          "p75": 12.0,
+          "p90": 16.0
+        },
+        "mrr": {
+          "mean": 3121.32,
+          "p10": 1047.0,
+          "p25": 1745.0,
+          "median": 2792.0,
+          "p75": 4188.0,
+          "p90": 5584.0
+        },
+        "run_rate_arr": {
+          "mean": 37455.8,
+          "p10": 12564.0,
+          "p25": 20940.0,
+          "median": 33504.0,
+          "p75": 50256.0,
+          "p90": 67008.0
+        },
+        "revenue_in_month": {
+          "mean": 3053.05,
+          "p10": 1047.0,
+          "p25": 1745.0,
+          "median": 2792.0,
+          "p75": 4013.5,
+          "p90": 5409.5
+        },
+        "contribution": {
+          "mean": 1355.96,
+          "p10": 252.88,
+          "p25": 612.63,
+          "median": 1155.55,
+          "p75": 1883.75,
+          "p90": 2764.74
+        },
+        "surplus": {
+          "mean": -8144.04,
+          "p10": -9247.12,
+          "p25": -8887.37,
+          "median": -8344.45,
+          "p75": -7616.25,
+          "p90": -6735.26
+        },
+        "before_owner_allowance": {
+          "mean": -144.04,
+          "p10": -1247.12,
+          "p25": -887.37,
+          "median": -344.45,
+          "p75": 383.75,
+          "p90": 1264.74
+        },
+        "delivery_hours": {
+          "mean": 14.27,
+          "p10": 5.17,
+          "p25": 8.25,
+          "median": 13.06,
+          "p75": 18.76,
+          "p90": 25.1
+        },
+        "share_paths_mrr_over_10k": 0.003,
+        "share_paths_mrr_over_25k": 0.0,
+        "share_paths_mrr_over_50k": 0.0,
+        "share_paths_positive_surplus": 0.0
+      },
+      "month_24": {
+        "customers": {
+          "mean": 25.95,
+          "p10": 12.0,
+          "p25": 17.0,
+          "median": 24.0,
+          "p75": 33.0,
+          "p90": 43.0
+        },
+        "mrr": {
+          "mean": 9054.82,
+          "p10": 4188.0,
+          "p25": 5933.0,
+          "median": 8376.0,
+          "p75": 11517.0,
+          "p90": 15007.0
+        },
+        "run_rate_arr": {
+          "mean": 108657.87,
+          "p10": 50256.0,
+          "p25": 71196.0,
+          "median": 100512.0,
+          "p75": 138204.0,
+          "p90": 180084.0
+        },
+        "revenue_in_month": {
+          "mean": 8654.15,
+          "p10": 4013.5,
+          "p25": 5584.0,
+          "median": 8027.0,
+          "p75": 10993.5,
+          "p90": 14309.0
+        },
+        "contribution": {
+          "mean": 3267.39,
+          "p10": 454.2,
+          "p25": 1419.78,
+          "median": 2798.95,
+          "p75": 4641.06,
+          "p90": 6754.06
+        },
+        "surplus": {
+          "mean": -6232.61,
+          "p10": -9045.8,
+          "p25": -8080.22,
+          "median": -6701.05,
+          "p75": -4858.94,
+          "p90": -2745.94
+        },
+        "before_owner_allowance": {
+          "mean": 1767.39,
+          "p10": -1045.8,
+          "p25": -80.22,
+          "median": 1298.95,
+          "p75": 3141.06,
+          "p90": 5254.06
+        },
+        "delivery_hours": {
+          "mean": 47.53,
+          "p10": 23.44,
+          "p25": 32.95,
+          "median": 46.24,
+          "p75": 62.54,
+          "p90": 74.78
+        },
+        "share_paths_mrr_over_10k": 0.3649,
+        "share_paths_mrr_over_25k": 0.0021,
+        "share_paths_mrr_over_50k": 0.0,
+        "share_paths_positive_surplus": 0.028
+      }
+    },
+    "independent_parameters": {
+      "scenario": "focused",
+      "runs": 20000,
+      "price": 349.0,
+      "cumulative_24m_revenue": {
+        "mean": 115066.82,
+        "p10": 62471.0,
+        "p25": 83062.0,
+        "median": 110982.0,
+        "p75": 143090.0,
+        "p90": 173278.5
+      },
+      "cumulative_24m_surplus": {
+        "mean": -192405.33,
+        "p10": -218866.76,
+        "p25": -208681.82,
+        "median": -195414.48,
+        "p75": -179265.95,
+        "p90": -161370.72
+      },
+      "capacity_lost_24m": {
+        "mean": 2.43,
+        "p10": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 1.0,
+        "p90": 8.0
+      },
+      "month_12": {
+        "customers": {
+          "mean": 14.22,
+          "p10": 7.0,
+          "p25": 10.0,
+          "median": 13.0,
+          "p75": 18.0,
+          "p90": 23.0
+        },
+        "mrr": {
+          "mean": 4961.23,
+          "p10": 2443.0,
+          "p25": 3490.0,
+          "median": 4537.0,
+          "p75": 6282.0,
+          "p90": 8027.0
+        },
+        "run_rate_arr": {
+          "mean": 59534.72,
+          "p10": 29316.0,
+          "p25": 41880.0,
+          "median": 54444.0,
+          "p75": 75384.0,
+          "p90": 96324.0
+        },
+        "revenue_in_month": {
+          "mean": 4634.75,
+          "p10": 2268.5,
+          "p25": 3141.0,
+          "median": 4362.5,
+          "p75": 5933.0,
+          "p90": 7329.0
+        },
+        "contribution": {
+          "mean": 1291.41,
+          "p10": -140.7,
+          "p25": 524.56,
+          "median": 1224.22,
+          "p75": 1999.75,
+          "p90": 2852.37
+        },
+        "surplus": {
+          "mean": -8208.59,
+          "p10": -9640.7,
+          "p25": -8975.44,
+          "median": -8275.78,
+          "p75": -7500.25,
+          "p90": -6647.63
+        },
+        "before_owner_allowance": {
+          "mean": -208.59,
+          "p10": -1640.7,
+          "p25": -975.44,
+          "median": -275.78,
+          "p75": 499.75,
+          "p90": 1352.37
+        },
+        "delivery_hours": {
+          "mean": 31.09,
+          "p10": 12.1,
+          "p25": 18.84,
+          "median": 28.33,
+          "p75": 40.77,
+          "p90": 54.16
+        },
+        "share_paths_mrr_over_10k": 0.0238,
+        "share_paths_mrr_over_25k": 0.0,
+        "share_paths_mrr_over_50k": 0.0,
+        "share_paths_positive_surplus": 0.0
+      },
+      "month_24": {
+        "customers": {
+          "mean": 29.52,
+          "p10": 17.0,
+          "p25": 22.0,
+          "median": 29.0,
+          "p75": 36.0,
+          "p90": 42.0
+        },
+        "mrr": {
+          "mean": 10301.12,
+          "p10": 5933.0,
+          "p25": 7678.0,
+          "median": 10121.0,
+          "p75": 12564.0,
+          "p90": 14658.0
+        },
+        "run_rate_arr": {
+          "mean": 123613.43,
+          "p10": 71196.0,
+          "p25": 92136.0,
+          "median": 121452.0,
+          "p75": 150768.0,
+          "p90": 175896.0
+        },
+        "revenue_in_month": {
+          "mean": 9951.43,
+          "p10": 5584.0,
+          "p25": 7503.5,
+          "median": 9946.5,
+          "p75": 12215.0,
+          "p90": 14309.0
+        },
+        "contribution": {
+          "mean": 3861.74,
+          "p10": 1314.94,
+          "p25": 2315.0,
+          "median": 3609.14,
+          "p75": 5172.96,
+          "p90": 6723.61
+        },
+        "surplus": {
+          "mean": -5638.26,
+          "p10": -8185.06,
+          "p25": -7185.0,
+          "median": -5890.86,
+          "p75": -4327.04,
+          "p90": -2776.39
+        },
+        "before_owner_allowance": {
+          "mean": 2361.74,
+          "p10": -185.06,
+          "p25": 815.0,
+          "median": 2109.14,
+          "p75": 3672.96,
+          "p90": 5223.61
+        },
+        "delivery_hours": {
+          "mean": 53.42,
+          "p10": 27.29,
+          "p25": 38.36,
+          "median": 54.29,
+          "p75": 72.11,
+          "p90": 76.8
+        },
+        "share_paths_mrr_over_10k": 0.5336,
+        "share_paths_mrr_over_25k": 0.0001,
+        "share_paths_mrr_over_50k": 0.0,
+        "share_paths_positive_surplus": 0.0138
+      }
+    },
+    "second_seed": {
+      "scenario": "focused",
+      "runs": 20000,
+      "price": 349.0,
+      "cumulative_24m_revenue": {
+        "mean": 119336.78,
+        "p10": 55316.5,
+        "p25": 78176.0,
+        "median": 110633.0,
+        "p75": 151989.5,
+        "p90": 194044.0
+      },
+      "cumulative_24m_surplus": {
+        "mean": -188076.01,
+        "p10": -222948.08,
+        "p25": -212023.15,
+        "median": -194996.01,
+        "p75": -171303.87,
+        "p90": -143545.55
+      },
+      "capacity_lost_24m": {
+        "mean": 1.94,
+        "p10": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 1.0,
+        "p90": 6.0
+      },
+      "month_12": {
+        "customers": {
+          "mean": 14.6,
+          "p10": 6.0,
+          "p25": 9.0,
+          "median": 13.0,
+          "p75": 19.0,
+          "p90": 25.0
+        },
+        "mrr": {
+          "mean": 5095.66,
+          "p10": 2094.0,
+          "p25": 3141.0,
+          "median": 4537.0,
+          "p75": 6631.0,
+          "p90": 8725.0
+        },
+        "run_rate_arr": {
+          "mean": 61147.94,
+          "p10": 25128.0,
+          "p25": 37692.0,
+          "median": 54444.0,
+          "p75": 79572.0,
+          "p90": 104700.0
+        },
+        "revenue_in_month": {
+          "mean": 4760.77,
+          "p10": 2094.0,
+          "p25": 2966.5,
+          "median": 4362.5,
+          "p75": 6107.5,
+          "p90": 8027.0
+        },
+        "contribution": {
+          "mean": 1453.32,
+          "p10": -213.77,
+          "p25": 464.81,
+          "median": 1247.16,
+          "p75": 2258.48,
+          "p90": 3423.38
+        },
+        "surplus": {
+          "mean": -8046.68,
+          "p10": -9713.77,
+          "p25": -9035.19,
+          "median": -8252.84,
+          "p75": -7241.52,
+          "p90": -6076.62
+        },
+        "before_owner_allowance": {
+          "mean": -46.68,
+          "p10": -1713.77,
+          "p25": -1035.19,
+          "median": -252.84,
+          "p75": 758.48,
+          "p90": 1923.38
+        },
+        "delivery_hours": {
+          "mean": 30.33,
+          "p10": 12.54,
+          "p25": 19.18,
+          "median": 28.32,
+          "p75": 39.43,
+          "p90": 50.91
+        },
+        "share_paths_mrr_over_10k": 0.0514,
+        "share_paths_mrr_over_25k": 0.0,
+        "share_paths_mrr_over_50k": 0.0,
+        "share_paths_positive_surplus": 0.0001
+      },
+      "month_24": {
+        "customers": {
+          "mean": 30.96,
+          "p10": 15.0,
+          "p25": 21.0,
+          "median": 29.0,
+          "p75": 39.0,
+          "p90": 49.0
+        },
+        "mrr": {
+          "mean": 10805.84,
+          "p10": 5235.0,
+          "p25": 7329.0,
+          "median": 10121.0,
+          "p75": 13611.0,
+          "p90": 17101.0
+        },
+        "run_rate_arr": {
+          "mean": 129670.11,
+          "p10": 62820.0,
+          "p25": 87948.0,
+          "median": 121452.0,
+          "p75": 163332.0,
+          "p90": 205212.0
+        },
+        "revenue_in_month": {
+          "mean": 10440.66,
+          "p10": 4886.0,
+          "p25": 6980.0,
+          "median": 9772.0,
+          "p75": 13262.0,
+          "p90": 16752.0
+        },
+        "contribution": {
+          "mean": 4263.45,
+          "p10": 916.68,
+          "p25": 2021.6,
+          "median": 3681.55,
+          "p75": 5925.71,
+          "p90": 8456.58
+        },
+        "surplus": {
+          "mean": -5236.55,
+          "p10": -8583.32,
+          "p25": -7478.4,
+          "median": -5818.45,
+          "p75": -3574.29,
+          "p90": -1043.42
+        },
+        "before_owner_allowance": {
+          "mean": 2763.45,
+          "p10": -583.32,
+          "p25": 521.6,
+          "median": 2181.55,
+          "p75": 4425.71,
+          "p90": 6956.58
+        },
+        "delivery_hours": {
+          "mean": 53.34,
+          "p10": 28.06,
+          "p25": 38.85,
+          "median": 53.99,
+          "p75": 71.04,
+          "p90": 76.75
+        },
+        "share_paths_mrr_over_10k": 0.5241,
+        "share_paths_mrr_over_25k": 0.0082,
+        "share_paths_mrr_over_50k": 0.0,
+        "share_paths_positive_surplus": 0.0667
+      }
+    }
+  },
+  "additional_sensitivity_paths": 300000
+}

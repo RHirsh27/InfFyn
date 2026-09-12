@@ -1,0 +1,5 @@
+event_id,date,provider,model,input_tokens,output_tokens,requests,customer_id,customer_segment,feature,workflow,team,run_id,billed_cost,cost_source,cached_input_tokens,currency
+u-1,2026-08-02,synthetic,small,1000000,200000,50,c-acme,growth,Research,Research assistant,Product,r-1,12,synthetic provider export,100000,USD
+u-2,2026-08-02,synthetic,large,2000000,900000,90,c-beacon,starter,Research,Research assistant,Product,r-2,74,synthetic provider export,200000,USD
+u-3,2026-08-03,synthetic,small,500000,200000,30,c-acme,growth,Summary,Research assistant,Product,r-3,8,synthetic provider export,0,USD
+u-4,2026-08-03,synthetic,large,100000,80000,10,c-beacon,starter,Research,Research assistant,Product,r-4,6,synthetic failed retries,0,USD

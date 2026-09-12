@@ -1,0 +1,13 @@
+-- Rollback for 0010_tenancy_grants_hardening
+--
+-- 0010 replaced Supabase's permissive DEFAULT grants on profiles/tenants/
+-- memberships with explicit minimal grants. The pre-0010 state was the
+-- default broad grant set (contained by RLS), NOT an explicit grant list.
+--
+-- Reversing this would mean re-widening access (GRANT ... TO anon/public),
+-- which would UNDO a security hardening. That is intentionally NOT done
+-- automatically. RLS/FORCE RLS still contained access either way.
+--
+-- To truly revert (NOT recommended), manually restore the default grants.
+-- This down-migration is a deliberate no-op to avoid shipping a security-
+-- loosening rollback.

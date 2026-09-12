@@ -1,0 +1,59 @@
+{
+  "schema_version": "provider-acceptance-1",
+  "status": "PENDING",
+  "project_ref": "jmfzmoqdvweeixxwzlma",
+  "release_sha": null,
+  "observed_at": null,
+  "notice": "No credentials or raw customer records. Null control amounts are pending, never zero. Store filled records privately.",
+  "providers": [
+    {
+      "provider": "openai",
+      "source_account_alias": null,
+      "month_utc": null,
+      "currency": "USD",
+      "basis": "organization cost API scope",
+      "independent_total": null,
+      "tolerance_usd": "0",
+      "source_export_sha256": null,
+      "scope_exclusions": [],
+      "expected_pages": null,
+      "observed_total": null,
+      "observed_pages": null,
+      "cases": {}
+    },
+    {
+      "provider": "anthropic",
+      "source_account_alias": null,
+      "month_utc": null,
+      "currency": "USD",
+      "basis": "Claude Platform cost endpoint; Priority Tier excluded",
+      "independent_total": null,
+      "tolerance_usd": "0",
+      "source_export_sha256": null,
+      "scope_exclusions": ["Priority Tier costs"],
+      "expected_pages": null,
+      "observed_total": null,
+      "observed_pages": null,
+      "cases": {}
+    },
+    {
+      "provider": "stripe",
+      "source_account_alias": null,
+      "month_utc": null,
+      "currency": "USD",
+      "basis": "gross paid-invoice collections by UTC paid_at",
+      "independent_total": null,
+      "tolerance_usd": "0",
+      "source_export_sha256": null,
+      "scope_exclusions": [
+        "standalone charges",
+        "automatic revenue recognition",
+        "automatic netting of separate refunds"
+      ],
+      "expected_pages": null,
+      "observed_total": null,
+      "observed_pages": null,
+      "cases": {}
+    }
+  ]
+}

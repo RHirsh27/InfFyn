@@ -1,0 +1,19 @@
+{
+  "events": [
+    {
+      "tenant_id": "synthetic-outreach-client",
+      "source": "synthetic-provider-invoice",
+      "source_id": "credit-late-001",
+      "kind": "invoice",
+      "incurred_at": "2026-09-01T00:00:00Z",
+      "received_at": "2026-09-05T00:00:00Z",
+      "currency": "USD",
+      "provider": "synthetic-provider",
+      "account": "account-shared-id",
+      "amount": "-100",
+      "service_start": "2026-08-01T00:00:00Z",
+      "service_end": "2026-09-01T00:00:00Z",
+      "document_type": "credit"
+    }
+  ]
+}

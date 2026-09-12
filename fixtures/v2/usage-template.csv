@@ -1,0 +1,1 @@
+event_id,date,provider,model,input_tokens,output_tokens,requests,customer_id,customer_segment,feature,workflow,team,run_id,billed_cost,cost_source,cached_input_tokens,currency

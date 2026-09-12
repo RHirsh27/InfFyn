@@ -1,0 +1,28 @@
+{
+  "schema_version": "hosted-monthly-acceptance-1",
+  "project_ref": "jmfzmoqdvweeixxwzlma",
+  "app_origin": "https://inffyn-preview.vercel.app",
+  "engine_origin": "https://inffyn-preview-engine.vercel.app",
+  "origins_approved": false,
+  "synthetic_only": false,
+  "dedicated_companies": false,
+  "writes_approved": false,
+  "confirmation": "Replace only after confirming: These two companies and all referenced imports are dedicated synthetic acceptance fixtures; I authorize this run's writes.",
+  "month": "2026-08",
+  "companies": [
+    {
+      "tenant_id": "REPLACE_WITH_DEDICATED_COMPANY_A_UUID",
+      "user_id": "REPLACE_WITH_REAL_OWNER_A_UUID",
+      "cookie_env": "INFFYN_ACCEPTANCE_COOKIE_A",
+      "token_env": "INFFYN_ACCEPTANCE_TOKEN_A",
+      "approved_import_ids": []
+    },
+    {
+      "tenant_id": "REPLACE_WITH_DEDICATED_COMPANY_B_UUID",
+      "user_id": "REPLACE_WITH_REAL_OWNER_B_UUID",
+      "cookie_env": "INFFYN_ACCEPTANCE_COOKIE_B",
+      "token_env": "INFFYN_ACCEPTANCE_TOKEN_B",
+      "approved_import_ids": []
+    }
+  ]
+}

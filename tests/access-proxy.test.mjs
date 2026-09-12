@@ -1,0 +1,20 @@
+// Run against the isolated local app; no provider accounts or credentials.
+import assert from "node:assert/strict";
+const origin="http://127.0.0.1:3012";
+const endpoint=origin+"/api/v2/access/prepare";
+const send=(body,source=origin)=>fetch(endpoint,{method:"POST",headers:{"Content-Type":"application/json",Origin:source},body,redirect:"manual"});
+assert.equal((await send('{',origin)).status,400);
+assert.equal((await send(JSON.stringify({token:"invalid"}))).status,400);
+assert.equal((await send(JSON.stringify({token:"A".repeat(64)}),"https://untrusted.example")).status,403);
+const response=await send(JSON.stringify({token:"A".repeat(64)}));
+assert.equal(response.status,200);
+assert.deepEqual(await response.json(),{prepared:true});
+const cookie=response.headers.get("set-cookie");
+assert.match(cookie,/HttpOnly/i);
+assert.match(cookie,/SameSite=lax/i);
+assert.match(cookie,/Max-Age=604800/i);
+assert.match(response.headers.get("cache-control"),/no-store/);
+const protectedResponse=await fetch(origin+"/api/v2/access/admin",{redirect:"manual"});
+assert.equal(protectedResponse.status,307);
+assert.match(protectedResponse.headers.get("location"),/\/login\?/);
+console.log("PASS invitation proxy validation, origin rejection, private cookie and unauthenticated admin protection");
