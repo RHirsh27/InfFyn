@@ -10,6 +10,7 @@ The persistent CSV workflow is implemented. This increment makes retention and e
 - An event emission or SDK flush does **not** mean delivery was verified. The operator must find the exact event IDs in Render/Vercel logs and, when configured, the external monitoring destination. External alert delivery remains a separate gate.
 - The operator runner pins Supabase, Vercel and Render to the existing InfFyn deployment. It cannot enable intake or change access. It writes metadata-only receipts and flags missing, failed, future-dated or overdue sweeps.
 - The company screen retains the actual complimentary-access state while uploads are paused. It provides activation status and invitation administration instead of incorrectly telling an admitted owner that their access grant is missing.
+- Protected API requests with missing or expired sessions return uncached 401 JSON. Protected pages still redirect to sign-in. Disabled alpha routes continue to return 403 before any financial operation.
 
 The policy remains 90 days for raw evidence and 12 months for reports. Seven-day encrypted backups are a separate operator responsibility. Retention checks do not prove recovery-key custody or a successful backup.
 
@@ -51,8 +52,15 @@ On September 13 this proof passed ten assertions against `jmfzmoqdvweeixxwzlma`.
 5. Enable the monthly workflow for the reviewed synthetic acceptance run; use two explicitly designated empty companies and genuine authenticated owner sessions. Run the existing hosted monthly and reviewed-import runners, followed by browser sign-out/return and exports. Do not substitute an administrative token or manually confirmed Auth row for an owner's session.
 6. Only after these checks pass, hand Stephen the working private-alpha workspace. Provider imports and public production readiness remain deferred.
 
-## Current open inputs
+## Hosted progress on September 13
 
-At the start of this phase, Ryan's Auth account was verified, Stephen's was not, and there were no saved monthly reports, reviewed imports, drafts or complimentary grants. Sentry had neither configured deployment variables nor an authenticated operator/browser session. Independent recovery-key custody had not been confirmed. These observations are separate from the completed database restore and migration rehearsal.
+- The ten database retention assertions passed in a rolled-back native transaction. A real protected app-to-engine maintenance sweep then passed with monthly cleanup included while financial intake remained paused. The operator receipt freshness check passed.
+- The exact frontend and engine diagnostic event IDs were found in their respective Vercel and Render logs. The synthetic private-evidence canary was absent. This proves platform log receipt, not external Sentry delivery.
+- Ryan redeemed an email-bound complimentary invitation in his actual authenticated browser. The application showed active company access with paused financial intake; database readback confirmed ownership and no other company members.
+- Stephen's separate email-bound invitation was prepared and left in the private access-administration tab. It expires September 20. It has not been sent or redeemed; Stephen's sign-in, Vercel protection access and ownership acceptance remain pending.
+- Hosted negative probes passed for engine authentication, dedicated maintenance authentication and disabled provider, preview and billing routes. They exposed an app API redirect-to-login defect, now covered by the 401 regression test. Recheck its hosted behavior after deploying the fix.
+- Sentry's existing Next.js project and a separate `inffyn-engine-alpha` project are configured for this alpha only. Exact external event receipt and alert delivery still require verification on the deployed configuration.
+
+Independent recovery-key custody and the genuine two-user CSV-to-report run remain open. No monthly reports, reviewed imports or drafts were created in customer workspaces during this operations increment. Private receipts live under `activation-evidence/` and `operations/` in the private-alpha operator directory, outside GitHub.
 
 The pending external checks must be reported as pending until executed. The checklist in [PRIVATE-ALPHA-ACTIVATION.md](PRIVATE-ALPHA-ACTIVATION.md) is the release record.

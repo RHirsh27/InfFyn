@@ -175,9 +175,12 @@ Default is offline and reports pending. The alpha manifest extends the existing 
 - [ ] CSV, assignment, saved draft, fresh-session return and report.
 - [ ] Duplicates, stale edits, invalid allocations and expired evidence rejected.
 - [ ] Dashboard/export/report agreement and immutable correction history.
-- [ ] Provider/OAuth/billing/legacy routes inaccessible on hosted alpha.
+- [x] Hosted negative checks for disabled provider/OAuth, billing and anonymous preview routes; complete the remaining direct Storage and authenticated legacy checks with the two-user run.
 - [ ] Improve email deliverability: Ryan's received sign-in message landed in Spam.
-- [ ] Retention sweeps, protected access for Stephen and scrubbed monitoring.
+- [x] Hosted maintenance sweep and ten rolled-back database retention assertions; scrubbed test events found in both platform logs.
+- [ ] External Sentry receipt/alerts and protected access for Stephen.
+- [x] Ryan's complimentary invitation redeemed through his actual browser; company ownership checked without granting access to other companies.
+- [x] Stephen's separate invitation prepared, unredeemed and unsent; retained in private access administration.
 - [ ] Stephen's own complimentary workspace and final alpha URL ready.
 
 Handoff: [connected private-alpha sign-in](https://inffyn-preview-git-codex-p-8fa386-ryanmhirsh-gmailcoms-projects.vercel.app/login) (financial operations still awaiting activation), separate [demo](https://inffyn-preview.vercel.app/demo/monthly), [CSV guide](https://inffyn-preview.vercel.app/examples/CSV-IMPORT-GUIDE.txt), [examples](https://inffyn-preview.vercel.app/examples/InfFyn-normalized-CSV-examples.zip), [executive report](https://inffyn-preview.vercel.app/examples/InfFyn-Northstar-August-2026.pdf) and this checklist. Real uploads retain their evidence labels and never inherit the synthetic demo label.

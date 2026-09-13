@@ -308,6 +308,50 @@ test("proxy blocks alpha intake before touching Auth and preserves the fixed dem
   assert.equal(new URL(response.headers.get("location")).pathname, "/login");
 });
 
+test("protected APIs return uncached 401 JSON for missing or expired sessions while pages redirect", async () => {
+  for (const configured of [false, true]) {
+    const env = configured
+      ? {
+          ...alphaEnv,
+          NEXT_PUBLIC_SUPABASE_URL: "https://example.supabase.co",
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: "synthetic-public-key",
+        }
+      : alphaEnv;
+    let calls = 0;
+    const { proxy } = loader(env, {
+      "@supabase/ssr": {
+        createServerClient: () => ({
+          auth: {
+            getUser: async () => {
+              calls++;
+              return { data: { user: null } };
+            },
+          },
+        }),
+      },
+    })("proxy.ts");
+    for (const method of ["GET", "POST"]) {
+      const response = await proxy(
+        new NextRequest("https://alpha.example/api/v2/monthly/reports", {
+          method,
+        }),
+      );
+      assert.equal(response.status, 401);
+      assert.equal(response.headers.get("location"), null);
+      assert.equal(response.headers.get("cache-control"), "no-store");
+      assert.match(response.headers.get("content-type"), /application\/json/);
+      assert.deepEqual(await response.json(), {
+        detail: "Sign in to continue.",
+      });
+    }
+    const page = await proxy(
+      new NextRequest("https://alpha.example/app/monthly"),
+    );
+    assert.equal(new URL(page.headers.get("location")).pathname, "/login");
+    assert.equal(calls, configured ? 3 : 0);
+  }
+});
+
 test("proxy checks verified user admission independently of existing session cookies", async () => {
   for (const user of [
     verified,
