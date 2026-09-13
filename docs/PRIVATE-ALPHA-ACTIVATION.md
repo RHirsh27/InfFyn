@@ -2,11 +2,11 @@
 
 Updated September 12, 2026. **Source is on GitHub and protected previews are deployed; the private alpha is not yet activated.** This milestone accepts real CSV evidence from Ryan and Stephen after recovery and hosted checks pass. Provider imports, paid billing, managed backups and public launch remain deferred. Older all-provider launch gates apply to the later public release.
 
-The persistent Python engine is deployed on Render at https://inffyn-engine-alpha.onrender.com. All seven missing migrations are now applied to the existing Supabase project, and database admission is enabled for the two named accounts. Ryan is verified; Stephen must verify his email. Retention approval and monthly intake remain disabled. The frontend has not switched to this engine. See [the deployment evidence](RENDER-PRIVATE-ALPHA.md#hosted-verification-on-september-12-2026). No Docker is required.
+The persistent Python engine is deployed on Render at https://inffyn-engine-alpha.onrender.com. All seven missing migrations are now applied to the existing Supabase project, and database admission is enabled for the two named accounts. Ryan is verified; Stephen must verify his email. Retention approval and monthly intake remain disabled. The protected feature-branch frontend now uses this engine and the existing Supabase Auth service. Ryan completed an actual email sign-in and reached the activation-gated company workspace; the public review aliases are unchanged. See [the deployment evidence](RENDER-PRIVATE-ALPHA.md#hosted-verification-on-september-12-2026). No Docker is required.
 
 ### September 12 verified connection and recovery progress
 
-Source is now published on GitHub, and both Vercel projects build protected stateless previews from the feature branch. Company database activation is still pending; the previous local-only implementation description is historical.
+Source is now published on GitHub, and both Vercel projects build protected stateless previews from the feature branch. Database migrations and named-account admission are complete; release of company financial operations remains pending. The previous local-only implementation description is historical.
 
 The Supabase Free plan includes database and authentication services. A paid-plan upgrade is not required to connect this application. The approved manual recovery requirement remains separate from managed-backup pricing.
 
@@ -22,7 +22,13 @@ The seven migrations passed rehearsal on the restored database with Supabase's p
 
 Ryan and Stephen's Auth UUIDs are registered privately. Stephen was created with email confirmation false, without a password or email message. Database admission additionally checks current email verification, so pre-registration does not admit him yet. Ryan received invitation-administration rights; company memberships were not changed. Live role checks admitted Ryan, denied unconfirmed Stephen and an excluded identity, and denied legacy writes. Genuine authenticated HTTP sessions remain a separate acceptance check.
 
-**Step 4 dependency:** the connected Supabase MCP account still returns a permission denial for publishable-key retrieval, and the current Chrome dashboard's authentication settings links are disabled. Native database access works independently. Obtain owner-level dashboard/configuration access or enter the project client key directly into Vercel's secure Preview settings; do not post credentials in chat. Callback, signup and frontend configuration remain pending.
+**Step 4 completed, September 12 evening:** Chrome confirms `ryan@inffyn.xyz` is an InfFyn organization Owner. The project settings and public-key pages work. Disabled sidebar annotations were not sufficient evidence of an account-permission problem: following the observed settings URL opened the authorized page. The separate MCP connector still denies publishable-key retrieval; it was not used to change access or bypass permissions.
+
+The protected Vercel feature branch now has the Supabase public client key, project URL, server-only UUID allowlist, alpha markers and Render `ENGINE_URL`. A dedicated proxy credential is configured on both services. The branch overrides the old Vercel-engine protection header with an empty value so that credential is not forwarded to Render. Production settings and public review aliases were preserved.
+
+Supabase's default Site URL now uses the protected branch origin. Three exact callback entries cover the callback itself, `/app/monthly` and `/invite`; earlier entries were preserved. Public signup and anonymous sign-in are disabled, and email confirmation stays enabled. Existing SMTP delivered Ryan's real magic-link message from `noreply@inffyn.xyz`; Gmail classified it as Spam. The link completed the callback and opened `/app/monthly`, and a reload retained sign-in. This verifies Ryan's email/authentication and the app-to-Render activation response, not saved financial evidence or Stephen's sign-in. Email deliverability still needs attention.
+
+**Next activation gate:** finish operator-run retention and scrubbed monitoring checks, obtain the independent recovery-key copy, issue/redeem complimentary company access and execute the synthetic two-company workflow. No real company CSV was uploaded in this connection check.
 
 The activation planner now includes all seven outstanding migrations, ending with reviewed CSV imports. Its prior six-candidate list rejected the current 18-file repository. The planner still only prepares a review plan and never authorizes or executes database changes. GitHub Actions now runs the activation and catalog preflight regression suites.
 
@@ -39,14 +45,14 @@ Use the account granted access to the existing InfFyn organization. Do not autho
 | Area | Implemented or observed | Remaining acceptance |
 | --- | --- | --- |
 | Company workflow | Workloads, CSV preparation, revision-checked drafts, reconciliation, reports and comparisons | Complete authenticated hosted workflow |
-| Alpha admission | Database allowlist active; Ryan verified, Stephen registered but unconfirmed; live role denial checks passed; Render UUID configuration saved | Frontend UUID configuration, Stephen verification and authenticated HTTP exclusions |
+| Alpha admission | Database and both services have the two-user allowlist; Ryan signed in; Stephen registered but unconfirmed | Stephen verification and authenticated excluded-user checks |
 | Closed routes | Positive route lists block legacy intake, anonymous persistence, provider and billing mutations; twelve Render engine probes passed | App probes and authenticated exclusions after identity setup |
 | Reports | New server-owned alpha context enters immutable fingerprints; existing reports unchanged | Hosted report/export/dashboard agreement and corrections |
 | Recovery | Encrypted offsite retrieval, full database restore and seven Storage-object byte restores passed | Independent recovery-key copy; hosted Storage-service restoration remains separate |
 | Local recovery rehearsal | Downloaded Supabase backup restored in isolated native PostgreSQL 17 with real extension binaries; seven migrations rehearsed | This does not establish hosted application acceptance |
-| Supabase | Seven migrations applied; all 18 ledger versions present; historical records preserved; post-migration controls checked | Owner/configuration access, auth settings and authenticated acceptance |
+| Supabase | Seven migrations applied; 18 ledger versions preserved; controls and owner access checked; exact callback and signup settings saved | Two-company authenticated acceptance |
 | Stephen | `stephen@fynscale.com` pre-provisioned without confirmation or message | Magic-link verification and complimentary invitation redemption into his own workspace |
-| Hosting | Render native Python engine live with alpha access closed; Vercel review preserved | Frontend alpha configuration, callback/email, monitoring/retention and authenticated acceptance |
+| Hosting | Render and protected Vercel frontend connected; Ryan email callback passed; public review preserved | Email deliverability, monitoring/retention, access grants and financial workflow acceptance |
 
 Public aliases remain unchanged: [review](https://inffyn-preview.vercel.app/review), [synthetic company](https://inffyn-preview.vercel.app/demo/monthly), [methodology](https://inffyn-preview.vercel.app/methodology). They are not private-alpha acceptance evidence.
 
@@ -156,20 +162,24 @@ Default is offline and reports pending. The alpha manifest extends the existing 
 - [x] Local admission, route denial and immutable-context tests.
 - [x] Native synthetic encrypted dump/restore rehearsal.
 - [x] Offline setup rejects wrong projects, unbound poolers and unsafe directories.
-- [ ] Actual pre-migration backup, private Drive retrieval and hosted-schema restore.
-- [ ] Storage bytes and recovery-key coverage resolved.
+- [x] Actual pre-migration backup, private Drive retrieval and native restore of the hosted schema.
+- [x] Seven API-visible Storage object bytes retrieved and restored with matching hashes.
+- [ ] Independent recovery-key copy; hosted Storage-service restoration remains separate.
 - [x] Full live catalog through the authorized native PostgreSQL connection.
-- [ ] Seven prepared migrations, private database configuration and post-checks.
-- [ ] Named users sign in; excluded users cannot perform alpha operations.
+- [x] Seven prepared migrations, private database configuration and post-checks.
+- [x] Ryan received a real sign-in email, completed the callback and retained sign-in on reload.
+- [ ] Stephen sign-in and excluded-user authenticated operations.
+- [x] Protected frontend connects to Render; production settings and public review aliases preserved.
 - [ ] Two companies isolated via app, direct engine and direct database.
 - [ ] CSV, assignment, saved draft, fresh-session return and report.
 - [ ] Duplicates, stale edits, invalid allocations and expired evidence rejected.
 - [ ] Dashboard/export/report agreement and immutable correction history.
 - [ ] Provider/OAuth/billing/legacy routes inaccessible on hosted alpha.
-- [ ] Auth email, retention, protected deployment access and scrubbed monitoring.
+- [ ] Improve email deliverability: Ryan's received sign-in message landed in Spam.
+- [ ] Retention sweeps, protected access for Stephen and scrubbed monitoring.
 - [ ] Stephen's own complimentary workspace and final alpha URL ready.
 
-Handoff: final alpha URL and workspace (pending), separate [demo](https://inffyn-preview.vercel.app/demo/monthly), [CSV guide](https://inffyn-preview.vercel.app/examples/CSV-IMPORT-GUIDE.txt), [examples](https://inffyn-preview.vercel.app/examples/InfFyn-normalized-CSV-examples.zip), [executive report](https://inffyn-preview.vercel.app/examples/InfFyn-Northstar-August-2026.pdf) and this checklist. Real uploads retain their evidence labels and never inherit the synthetic demo label.
+Handoff: [connected private-alpha sign-in](https://inffyn-preview-git-codex-p-8fa386-ryanmhirsh-gmailcoms-projects.vercel.app/login) (financial operations still awaiting activation), separate [demo](https://inffyn-preview.vercel.app/demo/monthly), [CSV guide](https://inffyn-preview.vercel.app/examples/CSV-IMPORT-GUIDE.txt), [examples](https://inffyn-preview.vercel.app/examples/InfFyn-normalized-CSV-examples.zip), [executive report](https://inffyn-preview.vercel.app/examples/InfFyn-Northstar-August-2026.pdf) and this checklist. Real uploads retain their evidence labels and never inherit the synthetic demo label.
 
 Engineering proves operation; Stephen validates commercial usefulness. A local pass or Ready deployment does not establish hosted acceptance or public production readiness.
 
@@ -185,4 +195,4 @@ While database alpha mode is enabled, both direct provisioning RPCs (`create_ten
 
 The later **`20260912190000_reviewed_csv_imports.sql`** is the seventh activation migration. Apply and inspect all seven in the planner's order before enabling the database flag. Add hosted probes for excluded direct provisioning calls, excluded/allowed legacy Storage mutations, admitted-member-only legacy reads, unconfirmed identities, empty/missing configuration and repeated workspace provisioning. Verify the service role can read/write private configuration while browser roles cannot. Retain an explicit disabled row if the later standard release turns alpha mode off; do not delete the configuration singleton or reverse historical migrations.
 
-The read-only preflight now includes `alpha_catalog`, covering private schema grants, table/column grants, RLS, columns and constraint fingerprints without reading identity rows. Public helper definitions/grants are covered by the existing function inventory. Encrypted backup and restore inventory includes the private schema and its row counts; the full encrypted dump retains its actual records. Live DB configuration and these hosted checks remain pending.
+The read-only preflight now includes `alpha_catalog`, covering private schema grants, table/column grants, RLS, columns and constraint fingerprints without reading identity rows. Public helper definitions/grants are covered by the existing function inventory. Encrypted backup and restore inventory includes the private schema and its row counts; the full encrypted dump retains its actual records. Live DB configuration and catalog checks completed September 12; the remaining authenticated company/Storage checks are listed above.

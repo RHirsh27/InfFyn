@@ -59,3 +59,17 @@ Local verification: `engine/tests/test_render_config.py`, `engine/tests/test_ren
 - Twelve unauthenticated probes passed: workloads, reports, reviewed imports and tenant verification returned the expected closed-configuration response; OpenAI/Anthropic connection writes, Stripe start/callback, checkout, anonymous preview, legacy ingestion and OpenAPI returned HTTP 403. All denial responses used `Cache-Control: no-store`.
 
 Those initial probes were backend deployment and route-boundary checks without database changes. Later on September 12, the seven reviewed migrations were applied and named-account database admission was configured after successful recovery and migration rehearsal. Render's `INFFYN_ALPHA_USER_IDS` now contains the two actual Auth UUIDs. `MONTHLY_ENABLED=false` and `AUDIT_RETENTION_APPROVED=false` keep intake closed while frontend configuration, independent key storage, monitoring/retention and authenticated company acceptance remain open. Environment changes take effect on the next deployment. Provider and billing flags remain false; public Vercel aliases are unchanged.
+
+
+## Connected frontend verification, September 12 evening
+
+Both services deployed source `5e829b8e105eeffe06667388ec64a3df60def061` successfully:
+
+- Render deployment `dep-daivtp3m8hqs73ef8d40`: live with the actual alpha UUID configuration and dedicated proxy credential.
+- Vercel deployment `dpl_6YW99AWAs3Z1Hu4V6ZSth3hnV7eZ`: Ready, Preview (`target=null`), built from GitHub. Protected branch URL: https://inffyn-preview-git-codex-p-8fa386-ryanmhirsh-gmailcoms-projects.vercel.app/login.
+- All new frontend variables are scoped to `codex/private-alpha-reviewed-imports` in Preview. No production environment value, main-branch setting or public review alias was changed. The prior Vercel-engine bypass header is explicitly empty for this branch.
+- Ryan's real email login completed into the company workspace and survived reload. SMTP delivered from `noreply@inffyn.xyz`, but Gmail put the message in Spam. Stephen's email verification and sign-in remain untested.
+- Six live backend probes: health/status 200; unsigned workload read and monthly preparation 401; provider and legacy intake paths 403. Status continues to report monthly, audit and billing availability false.
+- The signed-in company screen displays the retention/activation gate. No company upload, draft save, report or two-company acceptance was claimed. A separate direct API-page browser probe was blocked by the browser client and is not recorded as a pass.
+
+Before accepting financial data: complete the independent recovery-key copy, operator-run retention and scrubbed monitoring verification; issue/redeem complimentary access; run the designated synthetic two-company acceptance workflow. The protected branch is a connected authentication preview while these gates remain closed.
