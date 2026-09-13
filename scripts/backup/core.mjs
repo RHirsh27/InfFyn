@@ -30,7 +30,20 @@ export function validateRestore(o) {
   if (!/^inffyn_restore_operator_[a-z0-9_]{4,32}$/.test(o.user || '')) fail('restore_requires_dedicated_cluster_operator');
   if (!/^\d{1,5}$/.test(String(o.port)) || Number(o.port) < 1024 || Number(o.port) > 65535) fail('invalid_restore_port');
   if (o.isolatedLocal !== true) fail('isolated_local_attestation_required');
+  if (o.sourceBootstrapRole !== undefined && o.sourceBootstrapRole !== 'supabase_admin') fail('unsupported_source_bootstrap_role');
+  if (o.sourceDatabaseOwner !== undefined && (o.sourceDatabaseOwner !== 'postgres' || o.sourceBootstrapRole !== 'supabase_admin')) fail('unsupported_source_database_owner');
   return o;
+}
+
+// PostgreSQL 16+ retains the original bootstrap grantor in role memberships.
+// A distinct bootstrap name cannot reproduce those grants. In this opt-in mode
+// the isolated cluster is initialized with the verified source bootstrap name;
+// retain every ALTER/GRANT and omit only its already-satisfied CREATE statement.
+export function preparedBootstrapRoles(sql, role) {
+  if (role !== 'supabase_admin') fail('unsupported_source_bootstrap_role');
+  const declaration = /^CREATE ROLE supabase_admin;\r?$/gm;
+  if ([...sql.matchAll(declaration)].length !== 1 || !/^ALTER ROLE supabase_admin WITH /m.test(sql)) fail('source_bootstrap_definition_not_unique');
+  return sql.replace(declaration, '-- Source bootstrap role already exists at OID 10.');
 }
 
 export function childEnvironment(o, source = true, parent = process.env) {
@@ -225,12 +238,25 @@ export async function restore(o, { run = runPipeline } = {}) {
   const check = `BEGIN READ ONLY; SELECT count(*) FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname NOT IN ('pg_catalog','information_schema') AND n.nspname NOT LIKE 'pg_%' AND c.relkind IN ('r','p','v','m','f'); ROLLBACK;`;
   if ((await run([sqlCommand(o)], { env, input: check })).toString('utf8').trim() !== '0') fail('restore_target_must_be_empty');
   // This changes only the separately prepared disposable cluster. Never creates/drops a database.
-  await run([dec(ARCHIVES[1]), { command: executable(o, 'psql'), args: ['-X','-q','-w','-v','ON_ERROR_STOP=1','--single-transaction','--file=-'] }], { env, maxBytes: 1_000_000 });
+  const rolesCommand = { command: executable(o, 'psql'), args: ['-X','-q','-w','-v','ON_ERROR_STOP=1','--single-transaction','--file=-'] };
+  if (o.sourceBootstrapRole) {
+    const bootstrapCheck = `BEGIN READ ONLY; SELECT ((SELECT rolname FROM pg_roles WHERE oid=10)='supabase_admin' AND (SELECT count(*) FROM pg_roles WHERE rolname !~ '^pg_')=2 AND (SELECT rolsuper FROM pg_roles WHERE rolname=current_user) AND current_user='${o.user}')::text; ROLLBACK;`;
+    if ((await run([sqlCommand(o)], {env,input:bootstrapCheck})).toString('utf8').trim() !== 'true') fail('isolated_source_bootstrap_required');
+    const roles = (await run([dec(ARCHIVES[1])], {env,maxBytes:1_000_000})).toString('utf8');
+    await run([rolesCommand], {env,input:preparedBootstrapRoles(roles,o.sourceBootstrapRole),maxBytes:1_000_000});
+  } else {
+    await run([dec(ARCHIVES[1]), rolesCommand], { env, maxBytes: 1_000_000 });
+  }
+  // A dump restored without --create keeps the target database owner. Match the
+  // verified source owner so pg_database_owner has the same effective access.
+  if (o.sourceDatabaseOwner) await run([sqlCommand(o)], {env,input:`ALTER DATABASE "${o.database}" OWNER TO postgres;`});
   await run([dec(ARCHIVES[0]), { command: executable(o, 'pg_restore'), args: ['--no-password','--exit-on-error','--single-transaction','--dbname',o.database] }], { env, maxBytes: 1_000_000 });
   const restored = await inventory(o, env, run);
   if (JSON.stringify(restored) !== JSON.stringify(manifest.inventory)) fail('restore_inventory_mismatch');
   const result = { project_ref: PROJECT_REF, backup_id: receipt.backup_id, status: 'DATABASE_RESTORE_VERIFIED_STORAGE_AND_HOSTED_ACCEPTANCE_PENDING',
     verified_at: new Date().toISOString(), restored_database: o.database, database_restore_verified: true,
+    source_bootstrap_role: o.sourceBootstrapRole || 'not_explicitly_prepared',
+    source_database_owner: o.sourceDatabaseOwner || 'not_explicitly_prepared',
     storage_status: manifest.storage_object_bytes, scope: 'schemas_functions_triggers_constraints_indexes_owners_grants_rls_policies_and_row_counts',
     remaining: ['storage_bytes_or_confirmed_empty_object_store','secret_manager_key_recovery','hosted_identity_and_report_acceptance'], release_ready: false };
   await saveJson(resolve(o.bundle, 'restore-verification.json'), result);

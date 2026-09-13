@@ -34,9 +34,9 @@ An empty UUID allowlist deliberately leaves company operations unavailable while
 
 ## Recovery without local Docker
 
-The encrypted native database capture already exists outside the repository. Drive retrieval, Storage bytes, independent key recovery and a faithful restoration remain separate requirements. No local Docker command is required by this Render deployment.
+Encrypted Drive retrieval, native PostgreSQL 17/Vault restoration and seven Storage-object byte restorations passed on September 12 evening. Independent key storage and hosted application acceptance remain separate requirements. See [the recovery procedure](PRIVATE-ALPHA-BACKUP.md). No Docker command is required.
 
-The source has `supabase_vault` 0.3.1. Render's managed Postgres supported-extension list does not list this extension, so a new Render Postgres database is not an established substitute for the full restore rehearsal. Do not omit Vault, ownership, grants or identity records merely to make restoration succeed. A compatible isolated native PostgreSQL environment still needs verification. No backup or recovery identity has been uploaded to Render by this deployment preparation.
+The source has `supabase_vault` 0.3.1. Render's managed Postgres supported-extension list does not list this extension, so a new Render Postgres database is not an established substitute for the full restore rehearsal. Do not omit Vault, ownership, grants or identity records merely to make restoration succeed. The compatible isolated native PostgreSQL environment has now passed the database restore check. No backup or recovery identity has been uploaded to Render by this deployment preparation.
 
 ## Sources and evidence
 
@@ -58,4 +58,4 @@ Local verification: `engine/tests/test_render_config.py`, `engine/tests/test_ren
 - `/health` returned HTTP 200 with `release_stage=private_alpha`. `/v2/status` returned HTTP 200 with audit, monthly and billing availability false and no claimed retention approval.
 - Twelve unauthenticated probes passed: workloads, reports, reviewed imports and tenant verification returned the expected closed-configuration response; OpenAI/Anthropic connection writes, Stripe start/callback, checkout, anonymous preview, legacy ingestion and OpenAPI returned HTTP 403. All denial responses used `Cache-Control: no-store`.
 
-These are backend deployment and route-boundary checks. No customer record, migration, identity, provider connection or billing state was changed. The Vercel frontend still targets its existing review engine. Drive retrieval, Storage recovery, a compatible restore, migrations, identities, frontend configuration, monitoring/retention and authenticated company acceptance remain open before real-data use.
+Those initial probes were backend deployment and route-boundary checks without database changes. Later on September 12, the seven reviewed migrations were applied and named-account database admission was configured after successful recovery and migration rehearsal. Render's `INFFYN_ALPHA_USER_IDS` now contains the two actual Auth UUIDs. `MONTHLY_ENABLED=false` and `AUDIT_RETENTION_APPROVED=false` keep intake closed while frontend configuration, independent key storage, monitoring/retention and authenticated company acceptance remain open. Environment changes take effect on the next deployment. Provider and billing flags remain false; public Vercel aliases are unchanged.

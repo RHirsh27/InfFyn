@@ -5,7 +5,7 @@ import { capture, plan, restore, retentionCandidates, verifyDownload } from './c
 const args = process.argv.slice(2);
 const command = args[0]?.startsWith('--') ? 'plan' : args.shift() || 'plan';
 const booleans = new Set(['execute','quiesced','isolated-local','private-directory-confirmed','downloaded-from-drive']);
-const values = new Set(['project-ref','host','port','user','database','pgpass-file','ssl-root-cert','recipients-file','identity-file','output','receipt','bundle','drive-folder-id','age','pg_dump','pg_dumpall','pg_restore','psql','receipts']);
+const values = new Set(['project-ref','host','port','user','database','pgpass-file','ssl-root-cert','recipients-file','identity-file','output','receipt','bundle','drive-folder-id','age','pg_dump','pg_dumpall','pg_restore','psql','receipts','source-bootstrap-role','source-database-owner']);
 const options = {};
 try {
   if (args.includes('--help') || command === 'help') {
