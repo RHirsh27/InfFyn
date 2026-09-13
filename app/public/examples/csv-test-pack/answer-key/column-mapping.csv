@@ -1,0 +1,121 @@
+scenario,file,target_field,source_header,delimiter,header_record,date_format,number_format,amount_unit
+01-clean-control,research-costs.csv,cost_id,cost_id,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,research-costs.csv,date,date,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,research-costs.csv,category,category,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,research-costs.csv,amount,amount,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,research-costs.csv,currency,currency,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,research-costs.csv,source,source,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,research-costs.csv,customer_id,customer_id,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,research-costs.csv,feature,feature,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,research-costs.csv,workflow,workflow,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,research-costs.csv,team,team,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,research-costs.csv,run_id,run_id,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,support-costs.csv,cost_id,cost_id,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,support-costs.csv,date,date,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,support-costs.csv,category,category,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,support-costs.csv,amount,amount,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,support-costs.csv,currency,currency,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,support-costs.csv,source,source,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,support-costs.csv,customer_id,customer_id,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,support-costs.csv,feature,feature,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,support-costs.csv,workflow,workflow,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,support-costs.csv,team,team,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,support-costs.csv,run_id,run_id,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,research-collections.csv,revenue_id,revenue_id,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,research-collections.csv,date,date,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,research-collections.csv,amount,amount,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,research-collections.csv,currency,currency,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,research-collections.csv,customer_id,customer_id,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,research-collections.csv,feature,feature,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,research-collections.csv,method,method,",",1,%Y-%m-%d,plain,dollars
+01-clean-control,research-collections.csv,allocation_note,allocation_note,",",1,%Y-%m-%d,plain,dollars
+02-decent,research-costs.csv,cost_id,Entry reference,;,1,%m/%d/%Y,us,cents
+02-decent,research-costs.csv,date,Service day,;,1,%m/%d/%Y,us,cents
+02-decent,research-costs.csv,category,Charge type,;,1,%m/%d/%Y,us,cents
+02-decent,research-costs.csv,amount,Net amount,;,1,%m/%d/%Y,us,cents
+02-decent,research-costs.csv,currency,ISO currency,;,1,%m/%d/%Y,us,cents
+02-decent,research-costs.csv,source,Evidence reference,;,1,%m/%d/%Y,us,cents
+02-decent,research-costs.csv,customer_id,Account reference,;,1,%m/%d/%Y,us,cents
+02-decent,research-costs.csv,feature,Business feature,;,1,%m/%d/%Y,us,cents
+02-decent,research-costs.csv,workflow,Activity,;,1,%m/%d/%Y,us,cents
+02-decent,research-costs.csv,team,Responsible team,;,1,%m/%d/%Y,us,cents
+02-decent,research-costs.csv,run_id,Batch reference,;,1,%m/%d/%Y,us,cents
+02-decent,support-costs.csv,cost_id,Entry reference,;,1,%m/%d/%Y,us,cents
+02-decent,support-costs.csv,date,Service day,;,1,%m/%d/%Y,us,cents
+02-decent,support-costs.csv,category,Charge type,;,1,%m/%d/%Y,us,cents
+02-decent,support-costs.csv,amount,Net amount,;,1,%m/%d/%Y,us,cents
+02-decent,support-costs.csv,currency,ISO currency,;,1,%m/%d/%Y,us,cents
+02-decent,support-costs.csv,source,Evidence reference,;,1,%m/%d/%Y,us,cents
+02-decent,support-costs.csv,customer_id,Account reference,;,1,%m/%d/%Y,us,cents
+02-decent,support-costs.csv,feature,Business feature,;,1,%m/%d/%Y,us,cents
+02-decent,support-costs.csv,workflow,Activity,;,1,%m/%d/%Y,us,cents
+02-decent,support-costs.csv,team,Responsible team,;,1,%m/%d/%Y,us,cents
+02-decent,support-costs.csv,run_id,Batch reference,;,1,%m/%d/%Y,us,cents
+02-decent,research-collections.csv,revenue_id,Collection reference,;,1,%m/%d/%Y,us,cents
+02-decent,research-collections.csv,date,Service day,;,1,%m/%d/%Y,us,cents
+02-decent,research-collections.csv,amount,Net amount,;,1,%m/%d/%Y,us,cents
+02-decent,research-collections.csv,currency,ISO currency,;,1,%m/%d/%Y,us,cents
+02-decent,research-collections.csv,customer_id,Account reference,;,1,%m/%d/%Y,us,cents
+02-decent,research-collections.csv,feature,Business feature,;,1,%m/%d/%Y,us,cents
+02-decent,research-collections.csv,method,Attribution method,;,1,%m/%d/%Y,us,cents
+02-decent,research-collections.csv,allocation_note,Allocation explanation,;,1,%m/%d/%Y,us,cents
+03-messy,research-costs.csv,cost_id,Entry reference,;,3,%d/%m/%Y,eu,dollars
+03-messy,research-costs.csv,date,Service day,;,3,%d/%m/%Y,eu,dollars
+03-messy,research-costs.csv,category,Charge type,;,3,%d/%m/%Y,eu,dollars
+03-messy,research-costs.csv,amount,Net amount,;,3,%d/%m/%Y,eu,dollars
+03-messy,research-costs.csv,currency,ISO currency,;,3,%d/%m/%Y,eu,dollars
+03-messy,research-costs.csv,source,Evidence reference,;,3,%d/%m/%Y,eu,dollars
+03-messy,research-costs.csv,customer_id,Account reference,;,3,%d/%m/%Y,eu,dollars
+03-messy,research-costs.csv,feature,Business feature,;,3,%d/%m/%Y,eu,dollars
+03-messy,research-costs.csv,workflow,Activity,;,3,%d/%m/%Y,eu,dollars
+03-messy,research-costs.csv,team,Responsible team,;,3,%d/%m/%Y,eu,dollars
+03-messy,research-costs.csv,run_id,Batch reference,;,3,%d/%m/%Y,eu,dollars
+03-messy,support-costs.csv,cost_id,Entry reference,;,3,%d/%m/%Y,eu,dollars
+03-messy,support-costs.csv,date,Service day,;,3,%d/%m/%Y,eu,dollars
+03-messy,support-costs.csv,category,Charge type,;,3,%d/%m/%Y,eu,dollars
+03-messy,support-costs.csv,amount,Net amount,;,3,%d/%m/%Y,eu,dollars
+03-messy,support-costs.csv,currency,ISO currency,;,3,%d/%m/%Y,eu,dollars
+03-messy,support-costs.csv,source,Evidence reference,;,3,%d/%m/%Y,eu,dollars
+03-messy,support-costs.csv,customer_id,Account reference,;,3,%d/%m/%Y,eu,dollars
+03-messy,support-costs.csv,feature,Business feature,;,3,%d/%m/%Y,eu,dollars
+03-messy,support-costs.csv,workflow,Activity,;,3,%d/%m/%Y,eu,dollars
+03-messy,support-costs.csv,team,Responsible team,;,3,%d/%m/%Y,eu,dollars
+03-messy,support-costs.csv,run_id,Batch reference,;,3,%d/%m/%Y,eu,dollars
+03-messy,research-collections.csv,revenue_id,Collection reference,;,3,%d/%m/%Y,eu,dollars
+03-messy,research-collections.csv,date,Service day,;,3,%d/%m/%Y,eu,dollars
+03-messy,research-collections.csv,amount,Net amount,;,3,%d/%m/%Y,eu,dollars
+03-messy,research-collections.csv,currency,ISO currency,;,3,%d/%m/%Y,eu,dollars
+03-messy,research-collections.csv,customer_id,Account reference,;,3,%d/%m/%Y,eu,dollars
+03-messy,research-collections.csv,feature,Business feature,;,3,%d/%m/%Y,eu,dollars
+03-messy,research-collections.csv,method,Attribution method,;,3,%d/%m/%Y,eu,dollars
+03-messy,research-collections.csv,allocation_note,Allocation explanation,;,3,%d/%m/%Y,eu,dollars
+04-very-messy,research-costs.csv,cost_id,Entry reference,;,3,%m/%d/%Y,us,dollars
+04-very-messy,research-costs.csv,date,Service day,;,3,%m/%d/%Y,us,dollars
+04-very-messy,research-costs.csv,category,Charge type,;,3,%m/%d/%Y,us,dollars
+04-very-messy,research-costs.csv,amount,Net amount,;,3,%m/%d/%Y,us,dollars
+04-very-messy,research-costs.csv,currency,ISO currency,;,3,%m/%d/%Y,us,dollars
+04-very-messy,research-costs.csv,source,Evidence reference,;,3,%m/%d/%Y,us,dollars
+04-very-messy,research-costs.csv,customer_id,Account reference,;,3,%m/%d/%Y,us,dollars
+04-very-messy,research-costs.csv,feature,Business feature,;,3,%m/%d/%Y,us,dollars
+04-very-messy,research-costs.csv,workflow,Activity,;,3,%m/%d/%Y,us,dollars
+04-very-messy,research-costs.csv,team,Responsible team,;,3,%m/%d/%Y,us,dollars
+04-very-messy,research-costs.csv,run_id,Batch reference,;,3,%m/%d/%Y,us,dollars
+04-very-messy,support-costs.csv,cost_id,Entry reference,;,3,%m/%d/%Y,us,dollars
+04-very-messy,support-costs.csv,date,Service day,;,3,%m/%d/%Y,us,dollars
+04-very-messy,support-costs.csv,category,Charge type,;,3,%m/%d/%Y,us,dollars
+04-very-messy,support-costs.csv,amount,Net amount,;,3,%m/%d/%Y,us,dollars
+04-very-messy,support-costs.csv,currency,ISO currency,;,3,%m/%d/%Y,us,dollars
+04-very-messy,support-costs.csv,source,Evidence reference,;,3,%m/%d/%Y,us,dollars
+04-very-messy,support-costs.csv,customer_id,Account reference,;,3,%m/%d/%Y,us,dollars
+04-very-messy,support-costs.csv,feature,Business feature,;,3,%m/%d/%Y,us,dollars
+04-very-messy,support-costs.csv,workflow,Activity,;,3,%m/%d/%Y,us,dollars
+04-very-messy,support-costs.csv,team,Responsible team,;,3,%m/%d/%Y,us,dollars
+04-very-messy,support-costs.csv,run_id,Batch reference,;,3,%m/%d/%Y,us,dollars
+04-very-messy,research-collections.csv,revenue_id,Collection reference,;,3,%m/%d/%Y,us,dollars
+04-very-messy,research-collections.csv,date,Service day,;,3,%m/%d/%Y,us,dollars
+04-very-messy,research-collections.csv,amount,Net amount,;,3,%m/%d/%Y,us,dollars
+04-very-messy,research-collections.csv,currency,ISO currency,;,3,%m/%d/%Y,us,dollars
+04-very-messy,research-collections.csv,customer_id,Account reference,;,3,%m/%d/%Y,us,dollars
+04-very-messy,research-collections.csv,feature,Business feature,;,3,%m/%d/%Y,us,dollars
+04-very-messy,research-collections.csv,method,Attribution method,;,3,%m/%d/%Y,us,dollars
+04-very-messy,research-collections.csv,allocation_note,Allocation explanation,;,3,%m/%d/%Y,us,dollars

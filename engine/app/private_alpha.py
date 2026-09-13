@@ -79,7 +79,7 @@ def route_access(method, path):
         or re.fullmatch(rf"/demo/company/reports/{UUID_PATH}/evidence", path)
     ):
         return "public"
-    if method == "POST" and path == "/v2/maintenance":
+    if method == "POST" and path in ("/v2/maintenance", "/v2/maintenance/check"):
         return "maintenance"  # Endpoint separately checks its dedicated secret.
     patterns = {
         "GET": (

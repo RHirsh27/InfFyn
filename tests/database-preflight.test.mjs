@@ -51,8 +51,9 @@ const target = () => ({
   sslRootCert: absolute("preflight-ca.crt"),
 });
 
-test("offline manifest replays all seventeen migrations and never claims hosted readiness", () => {
-  assert.equal(manifest.migration_count, 17);
+test("offline manifest includes reviewed CSV imports and never claims hosted readiness", () => {
+  assert.equal(manifest.migration_count, 18);
+  assert.ok(manifest.migrations.some((m) => m.version === "20260912190000"));
   assert.equal(
     manifest.expected.tables.filter(
       (t) =>

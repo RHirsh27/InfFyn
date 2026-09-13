@@ -1,0 +1,26 @@
+{
+  "research": {
+    "acceptance_definition": "Human reviewer accepts the batch against the synthetic quality checklist",
+    "cost_scope": "Synthetic inference and human review, including failed work and signed credits",
+    "id": "ab1e8ab4-1a7f-55da-bb33-dc6affd5c7d1",
+    "kind": "product",
+    "mappings": {},
+    "name": "SYNTHETIC Research test workload",
+    "outcome_unit": "accepted research brief",
+    "purpose": "CSV acceptance exercise; invented business activity",
+    "responsible_team": "Research delivery",
+    "unallocated": false
+  },
+  "support": {
+    "acceptance_definition": "Human reviewer accepts the batch against the synthetic quality checklist",
+    "cost_scope": "Synthetic inference and human review, including failed work and signed credits",
+    "id": "3ef04240-c234-5e1b-ad63-374a22c7c3fd",
+    "kind": "internal",
+    "mappings": {},
+    "name": "SYNTHETIC Support test workload",
+    "outcome_unit": "accepted support resolution",
+    "purpose": "CSV acceptance exercise; invented business activity",
+    "responsible_team": "Support operations",
+    "unallocated": false
+  }
+}

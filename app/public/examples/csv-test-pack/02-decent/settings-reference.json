@@ -1,0 +1,65 @@
+{
+  "month": "2026-08",
+  "note": "Reference only: create workload IDs in your own designated test company. Never submit these fixture UUIDs as another company's IDs.",
+  "synthetic": true,
+  "workloads": [
+    {
+      "audit": {
+        "cost_basis": "expenses",
+        "cost_scope_complete": true,
+        "currency": "USD",
+        "feature_allocation": "none",
+        "kind": "product",
+        "outcome_cohort_complete": true,
+        "period_end": "2026-08-31",
+        "period_start": "2026-08-01",
+        "revenue_basis": "collections",
+        "revenue_reviewed": true,
+        "revenue_source": "reviewed_file",
+        "schema_version": "2.0",
+        "title": "SYNTHETIC CSV comparison - research"
+      },
+      "review": {
+        "control_cost": "32000",
+        "control_revenue": "48000",
+        "control_source": "SYNTHETIC control ledger",
+        "expected_runs": 50,
+        "method_reviewed": true,
+        "outcome_method_reviewed": true,
+        "revenue_control_source": "SYNTHETIC collections control",
+        "revenue_scope_complete": true,
+        "source_note": "Authored synthetic fixture; independent control is also synthetic, not provider verification"
+      },
+      "slug": "research"
+    },
+    {
+      "audit": {
+        "cost_basis": "expenses",
+        "cost_scope_complete": true,
+        "currency": "USD",
+        "feature_allocation": "none",
+        "kind": "internal",
+        "outcome_cohort_complete": true,
+        "period_end": "2026-08-31",
+        "period_start": "2026-08-01",
+        "revenue_basis": "unavailable",
+        "revenue_reviewed": false,
+        "revenue_source": "none",
+        "schema_version": "2.0",
+        "title": "SYNTHETIC CSV comparison - support"
+      },
+      "review": {
+        "control_cost": "11200",
+        "control_revenue": null,
+        "control_source": "SYNTHETIC control ledger",
+        "expected_runs": 50,
+        "method_reviewed": true,
+        "outcome_method_reviewed": true,
+        "revenue_control_source": "",
+        "revenue_scope_complete": false,
+        "source_note": "Authored synthetic fixture; independent control is also synthetic, not provider verification"
+      },
+      "slug": "support"
+    }
+  ]
+}

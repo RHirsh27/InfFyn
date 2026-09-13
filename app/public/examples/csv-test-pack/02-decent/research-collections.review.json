@@ -1,0 +1,25 @@
+{
+  "decisions": [],
+  "kind": "revenue_csv",
+  "month": "2026-08",
+  "note": "Reference for manual interpretation; JSON is not a supported UI upload. Row numbers are CSV record numbers, including the selected header/preamble.",
+  "rules": {
+    "amount_unit": "cents",
+    "constants": {},
+    "date_format": "%m/%d/%Y",
+    "delimiter": ";",
+    "header_row": 1,
+    "mapping": {
+      "allocation_note": "Allocation explanation",
+      "amount": "Net amount",
+      "currency": "ISO currency",
+      "customer_id": "Account reference",
+      "date": "Service day",
+      "feature": "Business feature",
+      "method": "Attribution method",
+      "revenue_id": "Collection reference"
+    },
+    "number_format": "us"
+  },
+  "synthetic": true
+}

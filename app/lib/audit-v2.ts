@@ -142,6 +142,7 @@ export type BillingState = {
   is_owner: boolean;
   has_customer: boolean;
   available: boolean;
+  monthly_available?: boolean;
   billing_available: boolean;
   monthly_price_usd: number | null;
   current_period_end: string | null;

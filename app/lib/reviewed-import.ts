@@ -35,6 +35,7 @@ export type ImportSource = {
   kind: "usage_csv" | "costs_csv" | "revenue_csv";
   account: string;
   month: string;
+  expires_at?: string;
 };
 export type ImportProfile = {
   headers: string[];
@@ -56,6 +57,7 @@ export type ImportReview = {
   rules: ImportRules;
   decisions: ImportDecision[];
   profile: ImportProfile;
+  confirmation?: { id: string; created_at: string } | null;
 };
 export type ImportRow = {
   row: number;

@@ -14,8 +14,8 @@ import {
  * misconfigured Supabase env degrades to "serve the page without auth-aware
  * features", never a 5xx.
  *
- * PROTECTED routes must fail CLOSED: missing env or no session => redirect to
- * /login, never fall through to serving protected content.
+ * PROTECTED routes must fail CLOSED: missing env or no session => 401 JSON for
+ * APIs, login redirect for pages; never serve protected content.
  *
  * Anything not explicitly public is treated as protected (Q3, safe default).
  */
@@ -45,11 +45,19 @@ const PUBLIC_PATHS = new Set([
 // arbitrary PDF/ZIP files or other paths under /examples.
 const PUBLIC_EXAMPLES = new Set([
   ...["2026-07", "2026-08"].flatMap((month) =>
-    ["messy-costs.csv", "canonical-costs.csv", "outcomes.csv", "revenue.csv", "report.json"].map((name) => `/examples/reviewed-import/${month}-${name}`),
+    [
+      "messy-costs.csv",
+      "canonical-costs.csv",
+      "outcomes.csv",
+      "revenue.csv",
+      "report.json",
+    ].map((name) => `/examples/reviewed-import/${month}-${name}`),
   ),
   "/examples/InfFyn-Northstar-August-2026.pdf",
   "/examples/InfFyn-normalized-CSV-examples.zip",
   "/examples/CSV-IMPORT-GUIDE.txt",
+  "/examples/InfFyn-CSV-test-pack.zip",
+  "/examples/csv-test-pack/README.md",
 ]);
 
 function isPublicRoute(pathname: string): boolean {
@@ -75,7 +83,13 @@ function isPublicRoute(pathname: string): boolean {
   return false;
 }
 
-function redirectToLogin(request: NextRequest): NextResponse {
+function loginRequiredResponse(request: NextRequest): NextResponse {
+  if (request.nextUrl.pathname.startsWith("/api/")) {
+    return NextResponse.json(
+      { detail: "Sign in to continue." },
+      { status: 401, headers: { "Cache-Control": "no-store" } },
+    );
+  }
   const loginUrl = request.nextUrl.clone();
   if (
     process.env.INFFYN_PREVIEW_MODE === "true" &&
@@ -175,7 +189,7 @@ export async function proxy(request: NextRequest) {
       return NextResponse.next({ request });
     }
     // Fail CLOSED — cannot establish a session, so refuse (Q3).
-    return redirectToLogin(request);
+    return loginRequiredResponse(request);
   }
 
   // ── Public route with env present: best-effort session refresh ────────────
@@ -199,7 +213,7 @@ export async function proxy(request: NextRequest) {
   // ── Protected route with env present: strict, fail-closed ─────────────────
   const { response, user } = await resolveSession(request, env);
   if (!user) {
-    return redirectToLogin(request);
+    return loginRequiredResponse(request);
   }
   if (!alphaUserAllowed(alpha, user)) {
     if (pathname.startsWith("/api/"))

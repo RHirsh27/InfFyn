@@ -100,6 +100,7 @@ def register(router, access, paid, definitions, draft_view):
             "source": {k: v for k, v in source.items() if k != "original"},
             "rules": revision["rules"],
             "decisions": revision["decisions"],
+            "confirmation": s.current_confirmation(source, p["canonical_hash"]),
             "profile": {
                 k: v for k, v in p.items() if k not in {"rows", "canonical_csv"}
             },
@@ -137,10 +138,19 @@ def register(router, access, paid, definitions, draft_view):
 
     @router.get("/import-reviews/{identity}/rows")
     def get_rows(
-        identity: UUID, cursor: int = Query(default=0, ge=0), triple=Depends(access)
+        identity: UUID,
+        cursor: int = Query(default=0, ge=0),
+        expected_revision: int | None = Query(default=None, ge=1),
+        triple=Depends(access),
     ):
         s = store(triple)
-        rows = s.revision(s.source(identity))["profile"]["rows"]
+        source = s.source(identity)
+        if expected_revision is not None and source["revision"] != expected_revision:
+            raise HTTPException(
+                409,
+                "The saved interpretation changed. Reload the saved review before inspecting more rows.",
+            )
+        rows = s.revision(source)["profile"]["rows"]
         return {
             "rows": rows[cursor : cursor + 50],
             "next_cursor": cursor + 50 if cursor + 50 < len(rows) else None,

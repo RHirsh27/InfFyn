@@ -1,16 +1,49 @@
 services:
   - type: web
-    name: inffyn-engine
+    name: inffyn-engine-alpha
     runtime: python
+    plan: free
+    region: ohio
+    repo: https://github.com/RHirsh27/InfFyn
+    branch: codex/private-alpha-reviewed-imports
+    autoDeployTrigger: checksPass
     rootDir: engine
     buildCommand: pip install -r requirements.txt -c constraints-v1.txt
-    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    startCommand: uvicorn app.render_entry:app --host 0.0.0.0 --port $PORT --no-access-log
     healthCheckPath: /health
     envVars:
-      - key: SUPABASE_URL
-        sync: false
-      - key: SUPABASE_SERVICE_ROLE_KEY
-        sync: false
-      - key: SENTRY_DSN
-        sync: false
-      # SUPABASE_JWT_SECRET optional — omit when using asymmetric JWKS (ES256)
+      - key: PYTHON_VERSION
+        value: 3.12.12
+      - key: INFFYN_RELEASE_STAGE
+        value: private_alpha
+      - key: INFFYN_PRIVATE_ALPHA
+        value: "true"
+      - key: INFFYN_PREVIEW_MODE
+        value: "false"
+      - key: INFFYN_SECRETS_FILE
+        value: /etc/secrets/inffyn-engine.env
+      # Deliberately closed until recovery, migrations and identity checks pass.
+      - key: INFFYN_ALPHA_USER_IDS
+        value: ""
+      - key: AUDIT_V2_ENABLED
+        value: "true"
+      - key: MONTHLY_ENABLED
+        value: "false"
+      - key: AUDIT_RETENTION_APPROVED
+        value: "false"
+      - key: BILLING_ENABLED
+        value: "false"
+      - key: BILLING_PRICE_APPROVED
+        value: "false"
+      - key: BILLING_LIVE_APPROVED
+        value: "false"
+      - key: OPENAI_IMPORT_ENABLED
+        value: "false"
+      - key: ANTHROPIC_IMPORT_ENABLED
+        value: "false"
+      - key: STRIPE_IMPORT_ENABLED
+        value: "false"
+      - key: APP_BASE_URL
+        value: https://inffyn-preview-git-codex-p-8fa386-ryanmhirsh-gmailcoms-projects.vercel.app
+    # Upload inffyn-engine.env as a Render secret file through the authorized CLI.
+    # It contains only the existing Supabase URL and server credential, never Git.

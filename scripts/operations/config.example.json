@@ -1,0 +1,8 @@
+{
+  "project_ref": "jmfzmoqdvweeixxwzlma",
+  "app_origin": "https://inffyn-preview-git-codex-p-8fa386-ryanmhirsh-gmailcoms-projects.vercel.app",
+  "engine_origin": "https://inffyn-engine-alpha.onrender.com",
+  "retention_policy_approved": false,
+  "cron_secret_env": "INFFYN_OPERATIONS_CRON_SECRET",
+  "app_protection_env": "INFFYN_OPERATIONS_APP_PROTECTION"
+}

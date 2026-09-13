@@ -1,6 +1,7 @@
 fastapi>=0.115.0
 uvicorn[standard]>=0.32.0
 pydantic-settings>=2.6.0
+python-dotenv>=1.2.2
 sentry-sdk[fastapi]>=2.19.0
 supabase>=2.11.0
 pytest>=8.3.0

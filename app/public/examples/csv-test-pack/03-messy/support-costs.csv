@@ -1,0 +1,108 @@
+SYNTHETIC export; invented data only
+August 2026; retain this original
+Entry reference;Service day;Charge type;Net amount;ISO currency;Evidence reference;Account reference;Business feature;Activity;Responsible team;Batch reference;Export note (ignored)
+syn-support-000-inference;01/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-000;"SYNTHETIC analyst note, ""reviewed separately"""
+syn-support-000-human_review;01/08/2026;Human review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-000;SYNTHETIC
+syn-support-001-inference;02/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-001;SYNTHETIC
+syn-support-001-human_review;02/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-001;SYNTHETIC
+syn-support-002-inference;03/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-002;SYNTHETIC
+syn-support-002-human_review;03/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-002;SYNTHETIC
+syn-support-003-inference;04/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-003;SYNTHETIC
+syn-support-003-human_review;04/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-003;"SYNTHETIC analyst note, ""reviewed separately"""
+syn-support-004-inference;31/08/26;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-004;SYNTHETIC
+syn-support-004-human_review;05/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-004;SYNTHETIC
+syn-support-005-inference;06/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-005;SYNTHETIC
+syn-support-005-human_review;06/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-005;SYNTHETIC
+syn-support-006-inference;07/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-006;SYNTHETIC
+syn-support-006-human_review;07/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-006;SYNTHETIC
+syn-support-007-inference;08/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-007;"SYNTHETIC analyst note, ""reviewed separately"""
+syn-support-007-human_review;08/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-007;SYNTHETIC
+syn-support-008-inference;09/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-008;SYNTHETIC
+syn-support-008-human_review;09/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-008;SYNTHETIC
+syn-support-009-inference;10/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-009;SYNTHETIC
+syn-support-009-human_review;10/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-009;SYNTHETIC
+syn-support-010-inference;11/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-010;SYNTHETIC
+syn-support-010-human_review;11/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-010;"SYNTHETIC analyst note, ""reviewed separately"""
+syn-support-011-inference;12/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-011;SYNTHETIC
+syn-support-011-human_review;12/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-011;SYNTHETIC
+syn-support-012-inference;13/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-012;SYNTHETIC
+syn-support-012-human_review;13/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-012;SYNTHETIC
+syn-support-013-inference;14/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-013;SYNTHETIC
+syn-support-013-human_review;14/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-013;SYNTHETIC
+syn-support-014-inference;15/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-014;"SYNTHETIC analyst note, ""reviewed separately"""
+syn-support-014-human_review;15/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-014;SYNTHETIC
+syn-support-015-inference;16/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-015;SYNTHETIC
+syn-support-015-human_review;16/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-015;SYNTHETIC
+syn-support-016-inference;17/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-016;SYNTHETIC
+syn-support-016-human_review;17/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-016;SYNTHETIC
+syn-support-017-inference;18/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-017;SYNTHETIC
+syn-support-017-human_review;18/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-017;"SYNTHETIC analyst note, ""reviewed separately"""
+syn-support-018-inference;19/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-018;SYNTHETIC
+syn-support-018-human_review;19/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-018;SYNTHETIC
+syn-support-019-inference;20/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-019;SYNTHETIC
+syn-support-019-human_review;20/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-019;SYNTHETIC
+syn-support-020-inference;21/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-020;SYNTHETIC
+syn-support-020-human_review;21/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-020;SYNTHETIC
+syn-support-021-inference;22/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-021;"SYNTHETIC analyst note, ""reviewed separately"""
+syn-support-021-human_review;22/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-021;SYNTHETIC
+syn-support-022-inference;23/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-022;SYNTHETIC
+syn-support-022-human_review;23/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-022;SYNTHETIC
+syn-support-023-inference;24/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-023;SYNTHETIC
+syn-support-023-human_review;24/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-023;SYNTHETIC
+syn-support-024-inference;25/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-024;SYNTHETIC
+syn-support-024-human_review;25/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-024;"SYNTHETIC analyst note, ""reviewed separately"""
+syn-support-025-inference;26/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-025;SYNTHETIC
+syn-support-025-human_review;26/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-025;SYNTHETIC
+syn-support-026-inference;27/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-026;SYNTHETIC
+syn-support-026-human_review;27/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-026;SYNTHETIC
+syn-support-027-inference;28/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-027;SYNTHETIC
+syn-support-027-human_review;28/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-027;SYNTHETIC
+syn-support-028-inference;01/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-028;"SYNTHETIC analyst note, ""reviewed separately"""
+syn-support-028-human_review;01/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-028;SYNTHETIC
+syn-support-029-inference;02/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-029;SYNTHETIC
+syn-support-029-human_review;02/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-029;SYNTHETIC
+syn-support-030-inference;03/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-030;SYNTHETIC
+syn-support-030-human_review;03/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-030;SYNTHETIC
+syn-support-031-inference;04/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-031;SYNTHETIC
+syn-support-031-human_review;04/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-031;"SYNTHETIC analyst note, ""reviewed separately"""
+syn-support-032-inference;05/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-032;SYNTHETIC
+syn-support-032-human_review;05/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-032;SYNTHETIC
+syn-support-033-inference;06/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-033;SYNTHETIC
+syn-support-033-human_review;06/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-033;SYNTHETIC
+syn-support-034-inference;07/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-034;SYNTHETIC
+syn-support-034-human_review;07/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-034;SYNTHETIC
+syn-support-035-inference;08/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-035;"SYNTHETIC analyst note, ""reviewed separately"""
+syn-support-035-human_review;08/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-035;SYNTHETIC
+syn-support-036-inference;09/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-036;SYNTHETIC
+syn-support-036-human_review;09/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-036;SYNTHETIC
+syn-support-037-inference;10/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-037;SYNTHETIC
+syn-support-037-human_review;10/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-037;SYNTHETIC
+syn-support-038-inference;11/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-038;SYNTHETIC
+syn-support-038-human_review;11/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-038;"SYNTHETIC analyst note, ""reviewed separately"""
+syn-support-039-inference;12/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-039;SYNTHETIC
+syn-support-039-human_review;12/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-039;SYNTHETIC
+syn-support-040-inference;13/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-040;SYNTHETIC
+syn-support-040-human_review;13/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-040;SYNTHETIC
+syn-support-041-inference;14/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-041;SYNTHETIC
+syn-support-041-human_review;14/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-041;SYNTHETIC
+syn-support-042-inference;15/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-042;"SYNTHETIC analyst note, ""reviewed separately"""
+syn-support-042-human_review;15/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-042;SYNTHETIC
+syn-support-043-inference;16/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-043;SYNTHETIC
+syn-support-043-human_review;16/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-043;SYNTHETIC
+syn-support-044-inference;17/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-044;SYNTHETIC
+syn-support-044-human_review;17/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-044;SYNTHETIC
+syn-support-045-inference;18/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-045;SYNTHETIC
+syn-support-045-human_review;18/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-045;"SYNTHETIC analyst note, ""reviewed separately"""
+syn-support-046-inference;19/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-046;SYNTHETIC
+syn-support-046-human_review;19/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-046;SYNTHETIC
+syn-support-047-inference;20/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-047;SYNTHETIC
+syn-support-047-human_review;20/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-047;SYNTHETIC
+syn-support-048-inference;21/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-048;SYNTHETIC
+syn-support-048-human_review;21/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-048;SYNTHETIC
+syn-support-049-inference;22/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-049;"SYNTHETIC analyst note, ""reviewed separately"""
+syn-support-049-human_review;22/08/2026;human_review;80,00;USD;SYNTHETIC control ledger / human_review;;support;support;Support operations;syn-support-batch-049;SYNTHETIC
+syn-support-credit;31/08/2026;inference;-300,00;USD;"SYNTHETIC documented inference credit; retain its negative sign";;support;support;Support operations;syn-support-batch-000;SYNTHETIC
+syn-support-001-inference;02/08/2026;inference;150,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-001;SYNTHETIC
+syn-prior-month;07/01/2026;inference;999,00;USD;SYNTHETIC control ledger / inference;;support;support;Support operations;syn-support-batch-001;SYNTHETIC
+TOTAL;;;11.200,00;USD;;;;;;;SYNTHETIC
+;;;;;;;;;;;SYNTHETIC

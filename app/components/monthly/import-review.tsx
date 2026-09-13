@@ -4,6 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import { download } from "@/lib/audit-v2";
 import { Workload } from "@/lib/monthly";
 import {
+  RevisionConflictError,
+  RevisionedSaver,
+  stableSnapshot,
+} from "@/lib/revisioned-save";
+import {
   defaultRules,
   ImportDecision,
   ImportRecipe,
@@ -19,6 +24,7 @@ type Props = {
   api: (path: string, method?: string, body?: unknown) => Promise<any>;
   attach: (confirmation: string, workload: string) => Promise<void>;
   disabled: boolean;
+  onActivityChange?: (active: boolean) => void;
 };
 
 export function ImportReviewPanel({
@@ -27,6 +33,7 @@ export function ImportReviewPanel({
   api,
   attach,
   disabled,
+  onActivityChange,
 }: Props) {
   const [sources, setSources] = useState<ImportSource[]>([]);
   const [recipes, setRecipes] = useState<ImportRecipe[]>([]);
@@ -40,6 +47,7 @@ export function ImportReviewPanel({
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [conflict, setConflict] = useState(false);
   const [confirmed, setConfirmed] = useState("");
   const [accepted, setAccepted] = useState(false);
   const [workload, setWorkload] = useState("");
@@ -50,20 +58,49 @@ export function ImportReviewPanel({
   const [amendValue, setAmendValue] = useState("");
   const started = useRef(Date.now());
   const generation = useRef(0);
+  const active = useRef(false);
+  const activeMonth = useRef(month);
+  activeMonth.current = month;
   const apiRef = useRef(api);
+  const activityRef = useRef(onActivityChange);
+  const busyRef = useRef(false);
+  const saver = useRef<RevisionedSaver<
+    { rules: ImportRules; decisions: ImportDecision[] },
+    ImportReview
+  > | null>(null);
   apiRef.current = api;
+  activityRef.current = onActivityChange;
   const dirty =
     !!review &&
-    (JSON.stringify(rules) !== JSON.stringify(review.rules) ||
-      JSON.stringify(decisions) !== JSON.stringify(review.decisions));
+    (stableSnapshot(rules) !== stableSnapshot(review.rules) ||
+      stableSnapshot(decisions) !== stableSnapshot(review.decisions));
 
   useEffect(() => {
+    activityRef.current?.(dirty || busy);
+    const warn = (event: BeforeUnloadEvent) => {
+      if (dirty || busyRef.current) {
+        event.preventDefault();
+        event.returnValue = "";
+      }
+    };
+    window.addEventListener("beforeunload", warn);
+    return () => window.removeEventListener("beforeunload", warn);
+  }, [dirty, busy]);
+
+  useEffect(() => {
+    active.current = true;
     const current = ++generation.current;
     setReview(null);
     setConfirmed("");
     setRows([]);
     setError("");
     setMessage("");
+    setSources([]);
+    setRecipes([]);
+    setBusy(false);
+    busyRef.current = false;
+    setConflict(false);
+    saver.current = null;
     started.current = Date.now();
     Promise.all([
       apiRef.current(
@@ -82,30 +119,103 @@ export function ImportReviewPanel({
       });
     return () => {
       generation.current++;
+      active.current = false;
+      activityRef.current?.(false);
     };
   }, [month]);
 
   async function run(fn: () => Promise<void>) {
+    if (busyRef.current || disabled) return;
+    const current = generation.current;
+    busyRef.current = true;
+    activityRef.current?.(true);
     setBusy(true);
     setError("");
     try {
       await fn();
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Import could not complete.");
+      if (current === generation.current) {
+        setConflict(e instanceof RevisionConflictError);
+        setError(e instanceof Error ? e.message : "Import could not complete.");
+      }
     } finally {
-      setBusy(false);
+      if (current === generation.current) {
+        busyRef.current = false;
+        setBusy(false);
+      }
     }
   }
-  async function show(value: ImportReview) {
+  function acceptReview(value: ImportReview) {
     setReview(value);
     setRules(value.rules);
     setDecisions(value.decisions);
-    setConfirmed("");
+    setConfirmed(value.confirmation?.id || "");
     setAccepted(false);
     setSelected([]);
-    const page = await api(`monthly/import-reviews/${value.source.id}/rows`);
-    setRows(page.rows);
-    setCursor(page.next_cursor);
+    setConflict(false);
+    setRows([]);
+    setCursor(null);
+    setKind(value.source.kind);
+    setAccount(value.source.account);
+    setSources((items) => [
+      value.source,
+      ...items.filter((s) => s.id !== value.source.id),
+    ]);
+  }
+  async function loadRows(value: ImportReview) {
+    const current = generation.current;
+    const page = await api(
+      `monthly/import-reviews/${value.source.id}/rows?expected_revision=${value.source.revision}`,
+    );
+    if (current === generation.current) {
+      setRows(page.rows);
+      setCursor(page.next_cursor);
+    }
+  }
+  async function show(value: ImportReview) {
+    if (!active.current) return;
+    if (value.source.month !== activeMonth.current)
+      throw new Error(
+        "This source belongs to another reporting month. Reopen its month to continue.",
+      );
+    acceptReview(value);
+    const current = generation.current;
+    const writer = new RevisionedSaver<
+      { rules: ImportRules; decisions: ImportDecision[] },
+      ImportReview
+    >({
+      revision: value.source.revision,
+      read: () => api(`monthly/import-reviews/${value.source.id}`),
+      write: (expected_revision, interpretation) =>
+        api(`monthly/import-reviews/${value.source.id}/revision`, "PUT", {
+          expected_revision,
+          ...interpretation,
+        }),
+      revisionOf: (r) => r.source.revision,
+      valueOf: (r) => ({ rules: r.rules, decisions: r.decisions }),
+      onSaved: (saved) => {
+        if (current === generation.current && saver.current === writer)
+          acceptReview(saved);
+      },
+    });
+    saver.current = writer;
+    await loadRows(value);
+  }
+  function mayReplaceReview() {
+    return (
+      !dirty ||
+      window.confirm(
+        "Discard the unsaved interpretation changes in this tab? Export your edits first if you want to keep them.",
+      )
+    );
+  }
+  async function saveInterpretation() {
+    if (!saver.current || !review) return;
+    const value = await saver.current.save({ rules, decisions });
+    setMessage(
+      "Interpretation saved to your company workspace. Inspect the updated controls and remaining exceptions.",
+    );
+    await loadRows(value);
   }
   async function upload(file: File) {
     if (file.size > 2_000_000)
@@ -192,6 +302,24 @@ export function ImportReviewPanel({
         </p>
       )}
       {message && <p role="status">{message}</p>}
+      {review && (
+        <div className="company-draft-status" aria-live="polite">
+          <span>
+            {busy
+              ? "Saving or checking retained evidence…"
+              : dirty
+                ? "Interpretation changes are unsaved. Save them before leaving this review."
+                : `Retained company source · revision ${review.source.revision}${confirmed ? " · confirmed" : " · awaiting confirmation"}`}
+          </span>
+          <span>
+            Raw source available until{" "}
+            {review.source.expires_at
+              ? new Date(review.source.expires_at).toLocaleDateString()
+              : "the evidence retention date"}
+            .
+          </span>
+        </div>
+      )}
       <fieldset disabled={busy || disabled} className="import-controls">
         <legend>1. Source and interpretation</legend>
         <label>
@@ -295,6 +423,7 @@ export function ImportReviewPanel({
           Upload original CSV
           <input
             type="file"
+            disabled={dirty}
             accept=".csv,text/csv"
             onChange={(e) => {
               const file = e.target.files?.[0];
@@ -306,6 +435,7 @@ export function ImportReviewPanel({
         <label>
           Resume a retained import
           <select
+            disabled={dirty}
             value={review?.source.id || ""}
             onChange={(e) => {
               if (e.target.value)
@@ -564,7 +694,7 @@ export function ImportReviewPanel({
               onClick={() =>
                 void run(async () => {
                   const page = await api(
-                    `monthly/import-reviews/${review.source.id}/rows?cursor=${cursor}`,
+                    `monthly/import-reviews/${review.source.id}/rows?cursor=${cursor}&expected_revision=${review.source.revision}`,
                   );
                   setRows(page.rows);
                   setCursor(page.next_cursor);
@@ -687,42 +817,56 @@ export function ImportReviewPanel({
           </button>
           <button
             className="primary"
-            onClick={() =>
-              void run(async () => {
-                await show(
-                  await api(
-                    `monthly/import-reviews/${review.source.id}/revision`,
-                    "PUT",
-                    {
-                      expected_revision: review.source.revision,
-                      rules,
-                      decisions,
-                    },
-                  ),
-                );
-                setMessage(
-                  "Interpretation saved. Inspect the updated controls and remaining exceptions.",
-                );
-              })
-            }
+            disabled={conflict}
+            onClick={() => void run(saveInterpretation)}
           >
             Save interpretation and check
           </button>
           <button
-            onClick={() =>
-              void run(async () =>
-                show(await api(`monthly/import-reviews/${review.source.id}`)),
-              )
-            }
+            onClick={() => {
+              if (mayReplaceReview())
+                void run(async () =>
+                  show(await api(`monthly/import-reviews/${review.source.id}`)),
+                );
+            }}
           >
             Reload saved review
           </button>
+          {(dirty || error) && (
+            <button
+              onClick={() =>
+                download(
+                  `inffyn-${month}-interpretation-edits.json`,
+                  JSON.stringify(
+                    {
+                      source_id: review.source.id,
+                      expected_revision: review.source.revision,
+                      rules,
+                      decisions,
+                    },
+                    null,
+                    2,
+                  ),
+                  "application/json",
+                )
+              }
+            >
+              Export interpretation edits
+            </button>
+          )}
           <h3>3. Confirm this version</h3>
           <p>
             Approval covers the organized dataset, not its financial
             completeness or causal attribution. Review revenue basis and
             workload scope in Monthly Review.
           </p>
+          {confirmed && !dirty && (
+            <p role="status">
+              This version was already confirmed and retained. You can assign it
+              without confirming again. Any interpretation change requires a new
+              confirmation.
+            </p>
+          )}
           <details>
             <summary>Controls and limitations</summary>
             <pre>
@@ -744,7 +888,13 @@ export function ImportReviewPanel({
             limitations.
           </label>
           <button
-            disabled={!accepted || dirty || !review.profile.ready}
+            disabled={
+              !accepted ||
+              dirty ||
+              !review.profile.ready ||
+              conflict ||
+              !!confirmed
+            }
             onClick={() =>
               void run(async () => {
                 const c = await api(

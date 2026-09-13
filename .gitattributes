@@ -1,1 +1,5 @@
 * text=auto eol=lf
+scripts/certificates/*.crt -text
+# Preserve intentional BOM/CRLF and malformed CSV fixtures byte-for-byte.
+app/public/examples/csv-test-pack/**/*.csv -text
+app/public/examples/csv-test-pack/02-decent/*.csv whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

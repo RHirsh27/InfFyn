@@ -123,6 +123,30 @@ export default function ReviewedImportExample() {
         </ol>
       </section>
       <section className="monthly-panel">
+        <h2>Try your own import with synthetic CSVs</h2>
+        <p>
+          Compare clean, decent, messy and very messy versions of the same
+          $43,200 month across a research product and an internal support
+          workflow. Separate edge cases test duplicates, unknown costs, mixed
+          currencies and broken files. The pack includes mapping instructions,
+          reviewed corrections and expected engine results.
+        </p>
+        <div className="import-example-downloads">
+          <a href="/examples/InfFyn-CSV-test-pack.zip" download>
+            Download the CSV test pack · 29 CSV files
+          </a>
+          <a href="/examples/csv-test-pack/README.md" download>
+            Download the testing guide
+          </a>
+        </div>
+        <p>
+          Start with the decent version and use the clean control for
+          comparison. Use a designated synthetic company when authenticated
+          financial intake is enabled. Each version is an alternative input; do
+          not add the versions together. Downloading files does not import them.
+        </p>
+      </section>
+      <section className="monthly-panel">
         <h2>Inspect the inputs and engine outputs</h2>
         <p>
           These downloads are fixed synthetic fixtures. The editable, persistent

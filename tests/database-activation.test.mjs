@@ -68,7 +68,7 @@ function receipts() {
   return [metadata, columns];
 }
 
-test("observed legacy baseline preserves the five reviewed migrations then alpha admission, never executable or release ready", () => {
+test("observed legacy baseline includes alpha admission and reviewed CSV imports, never executable or release ready", () => {
   const result = buildActivationPlan(migrations, ...receipts(), now);
   assert.equal(result.metadata_baseline_matches, true);
   assert.equal(result.executable, false);
@@ -76,7 +76,7 @@ test("observed legacy baseline preserves the five reviewed migrations then alpha
   assert.equal(result.database_mutations, false);
   assert.deepEqual(
     result.candidate_migrations.map((m) => m.version),
-    ["0012", "0013", "20260911015433", "20260911031800", convergence.version, "20260911155306"],
+    ["0012", "0013", "20260911015433", "20260911031800", convergence.version, "20260911155306", "20260912190000"],
   );
   assert.ok(
     result.candidate_migrations.every(
@@ -96,6 +96,17 @@ test("observed legacy baseline preserves the five reviewed migrations then alpha
   const ledger = compareLedger(migrations, { rows: receipts()[0].migrations });
   assert.ok(ledger.drift.some((m) => m.version === "0009"));
   assert.equal(ledger.status, "REVIEW_REQUIRED");
+});
+
+test("activation cannot silently omit the reviewed-import migration", () => {
+  const result = buildActivationPlan(
+    migrations.filter((m) => m.version !== "20260912190000"),
+    ...receipts(),
+    now,
+  );
+  assert.equal(result.metadata_baseline_matches, false);
+  assert.deepEqual(result.candidate_migrations, []);
+  assert.ok(result.blockers.includes("LOCAL_MIGRATION_SET_CHANGED"));
 });
 
 test("unexpected project, incomplete/changed baselines and stale receipts cannot propose candidates", () => {

@@ -5,12 +5,26 @@ import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 import { EventEmitter } from 'node:events';
 import { PassThrough } from 'node:stream';
-import { capture, childEnvironment, DRIVE_FOLDER, plan, PROJECT_REF, restore, retentionCandidates, runPipeline, supportFile, validateRestore, validateSource, verifyArchives, verifyDownload } from '../scripts/backup/core.mjs';
+import { capture, childEnvironment, DRIVE_FOLDER, plan, preparedBootstrapRoles, PROJECT_REF, restore, retentionCandidates, runPipeline, supportFile, validateRestore, validateSource, verifyArchives, verifyDownload } from '../scripts/backup/core.mjs';
 
 const source = { projectRef: PROJECT_REF, host: `db.${PROJECT_REF}.supabase.co`, user: 'postgres' };
 const local = { host: '127.0.0.1', port: 55432, database: 'inffyn_restore_fixture', user: 'inffyn_restore_operator_test', isolatedLocal: true };
 const tables = [{ schema: 'auth', name: 'users', owner: 'auth_admin', rls: true }, { schema: 'storage', name: 'objects', owner: 'storage_admin', rls: true }, { schema: 'public', name: 'memberships', owner: 'postgres', rls: true }];
 const counts = { 'auth.users': 2, 'public.memberships': 2, 'storage.objects': 0 };
+
+test('source bootstrap preparation retains role attributes and original grantor', () => {
+  const input = 'CREATE ROLE supabase_admin;\nALTER ROLE supabase_admin WITH SUPERUSER LOGIN;\nCREATE ROLE anon;\nGRANT anon TO authenticator WITH INHERIT FALSE GRANTED BY supabase_admin;\n';
+  const output = preparedBootstrapRoles(input, 'supabase_admin');
+  assert.ok(!output.includes('CREATE ROLE supabase_admin;'));
+  assert.ok(output.includes('ALTER ROLE supabase_admin WITH SUPERUSER LOGIN;'));
+  assert.ok(output.includes('GRANTED BY supabase_admin;'));
+  assert.ok(output.includes('CREATE ROLE anon;'));
+  for (const bad of [input + 'CREATE ROLE supabase_admin;\n', input.replace('CREATE ROLE supabase_admin;', ''), input.replace('ALTER ROLE supabase_admin WITH SUPERUSER LOGIN;', '')]) assert.throws(() => preparedBootstrapRoles(bad, 'supabase_admin'));
+  assert.throws(() => validateRestore({...local,sourceBootstrapRole:'unverified'}));
+  assert.throws(() => validateRestore({...local,sourceDatabaseOwner:'postgres'}));
+  assert.throws(() => validateRestore({...local,sourceBootstrapRole:'supabase_admin',sourceDatabaseOwner:'other'}));
+  validateRestore({...local,sourceBootstrapRole:'supabase_admin',sourceDatabaseOwner:'postgres'});
+});
 
 async function fixture(t) {
   const dir = await mkdtemp(resolve(tmpdir(), 'inffyn-backup-tests-'));

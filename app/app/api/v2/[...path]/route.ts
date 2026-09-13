@@ -154,15 +154,23 @@ async function proxy(
       const active = await ensureActiveTenant();
       const query = new URLSearchParams();
       if (reviewedImportPaths.GET.test(path)) {
-        for (const key of ["month", "cursor", "confirmation_id"]) {
+        for (const key of [
+          "month",
+          "cursor",
+          "confirmation_id",
+          "expected_revision",
+        ]) {
           const value = request.nextUrl.searchParams.get(key);
           if (value !== null) query.set(key, value);
         }
       }
-      response = await engineFetch("/v2/" + path + (query.size ? `?${query}` : ""), {
-        ...options,
-        tenantId: active.tenant.id,
-      });
+      response = await engineFetch(
+        "/v2/" + path + (query.size ? `?${query}` : ""),
+        {
+          ...options,
+          tenantId: active.tenant.id,
+        },
+      );
     }
     const data = await response.json();
     if (path === "access/redeem" && response.ok) {

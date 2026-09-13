@@ -39,8 +39,14 @@ jobs:
         run: python -m pytest engine/tests -q
       - name: Verify PostgreSQL import controls
         run: node tests/reviewed-import-migration.test.mjs
+      - name: Verify interrupted saves and concurrent edits
+        run: node --import tsx --test tests/revisioned-save.test.ts
+      - name: Verify reviewed CSV user interactions
+        run: node --test tests/csv-review-ui.test.mjs tests/reviewed-import-runner.test.mjs
+      - name: Verify database activation planning
+        run: node --test tests/database-activation.test.mjs tests/database-preflight.test.mjs
       - name: Verify app, alpha boundaries and recovery tooling
-        run: node --test tests/alpha-app.test.mjs tests/private-alpha-acceptance.test.mjs tests/private-alpha-backup.test.mjs tests/private-alpha-database.test.mjs
+        run: node --test tests/alpha-app.test.mjs tests/operations.test.mjs tests/private-alpha-acceptance.test.mjs tests/private-alpha-backup.test.mjs tests/private-alpha-database.test.mjs tests/private-alpha-setup.test.mjs
       - name: Build web application
         run: npm run build:app
       - name: Check TypeScript

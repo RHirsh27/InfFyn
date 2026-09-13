@@ -2,6 +2,7 @@
 [CmdletBinding()]
 param(
   [switch]$Initialize,
+  [switch]$PrepareCertificate,
   [string]$ProjectRef = 'jmfzmoqdvweeixxwzlma',
   [string]$DatabaseHost = 'db.jmfzmoqdvweeixxwzlma.supabase.co',
   [string]$DatabaseUser = 'postgres',
@@ -9,6 +10,11 @@ param(
   [string]$CredentialDirectory = (Join-Path $env:LOCALAPPDATA 'InfFyn\private-alpha\database-credentials')
 )
 $ErrorActionPreference = 'Stop'
+function Get-InffynCertificateHash([string]$Path) {
+  $hasher = [Security.Cryptography.SHA256]::Create()
+  try { return [BitConverter]::ToString($hasher.ComputeHash([IO.File]::ReadAllBytes($Path))).Replace('-', '') }
+  finally { $hasher.Dispose() }
+}
 $inffynProject = 'jmfzmoqdvweeixxwzlma'
 $inffynRepo = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 if ($ProjectRef -cne $inffynProject) { throw 'Only the existing InfFyn project is supported.' }
@@ -29,12 +35,34 @@ while ($inffynAncestor) {
   }
   $inffynAncestor = Split-Path -Parent $inffynAncestor
 }
-if (!$Initialize) {
+if (!$Initialize -and !$PrepareCertificate) {
   [ordered]@{ status='OFFLINE_SETUP_PLAN'; project_ref=$inffynProject; host=$DatabaseHost; port=5432; user=$DatabaseUser; credential_directory=$inffynPrivate; sslmode='verify-full'; files_written=$false; database_contacted=$false; next='Run with -Initialize and -RootCertificate in your own terminal. The existing password is prompted without echo.' } | ConvertTo-Json
   exit 0
 }
-if ([Console]::IsInputRedirected) { throw 'Initialize must run in your interactive terminal; do not pipe a password.' }
-if (!$RootCertificate -or ![IO.Path]::IsPathRooted($RootCertificate) -or !(Test-Path -LiteralPath $RootCertificate -PathType Leaf)) { throw 'Supply the absolute path to the trusted Supabase database root certificate.' }
+if ($Initialize -and [Console]::IsInputRedirected) { throw 'Initialize must run in your interactive terminal; do not pipe a password.' }
+if (!$RootCertificate -or ![IO.Path]::IsPathRooted($RootCertificate)) { throw 'RootCertificate must be an absolute path.' }
+$inffynDefaultCertificate = Join-Path $env:LOCALAPPDATA 'InfFyn\private-alpha\certificates\supabase-prod-ca-2021.crt'
+if ([IO.Path]::GetFullPath($RootCertificate) -eq [IO.Path]::GetFullPath($inffynDefaultCertificate)) {
+  $inffynCertificateHash = '700723581420DD1AC98FD7E9AC529F0EF210EADCAF87FC868A3AD7D114C2F3B7'
+  $inffynBundledCertificate = Join-Path $PSScriptRoot 'certificates\supabase-root-2021.crt'
+  if ((Get-InffynCertificateHash $inffynBundledCertificate) -cne $inffynCertificateHash) { throw 'Bundled public certificate integrity check failed. Update from the reviewed repository.' }
+  if (!(Test-Path -LiteralPath $RootCertificate)) {
+    New-Item -ItemType Directory -Path (Split-Path -Parent $RootCertificate) -Force | Out-Null
+    $inffynCertStream = New-Object IO.FileStream($RootCertificate, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::None)
+    try {
+      $inffynCertBytes = [IO.File]::ReadAllBytes($inffynBundledCertificate)
+      $inffynCertStream.Write($inffynCertBytes, 0, $inffynCertBytes.Length)
+    } finally { $inffynCertStream.Dispose() }
+  }
+  if ((Get-InffynCertificateHash $RootCertificate) -cne $inffynCertificateHash) { throw 'Existing default certificate differs from the reviewed certificate; it was not overwritten. Supply a separately verified -RootCertificate path.' }
+}
+if (!(Test-Path -LiteralPath $RootCertificate -PathType Leaf)) { throw "Certificate not found at '$RootCertificate'. Omit -RootCertificate to prepare the bundled public CA automatically, or provide the downloaded Supabase CA path." }
+$inffynCa = New-Object Security.Cryptography.X509Certificates.X509Certificate2($RootCertificate)
+if ($inffynCa.HasPrivateKey -or $inffynCa.NotAfter -le (Get-Date) -or $inffynCa.NotBefore -gt (Get-Date)) { throw 'Certificate must be current and contain no private key.' }
+if (!$Initialize) {
+  [ordered]@{ status='PUBLIC_CERTIFICATE_READY'; ssl_root_cert=[IO.Path]::GetFullPath($RootCertificate); database_contacted=$false; credentials_written=$false } | ConvertTo-Json
+  exit 0
+}
 if (Test-Path -LiteralPath $inffynPrivate) { throw 'The credential directory already exists. It will not be overwritten; choose a new private directory or use your existing setup.' }
 New-Item -ItemType Directory -Path $inffynPrivate | Out-Null
 $inffynSid = [Security.Principal.WindowsIdentity]::GetCurrent().User
