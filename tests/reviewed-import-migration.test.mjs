@@ -387,6 +387,42 @@ try {
       );
     },
   );
+  await check(
+    "the operator retention proof executes and rolls back its fixtures",
+    async () => {
+      await db.exec(
+        `reset role; alter table auth.users add column email text, add column email_confirmed_at timestamptz, add column is_anonymous boolean default false; update auth.users set email='ryan@inffyn.xyz',email_confirmed_at=now() where id='${actor}'; alter table tenants add column name text;`,
+      );
+      const before = (await db.query("select count(*)::int n from tenants"))
+        .rows[0].n;
+      const proof = await readFile(
+        new URL("../scripts/operations/retention-proof.sql", import.meta.url),
+        "utf8",
+      );
+      const results = await db.exec(proof);
+      assert.ok(
+        results.some((r) =>
+          r.rows.some((row) =>
+            Object.values(row).some(
+              (v) => v?.status === "DATABASE_ASSERTIONS_PASSED",
+            ),
+          ),
+        ),
+      );
+      assert.equal(
+        (await db.query("select count(*)::int n from tenants")).rows[0].n,
+        before,
+      );
+      assert.equal(
+        (
+          await db.query(
+            "select count(*)::int n from tenants where name like 'InfFyn synthetic rollback retention%'",
+          )
+        ).rows[0].n,
+        0,
+      );
+    },
+  );
   console.log(
     `${checks} disposable PostgreSQL checks passed; hosted recovery and acceptance NOT executed.`,
   );

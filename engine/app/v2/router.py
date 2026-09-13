@@ -1,5 +1,4 @@
 import hashlib
-import hmac
 import secrets
 from datetime import date
 from uuid import UUID
@@ -22,6 +21,7 @@ from .contract import AuditInput
 from .economics import preview
 from .repository import AuditRepository, present
 from .throttle import quota, visitor_bucket
+from .maintenance import maintenance_router
 
 
 class ClaimInput(BaseModel):
@@ -43,6 +43,7 @@ def build_router(settings, get_db, get_user, resolve_tenant, get_repo=None):
         return get_repo() if get_repo else AuditRepository(get_db())
 
     router.include_router(access_router(settings, repository, get_user), prefix="")
+    router.include_router(maintenance_router(settings, repository))
 
     def workspace_access(repo, tenant):
         if getattr(settings, "inffyn_preview_mode", False) and not is_private_alpha(
@@ -75,13 +76,16 @@ def build_router(settings, get_db, get_user, resolve_tenant, get_repo=None):
     def status():
         configured = alpha_configuration_valid(settings)
         alpha = is_private_alpha(settings)
+        available = (
+            settings.audit_v2_enabled
+            and settings.audit_retention_approved
+            and configured
+        )
         return {
             "release_stage": release_stage(settings),
             "monthly_available": bool(getattr(settings, "monthly_enabled", False))
-            and configured,
-            "available": settings.audit_v2_enabled
-            and settings.audit_retention_approved
-            and configured,
+            and available,
+            "available": available,
             "billing_available": settings.billing_enabled
             and settings.billing_price_approved
             and not alpha,
@@ -93,29 +97,6 @@ def build_router(settings, get_db, get_user, resolve_tenant, get_repo=None):
             "report_retention_months": 12
             if settings.audit_retention_approved
             else None,
-        }
-
-    @router.post("/maintenance")
-    def maintenance(authorization: str = Header(default="")):
-        secret = getattr(settings, "maintenance_secret", None)
-        if (
-            not secret
-            or len(secret) < 32
-            or not hmac.compare_digest(authorization, "Bearer " + secret)
-        ):
-            raise HTTPException(401, "Unauthorized maintenance request.")
-        enabled()
-        repo = repository()
-        repo.cleanup()
-        if getattr(settings, "monthly_enabled", False):
-            from app.monthly.repository import MonthlyRepository
-
-            MonthlyRepository(repo.db).cleanup()
-        from datetime import datetime, timezone
-
-        return {
-            "completed_at": datetime.now(timezone.utc).isoformat(),
-            "scope": "expired audit and import evidence",
         }
 
     @router.post("/preview")

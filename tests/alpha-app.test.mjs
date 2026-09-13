@@ -59,7 +59,7 @@ function loader(env = {}, mocks = {}) {
         exports: mod.exports,
         require: localRequire,
         process: { env },
-        console,
+        console: mocks.console || console,
         URL,
         Headers,
         Request,
@@ -81,6 +81,132 @@ function loader(env = {}, mocks = {}) {
 }
 const alphaEnv = { INFFYN_PRIVATE_ALPHA: "true", INFFYN_ALPHA_USER_IDS: id };
 const policy = loader()("lib/alpha-policy.ts");
+
+test("maintenance rejects uncredentialed calls and never forwards credentials to an unexpected alpha host", async () => {
+  const env = {
+    CRON_SECRET: "a".repeat(40),
+    MAINTENANCE_SECRET: "b".repeat(40),
+    ENGINE_URL: "https://inffyn-engine-alpha.onrender.com",
+    INFFYN_RELEASE_STAGE: "private_alpha",
+  };
+  const mocks = {
+    "@sentry/nextjs": {},
+    fetch() {
+      throw new Error("No network expected");
+    },
+  };
+  const request = (authorization = "") =>
+    new NextRequest("https://alpha.example/api/maintenance", {
+      method: "POST",
+      headers: { authorization, "x-inffyn-maintenance-action": "retention" },
+    });
+  for (const cron of [undefined, "short", env.CRON_SECRET]) {
+    const route = loader(
+      { ...env, CRON_SECRET: cron },
+      mocks,
+    )("app/api/maintenance/route.ts");
+    assert.equal((await route.POST(request("Bearer invalid"))).status, 401);
+  }
+  for (const engine of [
+    "https://other.example",
+    "https://inffyn-engine-alpha.onrender.com?token=bad",
+    "https://user:password@inffyn-engine-alpha.onrender.com",
+    "https://inffyn-engine-alpha.onrender.com/path",
+  ]) {
+    const route = loader(
+      { ...env, ENGINE_URL: engine },
+      mocks,
+    )("app/api/maintenance/route.ts");
+    assert.equal(
+      (await route.POST(request("Bearer " + env.CRON_SECRET))).status,
+      503,
+    );
+  }
+});
+
+test("maintenance monitoring sends only fixed scrubbed events and does not invent external delivery", async () => {
+  const logs = [],
+    sends = [],
+    requests = [];
+  const env = {
+    CRON_SECRET: "a".repeat(40),
+    MAINTENANCE_SECRET: "b".repeat(40),
+    ENGINE_URL: "https://inffyn-engine-alpha.onrender.com",
+    INFFYN_RELEASE_STAGE: "private_alpha",
+    SENTRY_DSN: "synthetic-config-only",
+  };
+  const route = loader(env, {
+    console: {
+      error(...parts) {
+        logs.push(parts);
+      },
+    },
+    "@sentry/nextjs": {
+      captureEvent(e) {
+        sends.push(e);
+      },
+      async flush() {},
+    },
+    async fetch(url, options) {
+      requests.push({ url, options });
+      return Response.json({
+        event_id: "1".repeat(32),
+        external_delivery_verified: false,
+      });
+    },
+  })("app/api/maintenance/route.ts");
+  const request = new NextRequest("https://alpha.example/api/maintenance", {
+    method: "POST",
+    headers: {
+      authorization: "Bearer " + env.CRON_SECRET,
+      "x-inffyn-maintenance-action": "monitoring",
+    },
+    body: "caller-private-data",
+  });
+  const response = await route.POST(request);
+  assert.equal(response.status, 200);
+  const data = await response.json();
+  assert.equal(data.app.external_monitor_configured, true);
+  assert.equal(data.app.external_delivery_verified, false);
+  assert.equal(response.headers.get("cache-control"), "no-store");
+  assert.equal(requests[0].url, env.ENGINE_URL + "/v2/maintenance/check");
+  assert.equal(requests[0].options.redirect, "error");
+  assert.equal(
+    requests[0].options.headers.get("Authorization"),
+    "Bearer " + env.MAINTENANCE_SECRET,
+  );
+  assert.equal(sends.length, 1);
+  assert.doesNotMatch(
+    JSON.stringify({ logs, sends }),
+    /SYNTHETIC_PRIVATE_EVIDENCE|caller-private-data/,
+  );
+});
+
+test("maintenance failure responses hide upstream errors and remain retryable", async () => {
+  const env = {
+    CRON_SECRET: "a".repeat(40),
+    MAINTENANCE_SECRET: "b".repeat(40),
+    ENGINE_URL: "https://inffyn-engine-alpha.onrender.com",
+  };
+  const route = loader(env, {
+    "@sentry/nextjs": {},
+    console: { error() {} },
+    async fetch() {
+      return Response.json(
+        { secret: "provider-private-value" },
+        { status: 503 },
+      );
+    },
+  })("app/api/maintenance/route.ts");
+  const response = await route.GET(
+    new NextRequest("https://alpha.example/api/maintenance", {
+      headers: { authorization: "Bearer " + env.CRON_SECRET },
+    }),
+  );
+  assert.equal(response.status, 503);
+  assert.equal(response.headers.get("cache-control"), "no-store");
+  assert.doesNotMatch(await response.text(), /provider-private-value/);
+});
 
 test("alpha admits only a confirmed, nonanonymous allowed UUID; malformed configuration denies", () => {
   const parsed = policy.parseAlphaPolicy("true", id.toUpperCase());

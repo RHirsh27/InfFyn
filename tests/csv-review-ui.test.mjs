@@ -88,6 +88,36 @@ dom.window.matchMedia = () => ({
   removeEventListener() {},
 });
 let root;
+test("complimentary access remains visible while financial intake is paused", async () => {
+  const calls = [];
+  globalThis.fetch = async (url) => {
+    calls.push(String(url));
+    assert.equal(String(url), "/api/v2/billing");
+    return Response.json({
+      entitled: true,
+      access_source: "complimentary",
+      is_access_admin: true,
+      monthly_available: false,
+    });
+  };
+  const div = document.createElement("div");
+  document.body.append(div);
+  root = createRoot(div);
+  await act(async () =>
+    root.render(React.createElement(MonthlyWorkspace, { privateAlpha: true })),
+  );
+  assert.match(document.body.textContent, /Your company access is active/);
+  assert.match(document.body.textContent, /Financial uploads are paused/);
+  assert.doesNotMatch(
+    document.body.textContent,
+    /needs a complimentary company access grant/,
+  );
+  assert.ok(document.querySelector('a[href="/app/admin/access"]'));
+  await click("Monthly Review");
+  assert.equal(calls.length, 1);
+  await click("Check activation status");
+  assert.equal(calls.length, 2);
+});
 afterEach(async () => {
   if (root) await act(async () => root.unmount());
   root = null;

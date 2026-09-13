@@ -230,9 +230,14 @@ export function MonthlyWorkspace({
   }
   async function refresh() {
     if (demo) return performance;
-    const [w, b, r, p, c, i, a] = await Promise.all([
+    // Access can be active before financial intake is released. Preserve that
+    // fact instead of discarding it when a gated monthly endpoint returns 503.
+    const b = await api("billing");
+    if (!mounted.current) return;
+    setBilling(b);
+    if (b.monthly_available === false) return [];
+    const [w, r, p, c, i, a] = await Promise.all([
       api("monthly/workloads"),
-      api("billing"),
       api("monthly/reports"),
       api("monthly/performance"),
       api("monthly/connections"),
@@ -241,7 +246,6 @@ export function MonthlyWorkspace({
     ]);
     if (!mounted.current) return;
     setWorkloads(w.workloads);
-    setBilling(b);
     setReports(r.reports);
     setSelections(r.selections);
     setPerformance(p.months);
@@ -499,14 +503,21 @@ export function MonthlyWorkspace({
     }
   }
   useEffect(() => {
-    if (demo || loading) return;
+    if (demo || loading || billing?.monthly_available === false) return;
     setDraftLoaded(false);
     loadDraft(month).catch((e) => setError(e.message));
-  }, [month, loading, demo]);
+  }, [month, loading, demo, billing?.monthly_available]);
   const draftSignature = stableDraft(assembledDraft());
   latestDraftSignature.current = draftSignature;
   useEffect(() => {
-    if (!draftLoaded || draftConflict || draftSaveError || demo || loading)
+    if (
+      !draftLoaded ||
+      draftConflict ||
+      draftSaveError ||
+      demo ||
+      loading ||
+      billing?.monthly_available === false
+    )
       return;
     const timer = window.setTimeout(() => {
       if (!saveInFlight.current) saveDraft().catch(() => {});
@@ -517,6 +528,7 @@ export function MonthlyWorkspace({
     draftLoaded,
     draftConflict,
     draftSaveError,
+    billing?.monthly_available,
     revision,
     demo,
     loading,
@@ -556,6 +568,9 @@ export function MonthlyWorkspace({
     }
   }
   function openTab(next: Tab) {
+    if (!demo && billing?.monthly_available === false) {
+      return;
+    }
     if (next !== tab && importEditingRef.current) {
       setError(
         "Finish the CSV operation or save your interpretation before leaving Monthly Review. Your edits remain here.",
@@ -824,6 +839,7 @@ export function MonthlyWorkspace({
   const selectedWorkload =
     draft && workloads.find((x) => x.id === draft.workload_id);
   const entitled = demo || !!billing?.entitled;
+  const intakePaused = !demo && billing?.monthly_available === false;
 
   return (
     <div className="audit-shell monthly-shell">
@@ -1021,6 +1037,45 @@ export function MonthlyWorkspace({
         )}
         {loading ? (
           <div className="monthly-empty">Loading your company workspace…</div>
+        ) : intakePaused ? (
+          <section className="monthly-panel" aria-label="Workspace activation">
+            <p className="eyebrow">PRIVATE ALPHA PREPARATION</p>
+            <h2>
+              {entitled
+                ? "Your company access is active."
+                : "Your account is connected."}
+            </h2>
+            <p>
+              Financial uploads are paused while engineering completes recovery,
+              monitoring and the signed-in workflow checks.
+            </p>
+            {!entitled && (
+              <p>
+                Redeem your company invitation to activate complimentary access.
+                No payment is required.
+              </p>
+            )}
+            <div className="monthly-actions">
+              <button
+                disabled={!!busy}
+                onClick={() =>
+                  action("Checking activation", async () => {
+                    await refresh();
+                  })
+                }
+              >
+                Check activation status
+              </button>
+              {billing?.is_access_admin && (
+                <Link href="/app/admin/access" onNavigate={protectNavigation}>
+                  Manage company invitations
+                </Link>
+              )}
+              <Link href="/demo/monthly" onNavigate={protectNavigation}>
+                Open the separate demonstration
+              </Link>
+            </div>
+          </section>
         ) : (
           <>
             {!entitled && privateAlpha && (

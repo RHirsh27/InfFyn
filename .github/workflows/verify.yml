@@ -46,7 +46,7 @@ jobs:
       - name: Verify database activation planning
         run: node --test tests/database-activation.test.mjs tests/database-preflight.test.mjs
       - name: Verify app, alpha boundaries and recovery tooling
-        run: node --test tests/alpha-app.test.mjs tests/private-alpha-acceptance.test.mjs tests/private-alpha-backup.test.mjs tests/private-alpha-database.test.mjs tests/private-alpha-setup.test.mjs
+        run: node --test tests/alpha-app.test.mjs tests/operations.test.mjs tests/private-alpha-acceptance.test.mjs tests/private-alpha-backup.test.mjs tests/private-alpha-database.test.mjs tests/private-alpha-setup.test.mjs
       - name: Build web application
         run: npm run build:app
       - name: Check TypeScript

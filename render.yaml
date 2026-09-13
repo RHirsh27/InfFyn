@@ -28,7 +28,7 @@ services:
       - key: AUDIT_V2_ENABLED
         value: "true"
       - key: MONTHLY_ENABLED
-        value: "true"
+        value: "false"
       - key: AUDIT_RETENTION_APPROVED
         value: "false"
       - key: BILLING_ENABLED
