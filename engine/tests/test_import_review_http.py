@@ -31,6 +31,17 @@ class MemoryStore:
             raise HTTPException(404)
         return self.confirmations[str(identity)]
 
+    def current_confirmation(self, source, canonical_hash):
+        for value in self.confirmations.values():
+            if (
+                value["source_id"] == source["id"]
+                and value["revision"] == source["revision"]
+                and value["source_hash"] == source["sha256"]
+                and value["canonical_hash"] == canonical_hash
+            ):
+                return {key: value[key] for key in ("id", "created_at")}
+        return None
+
     def list(self, table, month=None):
         return (
             self.recipes
@@ -131,6 +142,7 @@ def test_http_create_revise_confirm_export_and_resume(client):
     identity = review["source"]["id"]
     assert "original" not in review["source"]
     assert "rows" not in review["profile"]
+    assert review["confirmation"] is None
     assert (
         base64.b64decode(
             client.get(f"/monthly/import-reviews/{identity}/original").json()[
@@ -177,6 +189,11 @@ def test_http_create_revise_confirm_export_and_resume(client):
     )
     assert confirmation.status_code == 200
     cid = confirmation.json()["id"]
+    resumed = client.get(f"/monthly/import-reviews/{identity}").json()
+    assert resumed["confirmation"] == {
+        "id": cid,
+        "created_at": confirmation.json()["created_at"],
+    }
     exported = client.get(
         f"/monthly/import-reviews/{identity}/export?confirmation_id={cid}"
     ).json()
@@ -188,6 +205,39 @@ def test_http_create_revise_confirm_export_and_resume(client):
     )
     assert client.get("/monthly/import-reviews?month=2026-07").json()["sources"] == []
     assert client.get(f"/monthly/import-reviews/{uuid4()}").status_code == 404
+
+    # Pagination cannot quietly mix rows from a different interpretation.
+    assert (
+        client.get(
+            f"/monthly/import-reviews/{identity}/rows?expected_revision=1"
+        ).status_code
+        == 409
+    )
+    assert (
+        client.get(
+            f"/monthly/import-reviews/{identity}/rows?expected_revision=2"
+        ).status_code
+        == 200
+    )
+    assert (
+        client.get(
+            f"/monthly/import-reviews/{identity}/rows?expected_revision=0"
+        ).status_code
+        == 422
+    )
+    # Revising clears the current confirmation; its historical export is unchanged.
+    updated = client.put(
+        f"/monthly/import-reviews/{identity}/revision",
+        json={"expected_revision": 2, "rules": rules().model_dump(), "decisions": []},
+    )
+    assert updated.status_code == 200
+    assert updated.json()["confirmation"] is None
+    assert (
+        client.get(
+            f"/monthly/import-reviews/{identity}/export?confirmation_id={cid}"
+        ).json()
+        == exported
+    )
 
 
 def test_invalid_bytes_and_missing_confirmation_fail_safely(client):

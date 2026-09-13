@@ -160,6 +160,7 @@ node scripts/acceptance/run-private-alpha.mjs
 Default is offline and reports pending. The alpha manifest extends the existing hosted-monthly manifest with `release_stage: "private_alpha"`. See its module for optional excluded-user and direct-database probes. No fixture token proves hosted access.
 
 - [x] Local admission, route denial and immutable-context tests.
+- [x] Persistent CSV save recovery and resume implementation; synthetic UI and database-restart tests are documented in [PERSISTENT-CSV-WORKFLOW.md](PERSISTENT-CSV-WORKFLOW.md). Hosted workflow acceptance remains below.
 - [x] Native synthetic encrypted dump/restore rehearsal.
 - [x] Offline setup rejects wrong projects, unbound poolers and unsafe directories.
 - [x] Actual pre-migration backup, private Drive retrieval and native restore of the hosted schema.

@@ -42,6 +42,12 @@ import { WorkloadEditor } from "./workload-editor";
 import { ReviewPreparation } from "./review-preparation";
 import { ImportReviewPanel } from "./import-review";
 import { mergePreparedEvidence } from "./preparation-state";
+import {
+  RevisionConflictError,
+  RevisionedSaver,
+  stableSnapshot as stableDraft,
+  WorkspaceRequestError,
+} from "@/lib/revisioned-save";
 
 type Tab =
   | "Overview"
@@ -75,15 +81,6 @@ const num = (v: unknown) =>
       );
 const pct = (v: unknown) =>
   v === null || v === undefined ? "Unavailable" : `${num(v)}%`;
-function stableDraft(value: unknown): string {
-  return JSON.stringify(value, (_key, item) =>
-    item && typeof item === "object" && !Array.isArray(item)
-      ? Object.fromEntries(
-          Object.entries(item).sort(([a], [b]) => a.localeCompare(b)),
-        )
-      : item,
-  );
-}
 function clearReview(item: WorkloadEvidence): WorkloadEvidence {
   return {
     ...item,
@@ -146,6 +143,13 @@ export function MonthlyWorkspace({
   const [revision, setRevision] = useState(0);
   const [draftLoaded, setDraftLoaded] = useState(false);
   const [draftConflict, setDraftConflict] = useState(false);
+  const [draftSaveError, setDraftSaveError] = useState("");
+  const [draftSaving, setDraftSaving] = useState(false);
+  const [importEditing, setImportEditing] = useState(false);
+  const importEditingRef = useRef(false);
+  const draftSaver = useRef<RevisionedSaver<DraftContent, MonthlyDraft> | null>(
+    null,
+  );
   const [draftSavedAt, setDraftSavedAt] = useState("");
   const [selectedImports, setSelectedImports] = useState<string[]>([]);
   const [assignments, setAssignments] = useState<CostAssignment[]>([]);
@@ -199,8 +203,9 @@ export function MonthlyWorkspace({
   async function api(path: string, method = "GET", body?: unknown) {
     const serialized = body === undefined ? undefined : JSON.stringify(body);
     if (serialized && new TextEncoder().encode(serialized).length > 4_000_000)
-      throw new Error(
+      throw new WorkspaceRequestError(
         "Combined evidence exceeds 4 MB. Aggregate your exports while retaining business dimensions.",
+        413,
       );
     const r = await fetch(`${base}/${path}`, {
       method,
@@ -208,8 +213,19 @@ export function MonthlyWorkspace({
       body: serialized,
       cache: "no-store",
     });
-    const data = await r.json();
-    if (!r.ok) throw new Error(errorMessage(data));
+    const data = await r.json().catch(() => null);
+    if (!r.ok)
+      throw new WorkspaceRequestError(
+        data
+          ? errorMessage(data)
+          : "The workspace could not complete this request. Your edits remain in this tab. Please retry.",
+        r.status,
+      );
+    if (!data)
+      throw new WorkspaceRequestError(
+        "The workspace returned an incomplete response. Retry to check the saved version.",
+        502,
+      );
     return data;
   }
   async function refresh() {
@@ -368,6 +384,7 @@ export function MonthlyWorkspace({
       import_ids: [],
       cost_assignments: [],
       invoice_allocations: [],
+      step: "import",
     };
     setDrafts(content.workloads);
     setDraft(null);
@@ -387,6 +404,25 @@ export function MonthlyWorkspace({
     revisionRef.current = stored?.revision || 0;
     setDraftSavedAt(stored?.updated_at || "");
     setDraftConflict(false);
+    setDraftSaveError("");
+    const saver = new RevisionedSaver<DraftContent, MonthlyDraft>({
+      revision: stored?.revision || 0,
+      read: async () => (await api(`monthly/drafts/${target}`)).draft,
+      write: async (expected_revision, value) =>
+        (
+          await api(`monthly/drafts/${target}`, "PUT", {
+            expected_revision,
+            content: value,
+          })
+        ).draft,
+      revisionOf: (value) => value.revision,
+      valueOf: (value) => value.content,
+      onSaved: (saved, submitted) => {
+        if (draftSaver.current !== saver || !mounted.current) return;
+        acceptSavedDraft(saved, submitted);
+      },
+    });
+    draftSaver.current = saver;
     lastSaved.current = stableDraft(content);
     setDraftLoaded(true);
     if (stored?.invalidations?.length)
@@ -394,66 +430,72 @@ export function MonthlyWorkspace({
         "Evidence or definitions changed. Review confirmations have been cleared for affected workloads.",
       );
   }
+  function acceptSavedDraft(stored: MonthlyDraft, submitted: DraftContent) {
+    const signature = stableDraft(submitted);
+    setRevision(stored.revision);
+    revisionRef.current = stored.revision;
+    setDraftSavedAt(stored.updated_at);
+    const canonical = stored.content;
+    if (latestDraftSignature.current === signature) {
+      setDrafts(canonical.workloads);
+      setDraft((d) =>
+        d
+          ? canonical.workloads.find((x) => x.workload_id === d.workload_id) ||
+            null
+          : null,
+      );
+      setScopeComplete(canonical.company_scope_complete);
+      setSelectedImports(canonical.import_ids);
+      setAssignments(canonical.cost_assignments);
+      setInvoiceAllocations(canonical.invoice_allocations);
+      lastSaved.current = stableDraft(canonical);
+    } else lastSaved.current = signature;
+    if (stored.invalidations?.length) {
+      const affected = new Set(stored.invalidations);
+      setDrafts((items) =>
+        items.map((item) =>
+          affected.has(item.workload_id) ? clearReview(item) : item,
+        ),
+      );
+      setDraft((item) =>
+        item && affected.has(item.workload_id) ? clearReview(item) : item,
+      );
+      setScopeComplete(false);
+      setNotice(
+        "Changes to evidence or assignments cleared the affected review confirmations. Review them before saving a report.",
+      );
+    }
+    setDraftSaveError("");
+  }
   async function saveDraft() {
-    if (demo || !draftLoaded || draftConflict) return;
+    if (demo) return;
+    if (!draftLoaded || !draftSaver.current)
+      throw new Error("Wait for saved preparation to load before continuing.");
+    if (draftConflict) throw new RevisionConflictError();
     if (saveInFlight.current)
       throw new Error(
         "Progress is currently saving. Your edits are retained; try again once the save finishes.",
       );
-    const content = assembledDraft(),
-      signature = stableDraft(content);
-    if (signature === lastSaved.current) return;
+    const content = assembledDraft();
+    if (stableDraft(content) === lastSaved.current && !draftSaveError) return;
+    const saver = draftSaver.current;
     saveInFlight.current = true;
+    setDraftSaving(true);
     try {
-      const response = await api(`monthly/drafts/${month}`, "PUT", {
-        expected_revision: revision,
-        content,
-      });
-      const stored: MonthlyDraft = response.draft;
-      setRevision(stored.revision);
-      revisionRef.current = stored.revision;
-      setDraftSavedAt(stored.updated_at);
-      const canonical = stored.content;
-      if (latestDraftSignature.current === signature) {
-        setDrafts(canonical.workloads);
-        setDraft((d) =>
-          d
-            ? canonical.workloads.find(
-                (x) => x.workload_id === d.workload_id,
-              ) || null
-            : null,
-        );
-        setScopeComplete(canonical.company_scope_complete);
-        setSelectedImports(canonical.import_ids);
-        setAssignments(canonical.cost_assignments);
-        setInvoiceAllocations(canonical.invoice_allocations);
-        lastSaved.current = stableDraft(canonical);
-      } else lastSaved.current = signature;
-      if (stored.invalidations?.length) {
-        const affected = new Set(stored.invalidations);
-        setDrafts((items) =>
-          items.map((item) =>
-            affected.has(item.workload_id) ? clearReview(item) : item,
-          ),
-        );
-        setDraft((item) =>
-          item && affected.has(item.workload_id) ? clearReview(item) : item,
-        );
-        setScopeComplete(false);
-        setNotice(
-          "Changes to evidence or assignments cleared the affected review confirmations. Review them before saving a report.",
+      await saver.save(content);
+    } catch (e) {
+      if (draftSaver.current === saver && mounted.current) {
+        setDraftConflict(e instanceof RevisionConflictError);
+        setDraftSaveError(
+          e instanceof Error
+            ? e.message
+            : "Draft could not be saved. Your edits remain in this tab.",
         );
       }
-    } catch (e) {
-      setDraftConflict(true);
-      setError(
-        e instanceof Error
-          ? e.message
-          : "Draft could not be saved. Your edits remain in this tab.",
-      );
       throw e;
     } finally {
       saveInFlight.current = false;
+      if (mounted.current) setDraftSaving(false);
     }
   }
   useEffect(() => {
@@ -464,15 +506,29 @@ export function MonthlyWorkspace({
   const draftSignature = stableDraft(assembledDraft());
   latestDraftSignature.current = draftSignature;
   useEffect(() => {
-    if (!draftLoaded || draftConflict || demo || loading) return;
+    if (!draftLoaded || draftConflict || draftSaveError || demo || loading)
+      return;
     const timer = window.setTimeout(() => {
       if (!saveInFlight.current) saveDraft().catch(() => {});
     }, 1200);
     return () => window.clearTimeout(timer);
-  }, [draftSignature, draftLoaded, draftConflict, revision, demo, loading]);
+  }, [
+    draftSignature,
+    draftLoaded,
+    draftConflict,
+    draftSaveError,
+    revision,
+    demo,
+    loading,
+  ]);
   useEffect(() => {
     const warn = (event: BeforeUnloadEvent) => {
-      if (!demo && draftLoaded && draftSignature !== lastSaved.current) {
+      if (
+        !demo &&
+        (importEditingRef.current ||
+          saveInFlight.current ||
+          (draftLoaded && draftSignature !== lastSaved.current))
+      ) {
         event.preventDefault();
         event.returnValue = "";
       }
@@ -480,6 +536,34 @@ export function MonthlyWorkspace({
     window.addEventListener("beforeunload", warn);
     return () => window.removeEventListener("beforeunload", warn);
   }, [draftSignature, draftLoaded, demo]);
+  function importActivity(active: boolean) {
+    importEditingRef.current = active;
+    setImportEditing(active);
+  }
+  function protectNavigation(event: { preventDefault: () => void }) {
+    if (
+      !demo &&
+      (importEditingRef.current ||
+        saveInFlight.current ||
+        draftConflict ||
+        draftSaveError ||
+        (draftLoaded && latestDraftSignature.current !== lastSaved.current))
+    ) {
+      event.preventDefault();
+      setError(
+        "Save or export and discard your CSV interpretation changes, and finish saving monthly preparation before leaving.",
+      );
+    }
+  }
+  function openTab(next: Tab) {
+    if (next !== tab && importEditingRef.current) {
+      setError(
+        "Finish the CSV operation or save your interpretation before leaving Monthly Review. Your edits remain here.",
+      );
+      return;
+    }
+    setTab(next);
+  }
   async function prepare() {
     const current = assembledDraft().workloads;
     const previousIds = [
@@ -534,6 +618,10 @@ export function MonthlyWorkspace({
   function changeMonth(value: string) {
     if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(value)) return;
     action("Opening reporting month", async () => {
+      if (importEditingRef.current)
+        throw new Error(
+          "Finish the CSV operation or save your interpretation before changing months.",
+        );
       if (!demo) await saveDraft();
       if (draftConflict)
         throw new Error(
@@ -569,7 +657,11 @@ export function MonthlyWorkspace({
         ? {
             ...d,
             reviewed_imports: key.endsWith("_csv")
-              ? Object.fromEntries(Object.entries(d.reviewed_imports || {}).filter(([field]) => field !== key))
+              ? Object.fromEntries(
+                  Object.entries(d.reviewed_imports || {}).filter(
+                    ([field]) => field !== key,
+                  ),
+                )
               : d.reviewed_imports,
             audit: {
               ...d.audit,
@@ -606,6 +698,10 @@ export function MonthlyWorkspace({
     input.value = "";
   }
   async function calculate() {
+    if (importEditingRef.current)
+      throw new Error(
+        "Save and finish reviewing the CSV interpretation before creating a report.",
+      );
     if (!draft && !drafts.length)
       throw new Error("Choose a workload and add evidence first.");
     if (draftConflict)
@@ -732,7 +828,7 @@ export function MonthlyWorkspace({
   return (
     <div className="audit-shell monthly-shell">
       <aside className="audit-rail">
-        <Link className="audit-brand" href="/">
+        <Link className="audit-brand" href="/" onNavigate={protectNavigation}>
           Inf<span>Fyn</span>
           <small>AI ECONOMICS</small>
         </Link>
@@ -765,7 +861,7 @@ export function MonthlyWorkspace({
               key={t}
               aria-current={tab === t ? "page" : undefined}
               className={tab === t ? "active" : ""}
-              onClick={() => setTab(t)}
+              onClick={() => openTab(t)}
             >
               <WorkspaceIcon name={t} />
               <span>{t}</span>
@@ -787,24 +883,19 @@ export function MonthlyWorkspace({
             <br />
             Every month keeps its history.
           </p>
-          {!privateAlpha && <Link href="/app/audits">Earlier audits →</Link>}
-          <Link href="/methodology">How the numbers work →</Link>
+          {!privateAlpha && (
+            <Link href="/app/audits" onNavigate={protectNavigation}>
+              Earlier audits →
+            </Link>
+          )}
+          <Link href="/methodology" onNavigate={protectNavigation}>
+            How the numbers work →
+          </Link>
           {!demo && !validation && (
             <form
               action="/auth/signout"
               method="post"
-              onSubmit={(event) => {
-                if (
-                  saveInFlight.current ||
-                  draftConflict ||
-                  (draftLoaded && draftSignature !== lastSaved.current)
-                ) {
-                  event.preventDefault();
-                  setError(
-                    "Wait for preparation to save or resolve its conflict before signing out.",
-                  );
-                }
-              }}
+              onSubmit={protectNavigation}
             >
               <button type="submit" className="monthly-signout">
                 Sign out
@@ -886,13 +977,36 @@ export function MonthlyWorkspace({
               value={month}
               max={new Date().toISOString().slice(0, 7)}
               onChange={(e) => changeMonth(e.target.value)}
-              disabled={!!busy}
+              disabled={!!busy || draftSaving || importEditing}
             />
           </label>
         </div>
         {error && (
           <div className="monthly-error" role="alert">
             {error}
+          </div>
+        )}
+        {draftSaveError && (
+          <div className="monthly-error" role="alert">
+            <strong>
+              {draftConflict
+                ? "Another saved version needs review."
+                : "Preparation has not finished saving."}
+            </strong>{" "}
+            {draftSaveError}
+            {!draftConflict && (
+              <button
+                disabled={!!busy || draftSaving}
+                onClick={() => action("Retrying saved preparation", saveDraft)}
+              >
+                Retry save
+              </button>
+            )}
+            {tab !== "Monthly Review" && (
+              <button onClick={() => openTab("Monthly Review")}>
+                Open preparation
+              </button>
+            )}
           </div>
         )}
         {notice && (
@@ -946,8 +1060,8 @@ export function MonthlyWorkspace({
                 onReport={(id) =>
                   action("Opening report", () => loadReport(id))
                 }
-                onReview={() => setTab("Monthly Review")}
-                onWorkloads={() => setTab("Workloads")}
+                onReview={() => openTab("Monthly Review")}
+                onWorkloads={() => openTab("Workloads")}
               />
             )}
             {tab === "Workloads" && (
@@ -985,7 +1099,7 @@ export function MonthlyWorkspace({
                         <span className="eyebrow">YOUR SOURCE SYSTEMS</span>
                         <h2>Connect the evidence</h2>
                       </div>
-                      <button onClick={() => setTab("Monthly Review")}>
+                      <button onClick={() => openTab("Monthly Review")}>
                         Prepare the month →
                       </button>
                     </div>
@@ -1258,13 +1372,15 @@ export function MonthlyWorkspace({
                           draft changes stay in your own authenticated
                           workspace.
                         </p>
-                        <button onClick={() => setTab("Reports")}>
+                        <button onClick={() => openTab("Reports")}>
                           Inspect the sample report →
                         </button>
                         <Link className="primary" href="/methodology">
                           Read the methodology ↗
                         </Link>
-                        <Link href="/demo/reviewed-import">See the reviewed-import walkthrough →</Link>
+                        <Link href="/demo/reviewed-import">
+                          See the reviewed-import walkthrough →
+                        </Link>
                       </section>
                     ) : (
                       <>
@@ -1272,18 +1388,32 @@ export function MonthlyWorkspace({
                           month={month}
                           workloads={workloads}
                           api={api}
-                          disabled={!!busy || !draftLoaded || draftConflict}
+                          onActivityChange={importActivity}
+                          disabled={
+                            !!busy ||
+                            !draftLoaded ||
+                            draftConflict ||
+                            draftSaving ||
+                            !!draftSaveError
+                          }
                           attach={async (confirmation, workload) => {
                             await saveDraft();
-                            if (saveInFlight.current) throw new Error("Wait for the current draft save to finish.");
+                            if (saveInFlight.current)
+                              throw new Error(
+                                "Wait for the current draft save to finish.",
+                              );
                             saveInFlight.current = true;
                             setBusy("Assigning reviewed evidence");
                             try {
-                              await api(`monthly/drafts/${month}/attach-reviewed-import`, "POST", {
-                                confirmation_id: confirmation,
-                                workload_id: workload,
-                                expected_revision: revisionRef.current,
-                              });
+                              await api(
+                                `monthly/drafts/${month}/attach-reviewed-import`,
+                                "POST",
+                                {
+                                  confirmation_id: confirmation,
+                                  workload_id: workload,
+                                  expected_revision: revisionRef.current,
+                                },
+                              );
                               await loadDraft();
                             } finally {
                               saveInFlight.current = false;
@@ -1291,26 +1421,38 @@ export function MonthlyWorkspace({
                             }
                           }}
                         />
-                        <div className="company-draft-status">
+                        <div
+                          className="company-draft-status"
+                          aria-live="polite"
+                        >
                           <span>
                             {draftConflict
                               ? "Draft needs attention · local edits retained"
-                              : draftSignature !== lastSaved.current
-                                ? "Unsaved changes · saving shortly"
-                                : draftSavedAt
-                                  ? `Progress saved · ${new Date(draftSavedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`
-                                  : "Preparation saves to your company workspace"}
+                              : draftSaving
+                                ? "Saving preparation to your company workspace…"
+                                : draftSaveError
+                                  ? "Save interrupted · your edits remain in this tab"
+                                  : draftSignature !== lastSaved.current
+                                    ? "Unsaved changes · saving shortly"
+                                    : draftSavedAt
+                                      ? `Progress saved · ${new Date(draftSavedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`
+                                      : "Preparation saves to your company workspace"}
                           </span>
                           <div className="monthly-actions">
                             <button
-                              disabled={!!busy || !draftLoaded || draftConflict}
+                              disabled={
+                                !!busy ||
+                                !draftLoaded ||
+                                draftConflict ||
+                                draftSaving
+                              }
                               onClick={() =>
                                 action("Saving progress", saveDraft)
                               }
                             >
-                              Save progress
+                              {draftSaveError ? "Retry save" : "Save progress"}
                             </button>
-                            {draftConflict && (
+                            {(draftConflict || draftSaveError) && (
                               <>
                                 <button
                                   onClick={() =>
@@ -1324,11 +1466,17 @@ export function MonthlyWorkspace({
                                   Export my edits
                                 </button>
                                 <button
-                                  onClick={() =>
-                                    action("Reloading company draft", () =>
-                                      loadDraft(),
+                                  disabled={!!busy || draftSaving}
+                                  onClick={() => {
+                                    if (
+                                      window.confirm(
+                                        "Replace your edits in this tab with the saved company draft? Export your edits first if you want to keep them.",
+                                      )
                                     )
-                                  }
+                                      action("Reloading company draft", () =>
+                                        loadDraft(),
+                                      );
+                                  }}
                                 >
                                   Reload saved version
                                 </button>
@@ -1339,6 +1487,16 @@ export function MonthlyWorkspace({
                         {!draftLoaded ? (
                           <div className="monthly-panel" role="status">
                             Loading saved preparation…
+                            <button
+                              disabled={!!busy}
+                              onClick={() =>
+                                action("Loading saved preparation", () =>
+                                  loadDraft(),
+                                )
+                              }
+                            >
+                              Retry loading preparation
+                            </button>
                           </div>
                         ) : (
                           <>
@@ -1367,7 +1525,7 @@ export function MonthlyWorkspace({
                               onPrepare={() =>
                                 action("Preparing assigned evidence", prepare)
                               }
-                              onConnections={() => setTab("Connections")}
+                              onConnections={() => openTab("Connections")}
                               api={api}
                               busy={!!busy}
                               step={reviewStep}
@@ -1406,7 +1564,7 @@ export function MonthlyWorkspace({
                                 </select>
                               </label>
                               {!workloads.length && (
-                                <button onClick={() => setTab("Workloads")}>
+                                <button onClick={() => openTab("Workloads")}>
                                   Create a workload first →
                                 </button>
                               )}
@@ -2540,14 +2698,18 @@ export function MonthlyWorkspace({
                     required. Provider credentials are server-only and never
                     included in report exports.
                   </p>
-                  <Link href="/methodology">
+                  <Link href="/methodology" onNavigate={protectNavigation}>
                     Read the calculation and confidence methodology →
                   </Link>
                   <p>
-                    <Link href="/privacy">Privacy and retention →</Link>
+                    <Link href="/privacy" onNavigate={protectNavigation}>
+                      Privacy and retention →
+                    </Link>
                   </p>
                   <p>
-                    <Link href="/terms">Service terms →</Link>
+                    <Link href="/terms" onNavigate={protectNavigation}>
+                      Service terms →
+                    </Link>
                   </p>
                 </section>
               </div>

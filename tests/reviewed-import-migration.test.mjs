@@ -1,7 +1,14 @@
 import { PGlite } from "@electric-sql/pglite";
-import { readFile } from "node:fs/promises";
+import { mkdtemp, readFile, rm, realpath } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import path from "node:path";
+import { randomUUID } from "node:crypto";
 import assert from "node:assert/strict";
-const db = new PGlite();
+const temporaryRoot = await realpath(tmpdir());
+const dataDirectory = await mkdtemp(
+  path.join(temporaryRoot, "inffyn-review-persistence-"),
+);
+let db = new PGlite(dataDirectory);
 const tenant = "11111111-1111-4111-8111-111111111111",
   actor = "22222222-2222-4222-8222-222222222222",
   other = "33333333-3333-4333-8333-333333333333";
@@ -173,7 +180,7 @@ try {
       content,
       definition_basis: "fixture",
       invalidations: [],
-      evidence_expiry: "2026-12-01T00:00:00Z",
+      evidence_expiry: new Date(Date.now() + 80 * 86400000).toISOString(),
     };
     const draft = await write("attach", source.id, 2, input);
     assert.equal(draft.revision, 1);
@@ -188,10 +195,151 @@ try {
     );
   });
   await check(
+    "saved draft, original, interpretation and confirmation survive database restart",
+    async () => {
+      await db.close();
+      db = new PGlite(dataDirectory);
+      await db.exec("set role service_role");
+      const draft = (
+        await db.query(
+          "select content,revision from inffyn_monthly_drafts where tenant_id=$1",
+          [tenant],
+        )
+      ).rows[0];
+      assert.deepEqual(draft.content, content);
+      assert.equal(draft.revision, 1);
+      const original = (
+        await db.query(
+          "select original from inffyn_import_sources where id=$1",
+          [source.id],
+        )
+      ).rows[0];
+      assert.equal(
+        Buffer.from(original.original).toString(),
+        "id,amount\n1,15\n",
+      );
+      assert.equal(
+        (
+          await db.query(
+            "select count(*)::int n from inffyn_import_revisions where source_id=$1",
+            [source.id],
+          )
+        ).rows[0].n,
+        2,
+      );
+      assert.equal(
+        (
+          await db.query(
+            "select canonical_hash from inffyn_import_confirmations where id=$1",
+            [confirmation.id],
+          )
+        ).rows[0].canonical_hash,
+        data.profile.canonical_hash,
+      );
+    },
+  );
+  await check(
+    "draft corrections preserve the original expiry and reject stale writes",
+    async () => {
+      const before = (
+        await db.query("select evidence_expires_at from inffyn_monthly_drafts")
+      ).rows[0].evidence_expires_at;
+      const params = [
+        tenant,
+        actor,
+        "2026-08",
+        1,
+        JSON.stringify({ ...content, step: "review" }),
+        "fixture",
+        "[]",
+        new Date(Date.now() + 90 * 86400000).toISOString(),
+      ];
+      await db.query(
+        "select save_inffyn_monthly_draft($1,$2,$3,$4,$5,$6,$7,$8)",
+        params,
+      );
+      await assert.rejects(
+        db.query(
+          "select save_inffyn_monthly_draft($1,$2,$3,$4,$5,$6,$7,$8)",
+          params,
+        ),
+        /Draft revision changed/,
+      );
+      const after = (
+        await db.query(
+          "select revision,content,evidence_expires_at from inffyn_monthly_drafts",
+        )
+      ).rows[0];
+      assert.equal(after.revision, 2);
+      assert.equal(after.content.step, "review");
+      assert.deepEqual(after.evidence_expires_at, before);
+    },
+  );
+  const keptReport = randomUUID(),
+    expiredReport = randomUUID(),
+    freshReport = randomUUID();
+  const result = { summary: { known_cost: "12000.00" }, basis: "synthetic" };
+  await check(
+    "report values are immutable even to the application service role",
+    async () => {
+      for (const [id, rawExpiry, reportExpiry] of [
+        [keptReport, "-1 second", "30 days"],
+        [expiredReport, "-2 days", "-1 second"],
+        [freshReport, "30 days", "1 year"],
+      ]) {
+        await db.query(
+          "insert into inffyn_monthly_reports(id,tenant_id,created_by,month,fingerprint,payload,result,evidence_expires_at,report_expires_at) values($1::uuid,$2,$3,'2026-08',$1::uuid::text,$4,$5,now()+$6::interval,now()+$7::interval)",
+          [
+            id,
+            tenant,
+            actor,
+            JSON.stringify(content),
+            JSON.stringify(result),
+            rawExpiry,
+            reportExpiry,
+          ],
+        );
+      }
+      await assert.rejects(
+        db.query("update inffyn_monthly_reports set result='{}' where id=$1", [
+          keptReport,
+        ]),
+        /immutable/,
+      );
+      await assert.rejects(
+        db.query("update inffyn_monthly_reports set payload=null where id=$1", [
+          freshReport,
+        ]),
+        /immutable/,
+      );
+    },
+  );
+  await check(
     "expiry removes original and transformation rows, retaining report-safe confirmations",
     async () => {
       await db.exec(
-        "reset role; update inffyn_import_sources set expires_at=now()-interval '1 second'; set role service_role; select expire_inffyn_monthly_evidence();",
+        "reset role; update inffyn_import_sources set expires_at=now()-interval '1 second'; update inffyn_monthly_drafts set evidence_expires_at=now()-interval '1 second'; set role service_role; select expire_inffyn_monthly_evidence();",
+      );
+      assert.equal(
+        (await db.query("select count(*)::int n from inffyn_monthly_drafts"))
+          .rows[0].n,
+        0,
+      );
+      const reports = (
+        await db.query(
+          "select id,payload,result from inffyn_monthly_reports order by id",
+        )
+      ).rows;
+      assert.equal(reports.length, 2);
+      assert.equal(reports.find((r) => r.id === keptReport).payload, null);
+      assert.deepEqual(reports.find((r) => r.id === keptReport).result, result);
+      assert.deepEqual(
+        reports.find((r) => r.id === freshReport).payload,
+        content,
+      );
+      assert.equal(
+        reports.some((r) => r.id === expiredReport),
+        false,
       );
       assert.equal(
         (await db.query("select count(*)::int n from inffyn_import_sources"))
@@ -213,9 +361,42 @@ try {
       );
     },
   );
+  await check(
+    "expired confirmations and recipes are purged, and repeated sweeps are safe",
+    async () => {
+      await db.exec(
+        "reset role; update inffyn_import_confirmations set expires_at=now()-interval '1 second'; update inffyn_import_recipes set expires_at=now()-interval '1 second'; set role service_role; select expire_inffyn_monthly_evidence(); select expire_inffyn_monthly_evidence();",
+      );
+      assert.equal(
+        (
+          await db.query(
+            "select count(*)::int n from inffyn_import_confirmations",
+          )
+        ).rows[0].n,
+        0,
+      );
+      assert.equal(
+        (await db.query("select count(*)::int n from inffyn_import_recipes"))
+          .rows[0].n,
+        0,
+      );
+      assert.equal(
+        (await db.query("select count(*)::int n from inffyn_monthly_reports"))
+          .rows[0].n,
+        2,
+      );
+    },
+  );
   console.log(
     `${checks} disposable PostgreSQL checks passed; hosted recovery and acceptance NOT executed.`,
   );
 } finally {
   await db.close();
+  const resolved = await realpath(dataDirectory);
+  if (
+    path.dirname(resolved) !== temporaryRoot ||
+    !path.basename(resolved).startsWith("inffyn-review-persistence-")
+  )
+    throw new Error("Refusing unexpected temporary cleanup path");
+  await rm(resolved, { recursive: true });
 }

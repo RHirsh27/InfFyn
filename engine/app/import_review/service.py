@@ -56,6 +56,20 @@ class ImportStore:
             raise HTTPException(404, "Confirmation unavailable in this company.")
         return row
 
+    def current_confirmation(self, source, canonical_hash):
+        """Resume only a retained confirmation of this exact source revision."""
+        row = optional_data(
+            self.query("confirmations")
+            .eq("source_id", source["id"])
+            .eq("revision", source["revision"])
+            .eq("source_hash", source["sha256"])
+            .eq("canonical_hash", canonical_hash)
+            .gt("expires_at", datetime.now(UTC).isoformat())
+            .maybe_single()
+            .execute()
+        )
+        return {key: row[key] for key in ("id", "created_at")} if row else None
+
     def list(self, table, month=None):
         fields = (
             "id,month,kind,account,filename,sha256,revision,created_at,expires_at"

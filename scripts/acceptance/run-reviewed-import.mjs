@@ -9,7 +9,8 @@ const cases = [
   "approved export",
   "recipe reuse",
   "draft attachment",
-  "fresh-session persistence",
+  "retained draft and confirmation readback",
+  "revision-consistent source pagination",
 ];
 if (!process.argv.includes("--execute")) {
   console.log(
@@ -46,6 +47,12 @@ if (!process.argv.includes("--execute")) {
     base = new URL(env.INFFYN_ACCEPTANCE_ENGINE_URL);
   assert.equal(base.protocol, "https:");
   assert.equal(base.username + base.password + base.search + base.hash, "");
+  assert.equal(
+    base.origin,
+    "https://inffyn-engine-alpha.onrender.com",
+    "Only the existing InfFyn alpha engine is approved for this runner",
+  );
+  assert.equal(base.pathname, "/", "Use the engine origin without a path");
   const ids = [env.INFFYN_ACCEPTANCE_TENANT_A, env.INFFYN_ACCEPTANCE_TENANT_B];
   assert.ok(
     ids.every((id) => /^[0-9a-f-]{36}$/i.test(id || "")) && ids[0] !== ids[1],
@@ -81,11 +88,56 @@ if (!process.argv.includes("--execute")) {
   }
   const month = "2026-08",
     workload = randomUUID();
-  assert.equal(
-    (await call(`drafts/${month}`)).draft,
-    null,
-    "Designated test company already contains preparation; do not replace it",
+  const owners = [];
+  for (const [index, token] of [
+    env.INFFYN_ACCEPTANCE_TOKEN_A,
+    env.INFFYN_ACCEPTANCE_TOKEN_B,
+  ].entries()) {
+    const response = await fetch(new URL("/tenant/verify", base), {
+      redirect: "error",
+      signal: AbortSignal.timeout(30000),
+      headers: { Authorization: `Bearer ${token}`, "X-Tenant-Id": ids[index] },
+    });
+    assert.equal(
+      response.status,
+      200,
+      "A genuine authenticated company owner is required",
+    );
+    const owner = await response.json();
+    assert.ok(
+      owner.tenant_id === ids[index] && owner.role === "owner" && owner.user_id,
+      "Company owner verification failed",
+    );
+    owners.push(owner.user_id);
+  }
+  assert.notEqual(
+    owners[0],
+    owners[1],
+    "Use distinct owners for the two test companies",
   );
+  for (const second of [false, true]) {
+    assert.equal(
+      (await call("workloads", "GET", undefined, second)).workloads.length,
+      0,
+      "Designated test companies must be empty",
+    );
+    assert.equal(
+      (await call("reports", "GET", undefined, second)).reports.length,
+      0,
+      "Designated test companies must be empty",
+    );
+    assert.equal(
+      (await call(`import-reviews?month=${month}`, "GET", undefined, second))
+        .sources.length,
+      0,
+      "Retained imports already exist; do not reuse this fixture company",
+    );
+    assert.equal(
+      (await call(`drafts/${month}`, "GET", undefined, second)).draft,
+      null,
+      "Designated test company already contains preparation; do not replace it",
+    );
+  }
   await call(`workloads/${workload}`, "POST", {
     name: `Synthetic import acceptance ${workload.slice(0, 8)}`,
     kind: "internal",
@@ -151,6 +203,18 @@ if (!process.argv.includes("--execute")) {
     canonical_hash: revised.profile.canonical_hash,
     accepted_limitations: true,
   });
+  assert.equal(
+    (await call(`import-reviews/${id}`)).confirmation?.id,
+    confirmation.id,
+  );
+  await call(
+    `import-reviews/${id}/rows?expected_revision=1`,
+    "GET",
+    undefined,
+    false,
+    409,
+  );
+  await call(`import-reviews/${id}/rows?expected_revision=2`);
   const exported = await call(
     `import-reviews/${id}/export?confirmation_id=${confirmation.id}`,
   );
@@ -198,6 +262,7 @@ if (!process.argv.includes("--execute")) {
       },
     ],
   });
+  assert.equal((await call(`import-reviews/${id}`)).confirmation, null);
   assert.equal(
     (await call(`reports/${report.id}`)).result.fingerprint,
     report.result.fingerprint,
