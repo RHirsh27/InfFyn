@@ -328,7 +328,12 @@ test("proxy blocks alpha intake before touching Auth and preserves the fixed dem
     );
     assert.equal(response.status, 403, p);
   }
-  for (const p of ["/demo/monthly", "/api/demo/company"]) {
+  for (const p of [
+    "/demo/monthly",
+    "/api/demo/company",
+    "/examples/InfFyn-CSV-test-pack.zip",
+    "/examples/csv-test-pack/README.md",
+  ]) {
     const response = await proxy(new NextRequest("https://alpha.example" + p));
     assert.equal(response.headers.get("x-middleware-next"), "1");
   }
@@ -336,6 +341,13 @@ test("proxy blocks alpha intake before touching Auth and preserves the fixed dem
     new NextRequest("https://alpha.example/app/monthly"),
   );
   assert.equal(new URL(response.headers.get("location")).pathname, "/login");
+  for (const p of [
+    "/examples/customer-export.zip",
+    "/examples/csv-test-pack/private-export.csv",
+  ]) {
+    const privateFile = await proxy(new NextRequest("https://alpha.example" + p));
+    assert.equal(new URL(privateFile.headers.get("location")).pathname, "/login");
+  }
 });
 
 test("protected APIs return uncached 401 JSON for missing or expired sessions while pages redirect", async () => {

@@ -1,0 +1,2811 @@
+{
+  "company": "SYNTHETIC Northstar CSV Test Company",
+  "edge_cases": [
+    {
+      "expected_error": "headers",
+      "file": "duplicate-headers.csv",
+      "kind": "costs_csv",
+      "note": "Reject the file. Re-export unique headers; do not guess which duplicate column is authoritative.",
+      "rules": {
+        "amount_unit": "dollars",
+        "constants": {},
+        "date_format": "%Y-%m-%d",
+        "delimiter": ",",
+        "header_row": 1,
+        "mapping": {
+          "amount": "amount",
+          "category": "category",
+          "cost_id": "cost_id",
+          "currency": "currency",
+          "customer_id": "customer_id",
+          "date": "date",
+          "feature": "feature",
+          "run_id": "run_id",
+          "source": "source",
+          "team": "team",
+          "workflow": "workflow"
+        },
+        "number_format": "plain"
+      }
+    },
+    {
+      "expected_error": "invalid_csv",
+      "file": "broken-quoting.csv",
+      "kind": "costs_csv",
+      "note": "Reject malformed CSV. Obtain a correctly quoted export.",
+      "rules": {
+        "amount_unit": "dollars",
+        "constants": {},
+        "date_format": "%Y-%m-%d",
+        "delimiter": ",",
+        "header_row": 1,
+        "mapping": {
+          "amount": "amount",
+          "category": "category",
+          "cost_id": "cost_id",
+          "currency": "currency",
+          "customer_id": "customer_id",
+          "date": "date",
+          "feature": "feature",
+          "run_id": "run_id",
+          "source": "source",
+          "team": "team",
+          "workflow": "workflow"
+        },
+        "number_format": "plain"
+      }
+    },
+    {
+      "expected": {
+        "canonical_hash": "0a929df8a3f45d808a4bbe3ea2c8a0bf2bb51a43f611f27f47b633e386cf9c61",
+        "controls": {
+          "amendments": "0",
+          "duplicate": "0",
+          "excluded": "0",
+          "included": "0",
+          "quarantined": "500",
+          "source_parseable": "500",
+          "structure": "0"
+        },
+        "controls_by_currency": {
+          "USD": {
+            "amendments": "0",
+            "duplicate": "0",
+            "excluded": "0",
+            "included": "0",
+            "quarantined": "500",
+            "source_parseable": "500",
+            "structure": "0"
+          }
+        },
+        "counts": {
+          "quarantined": 1
+        },
+        "issues": {
+          "column_count": 1
+        },
+        "ready": false,
+        "unknown_source_amount_rows": 0
+      },
+      "file": "ragged-record.csv",
+      "kind": "costs_csv",
+      "note": "Quarantine the extra-cell record. Repair the source; do not discard a real charge to make validation pass.",
+      "rules": {
+        "amount_unit": "dollars",
+        "constants": {},
+        "date_format": "%Y-%m-%d",
+        "delimiter": ",",
+        "header_row": 1,
+        "mapping": {
+          "amount": "amount",
+          "category": "category",
+          "cost_id": "cost_id",
+          "currency": "currency",
+          "date": "date",
+          "source": "source"
+        },
+        "number_format": "plain"
+      }
+    },
+    {
+      "expected": {
+        "canonical_hash": "0a929df8a3f45d808a4bbe3ea2c8a0bf2bb51a43f611f27f47b633e386cf9c61",
+        "controls": {
+          "amendments": "0",
+          "duplicate": "0",
+          "excluded": "0",
+          "included": "0",
+          "quarantined": "500",
+          "source_parseable": "500",
+          "structure": "0"
+        },
+        "controls_by_currency": {
+          "USD": {
+            "amendments": "0",
+            "duplicate": "0",
+            "excluded": "0",
+            "included": "0",
+            "quarantined": "500",
+            "source_parseable": "500",
+            "structure": "0"
+          }
+        },
+        "counts": {
+          "quarantined": 1
+        },
+        "issues": {
+          "missing:cost_id": 1
+        },
+        "ready": false,
+        "unknown_source_amount_rows": 0
+      },
+      "file": "missing-business-id.csv",
+      "kind": "costs_csv",
+      "note": "Obtain the stable source ID. The editor may not invent or amend business IDs.",
+      "rules": {
+        "amount_unit": "dollars",
+        "constants": {},
+        "date_format": "%Y-%m-%d",
+        "delimiter": ",",
+        "header_row": 1,
+        "mapping": {
+          "amount": "amount",
+          "category": "category",
+          "cost_id": "cost_id",
+          "currency": "currency",
+          "customer_id": "customer_id",
+          "date": "date",
+          "feature": "feature",
+          "run_id": "run_id",
+          "source": "source",
+          "team": "team",
+          "workflow": "workflow"
+        },
+        "number_format": "plain"
+      }
+    },
+    {
+      "expected": {
+        "canonical_hash": "0a929df8a3f45d808a4bbe3ea2c8a0bf2bb51a43f611f27f47b633e386cf9c61",
+        "controls": {
+          "amendments": "0",
+          "duplicate": "0",
+          "excluded": "0",
+          "included": "0",
+          "quarantined": "0",
+          "source_parseable": "0",
+          "structure": "0"
+        },
+        "controls_by_currency": {
+          "USD": {
+            "amendments": "0",
+            "duplicate": "0",
+            "excluded": "0",
+            "included": "0",
+            "quarantined": "0",
+            "source_parseable": "0",
+            "structure": "0"
+          }
+        },
+        "counts": {
+          "quarantined": 1
+        },
+        "issues": {
+          "invalid:amount": 1
+        },
+        "ready": false,
+        "unknown_source_amount_rows": 1
+      },
+      "file": "unknown-amount.csv",
+      "kind": "costs_csv",
+      "note": "Keep the amount unknown and scope incomplete until source evidence supplies it. Unknown is not zero.",
+      "rules": {
+        "amount_unit": "dollars",
+        "constants": {},
+        "date_format": "%Y-%m-%d",
+        "delimiter": ",",
+        "header_row": 1,
+        "mapping": {
+          "amount": "amount",
+          "category": "category",
+          "cost_id": "cost_id",
+          "currency": "currency",
+          "customer_id": "customer_id",
+          "date": "date",
+          "feature": "feature",
+          "run_id": "run_id",
+          "source": "source",
+          "team": "team",
+          "workflow": "workflow"
+        },
+        "number_format": "plain"
+      }
+    },
+    {
+      "expected": {
+        "canonical_hash": "1fc6d9ae6ba3e9cc0dbfc739e27942b5e0fd5df122e504f88f9552daacf616c7",
+        "controls": {
+          "amendments": "0",
+          "duplicate": "0",
+          "excluded": "0",
+          "included": "500",
+          "quarantined": "0",
+          "source_parseable": "500",
+          "structure": "0"
+        },
+        "controls_by_currency": {
+          "EUR": {
+            "amendments": "0.00",
+            "duplicate": "0",
+            "excluded": "0",
+            "included": "0",
+            "quarantined": "275.25",
+            "source_parseable": "275.25",
+            "structure": "0"
+          },
+          "USD": {
+            "amendments": "0",
+            "duplicate": "0",
+            "excluded": "0",
+            "included": "500",
+            "quarantined": "0",
+            "source_parseable": "500",
+            "structure": "0"
+          }
+        },
+        "counts": {
+          "included": 1,
+          "quarantined": 1
+        },
+        "issues": {
+          "currency": 1
+        },
+        "ready": false,
+        "unknown_source_amount_rows": 0
+      },
+      "file": "mixed-currencies.csv",
+      "kind": "costs_csv",
+      "note": "USD 500 and EUR 275.25 remain separate. Unlike the unrelated appendix in the comparison pack, this EUR charge is in scope: do not exclude it and claim complete coverage.",
+      "rules": {
+        "amount_unit": "dollars",
+        "constants": {},
+        "date_format": "%Y-%m-%d",
+        "delimiter": ",",
+        "header_row": 1,
+        "mapping": {
+          "amount": "amount",
+          "category": "category",
+          "cost_id": "cost_id",
+          "currency": "currency",
+          "customer_id": "customer_id",
+          "date": "date",
+          "feature": "feature",
+          "run_id": "run_id",
+          "source": "source",
+          "team": "team",
+          "workflow": "workflow"
+        },
+        "number_format": "plain"
+      }
+    },
+    {
+      "expected": {
+        "canonical_hash": "0a929df8a3f45d808a4bbe3ea2c8a0bf2bb51a43f611f27f47b633e386cf9c61",
+        "controls": {
+          "amendments": "0",
+          "duplicate": "0",
+          "excluded": "0",
+          "included": "0",
+          "quarantined": "500",
+          "source_parseable": "500",
+          "structure": "0"
+        },
+        "controls_by_currency": {
+          "USD": {
+            "amendments": "0",
+            "duplicate": "0",
+            "excluded": "0",
+            "included": "0",
+            "quarantined": "500",
+            "source_parseable": "500",
+            "structure": "0"
+          }
+        },
+        "counts": {
+          "quarantined": 1
+        },
+        "issues": {
+          "identifier_whitespace_or_length:cost_id": 1
+        },
+        "ready": false,
+        "unknown_source_amount_rows": 0
+      },
+      "file": "whitespace-business-id.csv",
+      "kind": "costs_csv",
+      "note": "Obtain a reviewed source correction. Do not silently trim or regenerate business IDs.",
+      "rules": {
+        "amount_unit": "dollars",
+        "constants": {},
+        "date_format": "%Y-%m-%d",
+        "delimiter": ",",
+        "header_row": 1,
+        "mapping": {
+          "amount": "amount",
+          "category": "category",
+          "cost_id": "cost_id",
+          "currency": "currency",
+          "customer_id": "customer_id",
+          "date": "date",
+          "feature": "feature",
+          "run_id": "run_id",
+          "source": "source",
+          "team": "team",
+          "workflow": "workflow"
+        },
+        "number_format": "plain"
+      }
+    },
+    {
+      "expected": {
+        "canonical_hash": "481a42387fda00a6ffa2c4722a72a50f836e55e7f88e76b3863eb51297d67fd3",
+        "controls": {
+          "amendments": "0",
+          "duplicate": "0",
+          "excluded": "0",
+          "included": "500",
+          "quarantined": "0",
+          "source_parseable": "500",
+          "structure": "0"
+        },
+        "controls_by_currency": {
+          "USD": {
+            "amendments": "0",
+            "duplicate": "0",
+            "excluded": "0",
+            "included": "500",
+            "quarantined": "0",
+            "source_parseable": "500",
+            "structure": "0"
+          }
+        },
+        "counts": {
+          "included": 1
+        },
+        "issues": {},
+        "ready": true,
+        "unknown_source_amount_rows": 0
+      },
+      "file": "harmless-formula-text.csv",
+      "kind": "costs_csv",
+      "note": "Harmless arithmetic text, with no external command or link. Canonical export keeps literal source text; spreadsheet-safe export prefixes it with an apostrophe. Ready does not mean this is an adequate evidence reference.",
+      "rules": {
+        "amount_unit": "dollars",
+        "constants": {},
+        "date_format": "%Y-%m-%d",
+        "delimiter": ",",
+        "header_row": 1,
+        "mapping": {
+          "amount": "amount",
+          "category": "category",
+          "cost_id": "cost_id",
+          "currency": "currency",
+          "customer_id": "customer_id",
+          "date": "date",
+          "feature": "feature",
+          "run_id": "run_id",
+          "source": "source",
+          "team": "team",
+          "workflow": "workflow"
+        },
+        "number_format": "plain"
+      }
+    },
+    {
+      "expected_error": "mapping",
+      "file": "changed-schema.csv",
+      "kind": "costs_csv",
+      "note": "Reusing last month's recipe must flag the renamed amount column. Review the new mapping before calculating.",
+      "rules": {
+        "amount_unit": "dollars",
+        "constants": {},
+        "date_format": "%Y-%m-%d",
+        "delimiter": ",",
+        "header_row": 1,
+        "mapping": {
+          "amount": "amount",
+          "category": "category",
+          "cost_id": "cost_id",
+          "currency": "currency",
+          "customer_id": "customer_id",
+          "date": "date",
+          "feature": "feature",
+          "run_id": "run_id",
+          "source": "source",
+          "team": "team",
+          "workflow": "workflow"
+        },
+        "number_format": "plain"
+      }
+    },
+    {
+      "expected": {
+        "canonical_hash": "e8c49ef22740d63276ee2d3d68eebc00773dfe5275c7610649db3b4092640e73",
+        "controls": {
+          "amendments": "0",
+          "duplicate": "0",
+          "excluded": "0",
+          "included": "0",
+          "quarantined": "0",
+          "source_parseable": "0",
+          "structure": "0"
+        },
+        "controls_by_currency": {
+          "USD": {
+            "amendments": "0",
+            "duplicate": "0",
+            "excluded": "0",
+            "included": "0",
+            "quarantined": "0",
+            "source_parseable": "0",
+            "structure": "0"
+          }
+        },
+        "counts": {
+          "included": 1
+        },
+        "issues": {},
+        "ready": true,
+        "unknown_source_amount_rows": 1
+      },
+      "file": "unpriced-usage.csv",
+      "kind": "usage_csv",
+      "note": "Row structure is reviewable, but no billed cost or rate exists. Withhold contribution and cost per accepted outcome. Do not use aggregate expenses settings for this event-based exercise.",
+      "rules": {
+        "amount_unit": "dollars",
+        "constants": {},
+        "date_format": "%Y-%m-%d",
+        "delimiter": ",",
+        "header_row": 1,
+        "mapping": {
+          "billed_cost": "billed_cost",
+          "cached_input_tokens": "cached_input_tokens",
+          "cost_source": "cost_source",
+          "currency": "currency",
+          "customer_id": "customer_id",
+          "customer_segment": "customer_segment",
+          "date": "date",
+          "event_id": "event_id",
+          "feature": "feature",
+          "input_tokens": "input_tokens",
+          "model": "model",
+          "output_tokens": "output_tokens",
+          "provider": "provider",
+          "requests": "requests",
+          "run_id": "run_id",
+          "team": "team",
+          "workflow": "workflow"
+        },
+        "number_format": "plain"
+      }
+    },
+    {
+      "expected_error": "invalid_outcome",
+      "file": "failed-outcome-with-quantity.csv",
+      "kind": "outcomes_csv",
+      "note": "In the direct Outcomes input, replace the shared research outcomes after using clean costs. Calculation must reject a failed run with accepted quantity 1. The reviewed organizer currently supports usage, costs and revenue, not outcomes."
+    }
+  ],
+  "month": "2026-08",
+  "notice": "Authored test evidence only. Engine replay is not hosted authentication, provider, recovery or customer acceptance.",
+  "scenarios": [
+    {
+      "economics": {
+        "company_known_cost": "43200.00",
+        "workloads": [
+          {
+            "confidence": {
+              "cost": {
+                "checks": [
+                  {
+                    "id": "sources",
+                    "label": "Traceable sources",
+                    "points": 20,
+                    "reason": "101 of 101 cost records have a source. Source/period review note recorded.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "coverage",
+                    "label": "Complete coverage",
+                    "points": 20,
+                    "reason": "0 included usage rows lack a price. Full cost scope confirmed by reviewer.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "associations",
+                    "label": "Valid associations",
+                    "points": 20,
+                    "reason": "Included records assigned to SYNTHETIC Research test workload. This is a workload association; ambiguous shared expenses must remain Unallocated.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "reconciliation",
+                    "label": "Reconciled calculations",
+                    "points": 20,
+                    "reason": "Included amount USD 32000.00; customer-supplied control USD 32000; difference USD 0.00. Control source: SYNTHETIC control ledger. Tolerance USD 0.01.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "review",
+                    "label": "Reviewed method",
+                    "points": 20,
+                    "reason": "Reviewer confirmed cost basis, scope, mappings and assumptions.",
+                    "status": "pass"
+                  }
+                ],
+                "meaning": "Evidence checklist completion. Not statistical confidence, causal attribution, or a performance grade.",
+                "score": 100,
+                "state": "ready",
+                "version": "evidence-1.0.1"
+              },
+              "outcomes": {
+                "checks": [
+                  {
+                    "id": "sources",
+                    "label": "Traceable sources",
+                    "points": 20,
+                    "reason": "50 final outcome records supplied. Source/period review note recorded.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "coverage",
+                    "label": "Complete coverage",
+                    "points": 20,
+                    "reason": "Include accepted, rejected, and failed runs for the full cost cohort.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "associations",
+                    "label": "Valid associations",
+                    "points": 20,
+                    "reason": "Define one accepted business unit and link all included costs to that cohort.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "reconciliation",
+                    "label": "Reconciled calculations",
+                    "points": 20,
+                    "reason": "Included distinct runs: 50; reviewed outcomes: 50; customer-supplied expected runs: 50. Counts must agree exactly.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "review",
+                    "label": "Reviewed method",
+                    "points": 20,
+                    "reason": "Confirm the acceptance criteria and any modeled time/capacity assumptions.",
+                    "status": "pass"
+                  }
+                ],
+                "meaning": "Evidence checklist completion. Not statistical confidence, causal attribution, or a performance grade.",
+                "score": 100,
+                "state": "ready",
+                "version": "evidence-1.0.1"
+              },
+              "revenue": {
+                "checks": [
+                  {
+                    "id": "sources",
+                    "label": "Traceable sources",
+                    "points": 20,
+                    "reason": "Provide traceable revenue evidence and its reporting basis.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "coverage",
+                    "label": "Complete coverage",
+                    "points": 20,
+                    "reason": "Confirm that revenue and signed adjustments for this workload and period are complete.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "associations",
+                    "label": "Valid associations",
+                    "points": 20,
+                    "reason": "2 of 2 revenue records join an included customer. Unassociated records remain visible; signed adjustments cannot cancel missing associations.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "reconciliation",
+                    "label": "Reconciled calculations",
+                    "points": 20,
+                    "reason": "Included amount USD 48000.00; customer-supplied control USD 48000; difference USD 0.00. Control source: SYNTHETIC collections control. Tolerance USD 0.01.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "review",
+                    "label": "Reviewed method",
+                    "points": 20,
+                    "reason": "Review collections versus recognized revenue and the selected allocation method. Association is not causation.",
+                    "status": "pass"
+                  }
+                ],
+                "meaning": "Evidence checklist completion. Not statistical confidence, causal attribution, or a performance grade.",
+                "score": 100,
+                "state": "ready",
+                "version": "evidence-1.0.1"
+              }
+            },
+            "control_variance": "0.00",
+            "cost_components": {
+              "compute": "0",
+              "human_review": "7500.00",
+              "inference": "24500.00",
+              "other": "0",
+              "subscription": "0",
+              "tools": "0"
+            },
+            "outcomes": {
+              "acceptance_rate": "80.0",
+              "accepted_quantity": "4000",
+              "capacity_basis": "Modeled capacity value; not realized cash savings",
+              "cohort_complete": true,
+              "cost_per_accepted_outcome": "8.00",
+              "included_runs": 50,
+              "modeled_capacity_value": null,
+              "modeled_hours": null,
+              "reviewed_runs": 50
+            },
+            "summary": {
+              "basis": "Modeled",
+              "contribution": "16000.00",
+              "cost_scope_complete": true,
+              "gpp1m": null,
+              "known_cost": "32000.00",
+              "margin_percent": "33.3333333333333333333333333333333333333333333333333333333333",
+              "requests": "0",
+              "revenue": "48000.00",
+              "tokens": "0",
+              "unknown_cost_rows": 0
+            },
+            "workload": {
+              "acceptance_definition": "Human reviewer accepts the batch against the synthetic quality checklist",
+              "cost_scope": "Synthetic inference and human review, including failed work and signed credits",
+              "id": "ab1e8ab4-1a7f-55da-bb33-dc6affd5c7d1",
+              "kind": "product",
+              "mappings": {},
+              "name": "SYNTHETIC Research test workload",
+              "outcome_unit": "accepted research brief",
+              "purpose": "CSV acceptance exercise; invented business activity",
+              "responsible_team": "Research delivery",
+              "unallocated": false
+            }
+          },
+          {
+            "confidence": {
+              "cost": {
+                "checks": [
+                  {
+                    "id": "sources",
+                    "label": "Traceable sources",
+                    "points": 20,
+                    "reason": "101 of 101 cost records have a source. Source/period review note recorded.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "coverage",
+                    "label": "Complete coverage",
+                    "points": 20,
+                    "reason": "0 included usage rows lack a price. Full cost scope confirmed by reviewer.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "associations",
+                    "label": "Valid associations",
+                    "points": 20,
+                    "reason": "Included records assigned to SYNTHETIC Support test workload. This is a workload association; ambiguous shared expenses must remain Unallocated.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "reconciliation",
+                    "label": "Reconciled calculations",
+                    "points": 20,
+                    "reason": "Included amount USD 11200.00; customer-supplied control USD 11200; difference USD 0.00. Control source: SYNTHETIC control ledger. Tolerance USD 0.01.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "review",
+                    "label": "Reviewed method",
+                    "points": 20,
+                    "reason": "Reviewer confirmed cost basis, scope, mappings and assumptions.",
+                    "status": "pass"
+                  }
+                ],
+                "meaning": "Evidence checklist completion. Not statistical confidence, causal attribution, or a performance grade.",
+                "score": 100,
+                "state": "ready",
+                "version": "evidence-1.0.1"
+              },
+              "outcomes": {
+                "checks": [
+                  {
+                    "id": "sources",
+                    "label": "Traceable sources",
+                    "points": 20,
+                    "reason": "50 final outcome records supplied. Source/period review note recorded.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "coverage",
+                    "label": "Complete coverage",
+                    "points": 20,
+                    "reason": "Include accepted, rejected, and failed runs for the full cost cohort.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "associations",
+                    "label": "Valid associations",
+                    "points": 20,
+                    "reason": "Define one accepted business unit and link all included costs to that cohort.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "reconciliation",
+                    "label": "Reconciled calculations",
+                    "points": 20,
+                    "reason": "Included distinct runs: 50; reviewed outcomes: 50; customer-supplied expected runs: 50. Counts must agree exactly.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "review",
+                    "label": "Reviewed method",
+                    "points": 20,
+                    "reason": "Confirm the acceptance criteria and any modeled time/capacity assumptions.",
+                    "status": "pass"
+                  }
+                ],
+                "meaning": "Evidence checklist completion. Not statistical confidence, causal attribution, or a performance grade.",
+                "score": 100,
+                "state": "ready",
+                "version": "evidence-1.0.1"
+              },
+              "revenue": {
+                "checks": [],
+                "meaning": "Not applicable to this workload.",
+                "score": null,
+                "state": "not_applicable",
+                "version": "evidence-1.0.1"
+              }
+            },
+            "control_variance": "0.00",
+            "cost_components": {
+              "compute": "0",
+              "human_review": "4000.00",
+              "inference": "7200.00",
+              "other": "0",
+              "subscription": "0",
+              "tools": "0"
+            },
+            "outcomes": {
+              "acceptance_rate": "80.0",
+              "accepted_quantity": "8000",
+              "capacity_basis": "Modeled capacity value; not realized cash savings",
+              "cohort_complete": true,
+              "cost_per_accepted_outcome": "1.40",
+              "included_runs": 50,
+              "modeled_capacity_value": null,
+              "modeled_hours": null,
+              "reviewed_runs": 50
+            },
+            "summary": {
+              "basis": "Customer supplied",
+              "contribution": null,
+              "cost_scope_complete": true,
+              "gpp1m": null,
+              "known_cost": "11200.00",
+              "margin_percent": null,
+              "requests": "0",
+              "revenue": null,
+              "tokens": "0",
+              "unknown_cost_rows": 0
+            },
+            "workload": {
+              "acceptance_definition": "Human reviewer accepts the batch against the synthetic quality checklist",
+              "cost_scope": "Synthetic inference and human review, including failed work and signed credits",
+              "id": "3ef04240-c234-5e1b-ad63-374a22c7c3fd",
+              "kind": "internal",
+              "mappings": {},
+              "name": "SYNTHETIC Support test workload",
+              "outcome_unit": "accepted support resolution",
+              "purpose": "CSV acceptance exercise; invented business activity",
+              "responsible_team": "Support operations",
+              "unallocated": false
+            }
+          }
+        ]
+      },
+      "folder": "01-clean-control",
+      "sources": {
+        "research-collections.csv": {
+          "initial": {
+            "canonical_hash": "09e09e739cad771a3a90a391d54a390bbde9928b5715168b350ca288104654f5",
+            "controls": {
+              "amendments": "0.00",
+              "duplicate": "0",
+              "excluded": "0",
+              "included": "48000.00",
+              "quarantined": "0",
+              "source_parseable": "48000.00",
+              "structure": "0"
+            },
+            "controls_by_currency": {
+              "USD": {
+                "amendments": "0.00",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "48000.00",
+                "quarantined": "0",
+                "source_parseable": "48000.00",
+                "structure": "0"
+              }
+            },
+            "counts": {
+              "included": 2
+            },
+            "issues": {},
+            "ready": true,
+            "unknown_source_amount_rows": 0
+          },
+          "kind": "revenue_csv",
+          "reviewed": {
+            "canonical_hash": "09e09e739cad771a3a90a391d54a390bbde9928b5715168b350ca288104654f5",
+            "controls": {
+              "amendments": "0.00",
+              "duplicate": "0",
+              "excluded": "0",
+              "included": "48000.00",
+              "quarantined": "0",
+              "source_parseable": "48000.00",
+              "structure": "0"
+            },
+            "controls_by_currency": {
+              "USD": {
+                "amendments": "0.00",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "48000.00",
+                "quarantined": "0",
+                "source_parseable": "48000.00",
+                "structure": "0"
+              }
+            },
+            "counts": {
+              "included": 2
+            },
+            "issues": {},
+            "ready": true,
+            "unknown_source_amount_rows": 0
+          },
+          "sha256": "09e09e739cad771a3a90a391d54a390bbde9928b5715168b350ca288104654f5"
+        },
+        "research-costs.csv": {
+          "initial": {
+            "canonical_hash": "4b7e8586c63dfc5c73b6ce255d2bbe30851e39402c3335b143e626249b3652b5",
+            "controls": {
+              "amendments": "0.00",
+              "duplicate": "0",
+              "excluded": "0",
+              "included": "32000.00",
+              "quarantined": "0",
+              "source_parseable": "32000.00",
+              "structure": "0"
+            },
+            "controls_by_currency": {
+              "USD": {
+                "amendments": "0.00",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "32000.00",
+                "quarantined": "0",
+                "source_parseable": "32000.00",
+                "structure": "0"
+              }
+            },
+            "counts": {
+              "included": 101
+            },
+            "issues": {},
+            "ready": true,
+            "unknown_source_amount_rows": 0
+          },
+          "kind": "costs_csv",
+          "reviewed": {
+            "canonical_hash": "4b7e8586c63dfc5c73b6ce255d2bbe30851e39402c3335b143e626249b3652b5",
+            "controls": {
+              "amendments": "0.00",
+              "duplicate": "0",
+              "excluded": "0",
+              "included": "32000.00",
+              "quarantined": "0",
+              "source_parseable": "32000.00",
+              "structure": "0"
+            },
+            "controls_by_currency": {
+              "USD": {
+                "amendments": "0.00",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "32000.00",
+                "quarantined": "0",
+                "source_parseable": "32000.00",
+                "structure": "0"
+              }
+            },
+            "counts": {
+              "included": 101
+            },
+            "issues": {},
+            "ready": true,
+            "unknown_source_amount_rows": 0
+          },
+          "sha256": "4b7e8586c63dfc5c73b6ce255d2bbe30851e39402c3335b143e626249b3652b5"
+        },
+        "support-costs.csv": {
+          "initial": {
+            "canonical_hash": "0e276fe840dc52853e99deb9b1f5465cdd56d453e19bc23d0705675721219f39",
+            "controls": {
+              "amendments": "0.00",
+              "duplicate": "0",
+              "excluded": "0",
+              "included": "11200.00",
+              "quarantined": "0",
+              "source_parseable": "11200.00",
+              "structure": "0"
+            },
+            "controls_by_currency": {
+              "USD": {
+                "amendments": "0.00",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "11200.00",
+                "quarantined": "0",
+                "source_parseable": "11200.00",
+                "structure": "0"
+              }
+            },
+            "counts": {
+              "included": 101
+            },
+            "issues": {},
+            "ready": true,
+            "unknown_source_amount_rows": 0
+          },
+          "kind": "costs_csv",
+          "reviewed": {
+            "canonical_hash": "0e276fe840dc52853e99deb9b1f5465cdd56d453e19bc23d0705675721219f39",
+            "controls": {
+              "amendments": "0.00",
+              "duplicate": "0",
+              "excluded": "0",
+              "included": "11200.00",
+              "quarantined": "0",
+              "source_parseable": "11200.00",
+              "structure": "0"
+            },
+            "controls_by_currency": {
+              "USD": {
+                "amendments": "0.00",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "11200.00",
+                "quarantined": "0",
+                "source_parseable": "11200.00",
+                "structure": "0"
+              }
+            },
+            "counts": {
+              "included": 101
+            },
+            "issues": {},
+            "ready": true,
+            "unknown_source_amount_rows": 0
+          },
+          "sha256": "0e276fe840dc52853e99deb9b1f5465cdd56d453e19bc23d0705675721219f39"
+        }
+      }
+    },
+    {
+      "economics": {
+        "company_known_cost": "43200.00",
+        "workloads": [
+          {
+            "confidence": {
+              "cost": {
+                "checks": [
+                  {
+                    "id": "sources",
+                    "label": "Traceable sources",
+                    "points": 20,
+                    "reason": "101 of 101 cost records have a source. Source/period review note recorded.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "coverage",
+                    "label": "Complete coverage",
+                    "points": 20,
+                    "reason": "0 included usage rows lack a price. Full cost scope confirmed by reviewer.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "associations",
+                    "label": "Valid associations",
+                    "points": 20,
+                    "reason": "Included records assigned to SYNTHETIC Research test workload. This is a workload association; ambiguous shared expenses must remain Unallocated.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "reconciliation",
+                    "label": "Reconciled calculations",
+                    "points": 20,
+                    "reason": "Included amount USD 32000.00; customer-supplied control USD 32000; difference USD 0.00. Control source: SYNTHETIC control ledger. Tolerance USD 0.01.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "review",
+                    "label": "Reviewed method",
+                    "points": 20,
+                    "reason": "Reviewer confirmed cost basis, scope, mappings and assumptions.",
+                    "status": "pass"
+                  }
+                ],
+                "meaning": "Evidence checklist completion. Not statistical confidence, causal attribution, or a performance grade.",
+                "score": 100,
+                "state": "ready",
+                "version": "evidence-1.0.1"
+              },
+              "outcomes": {
+                "checks": [
+                  {
+                    "id": "sources",
+                    "label": "Traceable sources",
+                    "points": 20,
+                    "reason": "50 final outcome records supplied. Source/period review note recorded.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "coverage",
+                    "label": "Complete coverage",
+                    "points": 20,
+                    "reason": "Include accepted, rejected, and failed runs for the full cost cohort.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "associations",
+                    "label": "Valid associations",
+                    "points": 20,
+                    "reason": "Define one accepted business unit and link all included costs to that cohort.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "reconciliation",
+                    "label": "Reconciled calculations",
+                    "points": 20,
+                    "reason": "Included distinct runs: 50; reviewed outcomes: 50; customer-supplied expected runs: 50. Counts must agree exactly.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "review",
+                    "label": "Reviewed method",
+                    "points": 20,
+                    "reason": "Confirm the acceptance criteria and any modeled time/capacity assumptions.",
+                    "status": "pass"
+                  }
+                ],
+                "meaning": "Evidence checklist completion. Not statistical confidence, causal attribution, or a performance grade.",
+                "score": 100,
+                "state": "ready",
+                "version": "evidence-1.0.1"
+              },
+              "revenue": {
+                "checks": [
+                  {
+                    "id": "sources",
+                    "label": "Traceable sources",
+                    "points": 20,
+                    "reason": "Provide traceable revenue evidence and its reporting basis.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "coverage",
+                    "label": "Complete coverage",
+                    "points": 20,
+                    "reason": "Confirm that revenue and signed adjustments for this workload and period are complete.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "associations",
+                    "label": "Valid associations",
+                    "points": 20,
+                    "reason": "2 of 2 revenue records join an included customer. Unassociated records remain visible; signed adjustments cannot cancel missing associations.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "reconciliation",
+                    "label": "Reconciled calculations",
+                    "points": 20,
+                    "reason": "Included amount USD 48000.00; customer-supplied control USD 48000; difference USD 0.00. Control source: SYNTHETIC collections control. Tolerance USD 0.01.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "review",
+                    "label": "Reviewed method",
+                    "points": 20,
+                    "reason": "Review collections versus recognized revenue and the selected allocation method. Association is not causation.",
+                    "status": "pass"
+                  }
+                ],
+                "meaning": "Evidence checklist completion. Not statistical confidence, causal attribution, or a performance grade.",
+                "score": 100,
+                "state": "ready",
+                "version": "evidence-1.0.1"
+              }
+            },
+            "control_variance": "0.00",
+            "cost_components": {
+              "compute": "0",
+              "human_review": "7500.00",
+              "inference": "24500.00",
+              "other": "0",
+              "subscription": "0",
+              "tools": "0"
+            },
+            "outcomes": {
+              "acceptance_rate": "80.0",
+              "accepted_quantity": "4000",
+              "capacity_basis": "Modeled capacity value; not realized cash savings",
+              "cohort_complete": true,
+              "cost_per_accepted_outcome": "8.00",
+              "included_runs": 50,
+              "modeled_capacity_value": null,
+              "modeled_hours": null,
+              "reviewed_runs": 50
+            },
+            "summary": {
+              "basis": "Modeled",
+              "contribution": "16000.00",
+              "cost_scope_complete": true,
+              "gpp1m": null,
+              "known_cost": "32000.00",
+              "margin_percent": "33.3333333333333333333333333333333333333333333333333333333333",
+              "requests": "0",
+              "revenue": "48000.00",
+              "tokens": "0",
+              "unknown_cost_rows": 0
+            },
+            "workload": {
+              "acceptance_definition": "Human reviewer accepts the batch against the synthetic quality checklist",
+              "cost_scope": "Synthetic inference and human review, including failed work and signed credits",
+              "id": "ab1e8ab4-1a7f-55da-bb33-dc6affd5c7d1",
+              "kind": "product",
+              "mappings": {},
+              "name": "SYNTHETIC Research test workload",
+              "outcome_unit": "accepted research brief",
+              "purpose": "CSV acceptance exercise; invented business activity",
+              "responsible_team": "Research delivery",
+              "unallocated": false
+            }
+          },
+          {
+            "confidence": {
+              "cost": {
+                "checks": [
+                  {
+                    "id": "sources",
+                    "label": "Traceable sources",
+                    "points": 20,
+                    "reason": "101 of 101 cost records have a source. Source/period review note recorded.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "coverage",
+                    "label": "Complete coverage",
+                    "points": 20,
+                    "reason": "0 included usage rows lack a price. Full cost scope confirmed by reviewer.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "associations",
+                    "label": "Valid associations",
+                    "points": 20,
+                    "reason": "Included records assigned to SYNTHETIC Support test workload. This is a workload association; ambiguous shared expenses must remain Unallocated.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "reconciliation",
+                    "label": "Reconciled calculations",
+                    "points": 20,
+                    "reason": "Included amount USD 11200.00; customer-supplied control USD 11200; difference USD 0.00. Control source: SYNTHETIC control ledger. Tolerance USD 0.01.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "review",
+                    "label": "Reviewed method",
+                    "points": 20,
+                    "reason": "Reviewer confirmed cost basis, scope, mappings and assumptions.",
+                    "status": "pass"
+                  }
+                ],
+                "meaning": "Evidence checklist completion. Not statistical confidence, causal attribution, or a performance grade.",
+                "score": 100,
+                "state": "ready",
+                "version": "evidence-1.0.1"
+              },
+              "outcomes": {
+                "checks": [
+                  {
+                    "id": "sources",
+                    "label": "Traceable sources",
+                    "points": 20,
+                    "reason": "50 final outcome records supplied. Source/period review note recorded.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "coverage",
+                    "label": "Complete coverage",
+                    "points": 20,
+                    "reason": "Include accepted, rejected, and failed runs for the full cost cohort.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "associations",
+                    "label": "Valid associations",
+                    "points": 20,
+                    "reason": "Define one accepted business unit and link all included costs to that cohort.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "reconciliation",
+                    "label": "Reconciled calculations",
+                    "points": 20,
+                    "reason": "Included distinct runs: 50; reviewed outcomes: 50; customer-supplied expected runs: 50. Counts must agree exactly.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "review",
+                    "label": "Reviewed method",
+                    "points": 20,
+                    "reason": "Confirm the acceptance criteria and any modeled time/capacity assumptions.",
+                    "status": "pass"
+                  }
+                ],
+                "meaning": "Evidence checklist completion. Not statistical confidence, causal attribution, or a performance grade.",
+                "score": 100,
+                "state": "ready",
+                "version": "evidence-1.0.1"
+              },
+              "revenue": {
+                "checks": [],
+                "meaning": "Not applicable to this workload.",
+                "score": null,
+                "state": "not_applicable",
+                "version": "evidence-1.0.1"
+              }
+            },
+            "control_variance": "0.00",
+            "cost_components": {
+              "compute": "0",
+              "human_review": "4000.00",
+              "inference": "7200.00",
+              "other": "0",
+              "subscription": "0",
+              "tools": "0"
+            },
+            "outcomes": {
+              "acceptance_rate": "80.0",
+              "accepted_quantity": "8000",
+              "capacity_basis": "Modeled capacity value; not realized cash savings",
+              "cohort_complete": true,
+              "cost_per_accepted_outcome": "1.40",
+              "included_runs": 50,
+              "modeled_capacity_value": null,
+              "modeled_hours": null,
+              "reviewed_runs": 50
+            },
+            "summary": {
+              "basis": "Customer supplied",
+              "contribution": null,
+              "cost_scope_complete": true,
+              "gpp1m": null,
+              "known_cost": "11200.00",
+              "margin_percent": null,
+              "requests": "0",
+              "revenue": null,
+              "tokens": "0",
+              "unknown_cost_rows": 0
+            },
+            "workload": {
+              "acceptance_definition": "Human reviewer accepts the batch against the synthetic quality checklist",
+              "cost_scope": "Synthetic inference and human review, including failed work and signed credits",
+              "id": "3ef04240-c234-5e1b-ad63-374a22c7c3fd",
+              "kind": "internal",
+              "mappings": {},
+              "name": "SYNTHETIC Support test workload",
+              "outcome_unit": "accepted support resolution",
+              "purpose": "CSV acceptance exercise; invented business activity",
+              "responsible_team": "Support operations",
+              "unallocated": false
+            }
+          }
+        ]
+      },
+      "folder": "02-decent",
+      "sources": {
+        "research-collections.csv": {
+          "initial": {
+            "canonical_hash": "09e09e739cad771a3a90a391d54a390bbde9928b5715168b350ca288104654f5",
+            "controls": {
+              "amendments": "0.00",
+              "duplicate": "0",
+              "excluded": "0",
+              "included": "48000.00",
+              "quarantined": "0",
+              "source_parseable": "48000.00",
+              "structure": "0"
+            },
+            "controls_by_currency": {
+              "USD": {
+                "amendments": "0.00",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "48000.00",
+                "quarantined": "0",
+                "source_parseable": "48000.00",
+                "structure": "0"
+              }
+            },
+            "counts": {
+              "included": 2
+            },
+            "issues": {},
+            "ready": true,
+            "unknown_source_amount_rows": 0
+          },
+          "kind": "revenue_csv",
+          "reviewed": {
+            "canonical_hash": "09e09e739cad771a3a90a391d54a390bbde9928b5715168b350ca288104654f5",
+            "controls": {
+              "amendments": "0.00",
+              "duplicate": "0",
+              "excluded": "0",
+              "included": "48000.00",
+              "quarantined": "0",
+              "source_parseable": "48000.00",
+              "structure": "0"
+            },
+            "controls_by_currency": {
+              "USD": {
+                "amendments": "0.00",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "48000.00",
+                "quarantined": "0",
+                "source_parseable": "48000.00",
+                "structure": "0"
+              }
+            },
+            "counts": {
+              "included": 2
+            },
+            "issues": {},
+            "ready": true,
+            "unknown_source_amount_rows": 0
+          },
+          "sha256": "5f14029ebe830884664920a64321f1334aecd39c99e9c13c5330b98c0cfb96e5"
+        },
+        "research-costs.csv": {
+          "initial": {
+            "canonical_hash": "4b7e8586c63dfc5c73b6ce255d2bbe30851e39402c3335b143e626249b3652b5",
+            "controls": {
+              "amendments": "0.00",
+              "duplicate": "0",
+              "excluded": "0",
+              "included": "32000.00",
+              "quarantined": "0",
+              "source_parseable": "32000.00",
+              "structure": "0"
+            },
+            "controls_by_currency": {
+              "USD": {
+                "amendments": "0.00",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "32000.00",
+                "quarantined": "0",
+                "source_parseable": "32000.00",
+                "structure": "0"
+              }
+            },
+            "counts": {
+              "included": 101
+            },
+            "issues": {},
+            "ready": true,
+            "unknown_source_amount_rows": 0
+          },
+          "kind": "costs_csv",
+          "reviewed": {
+            "canonical_hash": "4b7e8586c63dfc5c73b6ce255d2bbe30851e39402c3335b143e626249b3652b5",
+            "controls": {
+              "amendments": "0.00",
+              "duplicate": "0",
+              "excluded": "0",
+              "included": "32000.00",
+              "quarantined": "0",
+              "source_parseable": "32000.00",
+              "structure": "0"
+            },
+            "controls_by_currency": {
+              "USD": {
+                "amendments": "0.00",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "32000.00",
+                "quarantined": "0",
+                "source_parseable": "32000.00",
+                "structure": "0"
+              }
+            },
+            "counts": {
+              "included": 101
+            },
+            "issues": {},
+            "ready": true,
+            "unknown_source_amount_rows": 0
+          },
+          "sha256": "a78525d86bd651ae4d7f58b9583467201ace572ae4218bdce339438261f2198d"
+        },
+        "support-costs.csv": {
+          "initial": {
+            "canonical_hash": "0e276fe840dc52853e99deb9b1f5465cdd56d453e19bc23d0705675721219f39",
+            "controls": {
+              "amendments": "0.00",
+              "duplicate": "0",
+              "excluded": "0",
+              "included": "11200.00",
+              "quarantined": "0",
+              "source_parseable": "11200.00",
+              "structure": "0"
+            },
+            "controls_by_currency": {
+              "USD": {
+                "amendments": "0.00",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "11200.00",
+                "quarantined": "0",
+                "source_parseable": "11200.00",
+                "structure": "0"
+              }
+            },
+            "counts": {
+              "included": 101
+            },
+            "issues": {},
+            "ready": true,
+            "unknown_source_amount_rows": 0
+          },
+          "kind": "costs_csv",
+          "reviewed": {
+            "canonical_hash": "0e276fe840dc52853e99deb9b1f5465cdd56d453e19bc23d0705675721219f39",
+            "controls": {
+              "amendments": "0.00",
+              "duplicate": "0",
+              "excluded": "0",
+              "included": "11200.00",
+              "quarantined": "0",
+              "source_parseable": "11200.00",
+              "structure": "0"
+            },
+            "controls_by_currency": {
+              "USD": {
+                "amendments": "0.00",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "11200.00",
+                "quarantined": "0",
+                "source_parseable": "11200.00",
+                "structure": "0"
+              }
+            },
+            "counts": {
+              "included": 101
+            },
+            "issues": {},
+            "ready": true,
+            "unknown_source_amount_rows": 0
+          },
+          "sha256": "bb0a2c47b04e9b7684f9fb2d1949a5ea7ad6bb72ee1826e62aa724b94f096f54"
+        }
+      }
+    },
+    {
+      "economics": {
+        "company_known_cost": "43200.00",
+        "workloads": [
+          {
+            "confidence": {
+              "cost": {
+                "checks": [
+                  {
+                    "id": "sources",
+                    "label": "Traceable sources",
+                    "points": 20,
+                    "reason": "101 of 101 cost records have a source. Source/period review note recorded.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "coverage",
+                    "label": "Complete coverage",
+                    "points": 20,
+                    "reason": "0 included usage rows lack a price. Full cost scope confirmed by reviewer.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "associations",
+                    "label": "Valid associations",
+                    "points": 20,
+                    "reason": "Included records assigned to SYNTHETIC Research test workload. This is a workload association; ambiguous shared expenses must remain Unallocated.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "reconciliation",
+                    "label": "Reconciled calculations",
+                    "points": 20,
+                    "reason": "Included amount USD 32000.00; customer-supplied control USD 32000; difference USD 0.00. Control source: SYNTHETIC control ledger. Tolerance USD 0.01.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "review",
+                    "label": "Reviewed method",
+                    "points": 20,
+                    "reason": "Reviewer confirmed cost basis, scope, mappings and assumptions.",
+                    "status": "pass"
+                  }
+                ],
+                "meaning": "Evidence checklist completion. Not statistical confidence, causal attribution, or a performance grade.",
+                "score": 100,
+                "state": "ready",
+                "version": "evidence-1.0.1"
+              },
+              "outcomes": {
+                "checks": [
+                  {
+                    "id": "sources",
+                    "label": "Traceable sources",
+                    "points": 20,
+                    "reason": "50 final outcome records supplied. Source/period review note recorded.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "coverage",
+                    "label": "Complete coverage",
+                    "points": 20,
+                    "reason": "Include accepted, rejected, and failed runs for the full cost cohort.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "associations",
+                    "label": "Valid associations",
+                    "points": 20,
+                    "reason": "Define one accepted business unit and link all included costs to that cohort.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "reconciliation",
+                    "label": "Reconciled calculations",
+                    "points": 20,
+                    "reason": "Included distinct runs: 50; reviewed outcomes: 50; customer-supplied expected runs: 50. Counts must agree exactly.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "review",
+                    "label": "Reviewed method",
+                    "points": 20,
+                    "reason": "Confirm the acceptance criteria and any modeled time/capacity assumptions.",
+                    "status": "pass"
+                  }
+                ],
+                "meaning": "Evidence checklist completion. Not statistical confidence, causal attribution, or a performance grade.",
+                "score": 100,
+                "state": "ready",
+                "version": "evidence-1.0.1"
+              },
+              "revenue": {
+                "checks": [
+                  {
+                    "id": "sources",
+                    "label": "Traceable sources",
+                    "points": 20,
+                    "reason": "Provide traceable revenue evidence and its reporting basis.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "coverage",
+                    "label": "Complete coverage",
+                    "points": 20,
+                    "reason": "Confirm that revenue and signed adjustments for this workload and period are complete.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "associations",
+                    "label": "Valid associations",
+                    "points": 20,
+                    "reason": "2 of 2 revenue records join an included customer. Unassociated records remain visible; signed adjustments cannot cancel missing associations.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "reconciliation",
+                    "label": "Reconciled calculations",
+                    "points": 20,
+                    "reason": "Included amount USD 48000.00; customer-supplied control USD 48000; difference USD 0.00. Control source: SYNTHETIC collections control. Tolerance USD 0.01.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "review",
+                    "label": "Reviewed method",
+                    "points": 20,
+                    "reason": "Review collections versus recognized revenue and the selected allocation method. Association is not causation.",
+                    "status": "pass"
+                  }
+                ],
+                "meaning": "Evidence checklist completion. Not statistical confidence, causal attribution, or a performance grade.",
+                "score": 100,
+                "state": "ready",
+                "version": "evidence-1.0.1"
+              }
+            },
+            "control_variance": "0.00",
+            "cost_components": {
+              "compute": "0",
+              "human_review": "7500.00",
+              "inference": "24500.00",
+              "other": "0",
+              "subscription": "0",
+              "tools": "0"
+            },
+            "outcomes": {
+              "acceptance_rate": "80.0",
+              "accepted_quantity": "4000",
+              "capacity_basis": "Modeled capacity value; not realized cash savings",
+              "cohort_complete": true,
+              "cost_per_accepted_outcome": "8.00",
+              "included_runs": 50,
+              "modeled_capacity_value": null,
+              "modeled_hours": null,
+              "reviewed_runs": 50
+            },
+            "summary": {
+              "basis": "Modeled",
+              "contribution": "16000.00",
+              "cost_scope_complete": true,
+              "gpp1m": null,
+              "known_cost": "32000.00",
+              "margin_percent": "33.3333333333333333333333333333333333333333333333333333333333",
+              "requests": "0",
+              "revenue": "48000.00",
+              "tokens": "0",
+              "unknown_cost_rows": 0
+            },
+            "workload": {
+              "acceptance_definition": "Human reviewer accepts the batch against the synthetic quality checklist",
+              "cost_scope": "Synthetic inference and human review, including failed work and signed credits",
+              "id": "ab1e8ab4-1a7f-55da-bb33-dc6affd5c7d1",
+              "kind": "product",
+              "mappings": {},
+              "name": "SYNTHETIC Research test workload",
+              "outcome_unit": "accepted research brief",
+              "purpose": "CSV acceptance exercise; invented business activity",
+              "responsible_team": "Research delivery",
+              "unallocated": false
+            }
+          },
+          {
+            "confidence": {
+              "cost": {
+                "checks": [
+                  {
+                    "id": "sources",
+                    "label": "Traceable sources",
+                    "points": 20,
+                    "reason": "101 of 101 cost records have a source. Source/period review note recorded.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "coverage",
+                    "label": "Complete coverage",
+                    "points": 20,
+                    "reason": "0 included usage rows lack a price. Full cost scope confirmed by reviewer.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "associations",
+                    "label": "Valid associations",
+                    "points": 20,
+                    "reason": "Included records assigned to SYNTHETIC Support test workload. This is a workload association; ambiguous shared expenses must remain Unallocated.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "reconciliation",
+                    "label": "Reconciled calculations",
+                    "points": 20,
+                    "reason": "Included amount USD 11200.00; customer-supplied control USD 11200; difference USD 0.00. Control source: SYNTHETIC control ledger. Tolerance USD 0.01.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "review",
+                    "label": "Reviewed method",
+                    "points": 20,
+                    "reason": "Reviewer confirmed cost basis, scope, mappings and assumptions.",
+                    "status": "pass"
+                  }
+                ],
+                "meaning": "Evidence checklist completion. Not statistical confidence, causal attribution, or a performance grade.",
+                "score": 100,
+                "state": "ready",
+                "version": "evidence-1.0.1"
+              },
+              "outcomes": {
+                "checks": [
+                  {
+                    "id": "sources",
+                    "label": "Traceable sources",
+                    "points": 20,
+                    "reason": "50 final outcome records supplied. Source/period review note recorded.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "coverage",
+                    "label": "Complete coverage",
+                    "points": 20,
+                    "reason": "Include accepted, rejected, and failed runs for the full cost cohort.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "associations",
+                    "label": "Valid associations",
+                    "points": 20,
+                    "reason": "Define one accepted business unit and link all included costs to that cohort.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "reconciliation",
+                    "label": "Reconciled calculations",
+                    "points": 20,
+                    "reason": "Included distinct runs: 50; reviewed outcomes: 50; customer-supplied expected runs: 50. Counts must agree exactly.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "review",
+                    "label": "Reviewed method",
+                    "points": 20,
+                    "reason": "Confirm the acceptance criteria and any modeled time/capacity assumptions.",
+                    "status": "pass"
+                  }
+                ],
+                "meaning": "Evidence checklist completion. Not statistical confidence, causal attribution, or a performance grade.",
+                "score": 100,
+                "state": "ready",
+                "version": "evidence-1.0.1"
+              },
+              "revenue": {
+                "checks": [],
+                "meaning": "Not applicable to this workload.",
+                "score": null,
+                "state": "not_applicable",
+                "version": "evidence-1.0.1"
+              }
+            },
+            "control_variance": "0.00",
+            "cost_components": {
+              "compute": "0",
+              "human_review": "4000.00",
+              "inference": "7200.00",
+              "other": "0",
+              "subscription": "0",
+              "tools": "0"
+            },
+            "outcomes": {
+              "acceptance_rate": "80.0",
+              "accepted_quantity": "8000",
+              "capacity_basis": "Modeled capacity value; not realized cash savings",
+              "cohort_complete": true,
+              "cost_per_accepted_outcome": "1.40",
+              "included_runs": 50,
+              "modeled_capacity_value": null,
+              "modeled_hours": null,
+              "reviewed_runs": 50
+            },
+            "summary": {
+              "basis": "Customer supplied",
+              "contribution": null,
+              "cost_scope_complete": true,
+              "gpp1m": null,
+              "known_cost": "11200.00",
+              "margin_percent": null,
+              "requests": "0",
+              "revenue": null,
+              "tokens": "0",
+              "unknown_cost_rows": 0
+            },
+            "workload": {
+              "acceptance_definition": "Human reviewer accepts the batch against the synthetic quality checklist",
+              "cost_scope": "Synthetic inference and human review, including failed work and signed credits",
+              "id": "3ef04240-c234-5e1b-ad63-374a22c7c3fd",
+              "kind": "internal",
+              "mappings": {},
+              "name": "SYNTHETIC Support test workload",
+              "outcome_unit": "accepted support resolution",
+              "purpose": "CSV acceptance exercise; invented business activity",
+              "responsible_team": "Support operations",
+              "unallocated": false
+            }
+          }
+        ]
+      },
+      "folder": "03-messy",
+      "sources": {
+        "research-collections.csv": {
+          "initial": {
+            "canonical_hash": "239c6949bc9d33ad5c51f735acecc554b21776dea05d19b16a3a7a8c28a957d7",
+            "controls": {
+              "amendments": "0.00",
+              "duplicate": "0",
+              "excluded": "0",
+              "included": "0",
+              "quarantined": "146999.00",
+              "source_parseable": "146999.00",
+              "structure": "0"
+            },
+            "controls_by_currency": {
+              "UNSPECIFIED": {
+                "amendments": "0",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "0",
+                "quarantined": "0",
+                "source_parseable": "0",
+                "structure": "0"
+              },
+              "USD": {
+                "amendments": "0.00",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "0",
+                "quarantined": "146999.00",
+                "source_parseable": "146999.00",
+                "structure": "0"
+              }
+            },
+            "counts": {
+              "quarantined": 6
+            },
+            "issues": {
+              "allocation_explanation": 1,
+              "missing:amount": 1,
+              "missing:currency": 1,
+              "missing:date": 2,
+              "missing:method": 2,
+              "missing:revenue_id": 1,
+              "outside_period": 1,
+              "revenue_method": 5
+            },
+            "ready": false,
+            "unknown_source_amount_rows": 1
+          },
+          "kind": "revenue_csv",
+          "reviewed": {
+            "canonical_hash": "09e09e739cad771a3a90a391d54a390bbde9928b5715168b350ca288104654f5",
+            "controls": {
+              "amendments": "0.00",
+              "duplicate": "50000.00",
+              "excluded": "999.00",
+              "included": "48000.00",
+              "quarantined": "0",
+              "source_parseable": "146999.00",
+              "structure": "48000.00"
+            },
+            "controls_by_currency": {
+              "UNSPECIFIED": {
+                "amendments": "0",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "0",
+                "quarantined": "0",
+                "source_parseable": "0",
+                "structure": "0"
+              },
+              "USD": {
+                "amendments": "0.00",
+                "duplicate": "50000.00",
+                "excluded": "999.00",
+                "included": "48000.00",
+                "quarantined": "0",
+                "source_parseable": "146999.00",
+                "structure": "48000.00"
+              }
+            },
+            "counts": {
+              "duplicate": 1,
+              "excluded": 1,
+              "included": 2,
+              "structure": 2
+            },
+            "issues": {},
+            "ready": true,
+            "unknown_source_amount_rows": 1
+          },
+          "sha256": "da1c34602621bbeea20cabf1f4444ce5b117a97fd5fe3b962f42e7df50ebdf37"
+        },
+        "research-costs.csv": {
+          "initial": {
+            "canonical_hash": "de4b13e54962c74ff0b3528f265c7e4dafafcb3b638eb2abe7fce384f26d71d6",
+            "controls": {
+              "amendments": "0.00",
+              "duplicate": "0",
+              "excluded": "0",
+              "included": "31350.00",
+              "quarantined": "34149.00",
+              "source_parseable": "65499.00",
+              "structure": "0"
+            },
+            "controls_by_currency": {
+              "UNSPECIFIED": {
+                "amendments": "0",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "0",
+                "quarantined": "0",
+                "source_parseable": "0",
+                "structure": "0"
+              },
+              "USD": {
+                "amendments": "0.00",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "31350.00",
+                "quarantined": "34149.00",
+                "source_parseable": "65499.00",
+                "structure": "0"
+              }
+            },
+            "counts": {
+              "included": 99,
+              "quarantined": 6
+            },
+            "issues": {
+              "cost_category": 3,
+              "duplicate_id": 1,
+              "invalid:date": 1,
+              "missing:amount": 1,
+              "missing:category": 2,
+              "missing:cost_id": 1,
+              "missing:currency": 1,
+              "missing:date": 2,
+              "missing:source": 2,
+              "outside_period": 1
+            },
+            "ready": false,
+            "unknown_source_amount_rows": 1
+          },
+          "kind": "costs_csv",
+          "reviewed": {
+            "canonical_hash": "4b7e8586c63dfc5c73b6ce255d2bbe30851e39402c3335b143e626249b3652b5",
+            "controls": {
+              "amendments": "0.00",
+              "duplicate": "500.00",
+              "excluded": "999.00",
+              "included": "32000.00",
+              "quarantined": "0",
+              "source_parseable": "65499.00",
+              "structure": "32000.00"
+            },
+            "controls_by_currency": {
+              "UNSPECIFIED": {
+                "amendments": "0",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "0",
+                "quarantined": "0",
+                "source_parseable": "0",
+                "structure": "0"
+              },
+              "USD": {
+                "amendments": "0.00",
+                "duplicate": "500.00",
+                "excluded": "999.00",
+                "included": "32000.00",
+                "quarantined": "0",
+                "source_parseable": "65499.00",
+                "structure": "32000.00"
+              }
+            },
+            "counts": {
+              "duplicate": 1,
+              "excluded": 1,
+              "included": 101,
+              "structure": 2
+            },
+            "issues": {},
+            "ready": true,
+            "unknown_source_amount_rows": 1
+          },
+          "sha256": "a28a320500c941766e09551ae868f840d03264364143a56967d9a4c1430cb3fa"
+        },
+        "support-costs.csv": {
+          "initial": {
+            "canonical_hash": "3f303dbf1a20b7035785498aca00ae7248ba0c05039e2f9502f89a57df718936",
+            "controls": {
+              "amendments": "0.00",
+              "duplicate": "0",
+              "excluded": "0",
+              "included": "10970.00",
+              "quarantined": "12579.00",
+              "source_parseable": "23549.00",
+              "structure": "0"
+            },
+            "controls_by_currency": {
+              "UNSPECIFIED": {
+                "amendments": "0",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "0",
+                "quarantined": "0",
+                "source_parseable": "0",
+                "structure": "0"
+              },
+              "USD": {
+                "amendments": "0.00",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "10970.00",
+                "quarantined": "12579.00",
+                "source_parseable": "23549.00",
+                "structure": "0"
+              }
+            },
+            "counts": {
+              "included": 99,
+              "quarantined": 6
+            },
+            "issues": {
+              "cost_category": 3,
+              "duplicate_id": 1,
+              "invalid:date": 1,
+              "missing:amount": 1,
+              "missing:category": 2,
+              "missing:cost_id": 1,
+              "missing:currency": 1,
+              "missing:date": 2,
+              "missing:source": 2,
+              "outside_period": 1
+            },
+            "ready": false,
+            "unknown_source_amount_rows": 1
+          },
+          "kind": "costs_csv",
+          "reviewed": {
+            "canonical_hash": "0e276fe840dc52853e99deb9b1f5465cdd56d453e19bc23d0705675721219f39",
+            "controls": {
+              "amendments": "0.00",
+              "duplicate": "150.00",
+              "excluded": "999.00",
+              "included": "11200.00",
+              "quarantined": "0",
+              "source_parseable": "23549.00",
+              "structure": "11200.00"
+            },
+            "controls_by_currency": {
+              "UNSPECIFIED": {
+                "amendments": "0",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "0",
+                "quarantined": "0",
+                "source_parseable": "0",
+                "structure": "0"
+              },
+              "USD": {
+                "amendments": "0.00",
+                "duplicate": "150.00",
+                "excluded": "999.00",
+                "included": "11200.00",
+                "quarantined": "0",
+                "source_parseable": "23549.00",
+                "structure": "11200.00"
+              }
+            },
+            "counts": {
+              "duplicate": 1,
+              "excluded": 1,
+              "included": 101,
+              "structure": 2
+            },
+            "issues": {},
+            "ready": true,
+            "unknown_source_amount_rows": 1
+          },
+          "sha256": "5a5462c0a48d385a09d51de0bff28bd940274b95b156e5d1a1a886467ee32b2a"
+        }
+      }
+    },
+    {
+      "economics": {
+        "company_known_cost": "43200.00",
+        "workloads": [
+          {
+            "confidence": {
+              "cost": {
+                "checks": [
+                  {
+                    "id": "sources",
+                    "label": "Traceable sources",
+                    "points": 20,
+                    "reason": "101 of 101 cost records have a source. Source/period review note recorded.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "coverage",
+                    "label": "Complete coverage",
+                    "points": 20,
+                    "reason": "0 included usage rows lack a price. Full cost scope confirmed by reviewer.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "associations",
+                    "label": "Valid associations",
+                    "points": 20,
+                    "reason": "Included records assigned to SYNTHETIC Research test workload. This is a workload association; ambiguous shared expenses must remain Unallocated.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "reconciliation",
+                    "label": "Reconciled calculations",
+                    "points": 20,
+                    "reason": "Included amount USD 32000.00; customer-supplied control USD 32000; difference USD 0.00. Control source: SYNTHETIC control ledger. Tolerance USD 0.01.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "review",
+                    "label": "Reviewed method",
+                    "points": 20,
+                    "reason": "Reviewer confirmed cost basis, scope, mappings and assumptions.",
+                    "status": "pass"
+                  }
+                ],
+                "meaning": "Evidence checklist completion. Not statistical confidence, causal attribution, or a performance grade.",
+                "score": 100,
+                "state": "ready",
+                "version": "evidence-1.0.1"
+              },
+              "outcomes": {
+                "checks": [
+                  {
+                    "id": "sources",
+                    "label": "Traceable sources",
+                    "points": 20,
+                    "reason": "50 final outcome records supplied. Source/period review note recorded.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "coverage",
+                    "label": "Complete coverage",
+                    "points": 20,
+                    "reason": "Include accepted, rejected, and failed runs for the full cost cohort.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "associations",
+                    "label": "Valid associations",
+                    "points": 20,
+                    "reason": "Define one accepted business unit and link all included costs to that cohort.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "reconciliation",
+                    "label": "Reconciled calculations",
+                    "points": 20,
+                    "reason": "Included distinct runs: 50; reviewed outcomes: 50; customer-supplied expected runs: 50. Counts must agree exactly.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "review",
+                    "label": "Reviewed method",
+                    "points": 20,
+                    "reason": "Confirm the acceptance criteria and any modeled time/capacity assumptions.",
+                    "status": "pass"
+                  }
+                ],
+                "meaning": "Evidence checklist completion. Not statistical confidence, causal attribution, or a performance grade.",
+                "score": 100,
+                "state": "ready",
+                "version": "evidence-1.0.1"
+              },
+              "revenue": {
+                "checks": [
+                  {
+                    "id": "sources",
+                    "label": "Traceable sources",
+                    "points": 20,
+                    "reason": "Provide traceable revenue evidence and its reporting basis.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "coverage",
+                    "label": "Complete coverage",
+                    "points": 20,
+                    "reason": "Confirm that revenue and signed adjustments for this workload and period are complete.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "associations",
+                    "label": "Valid associations",
+                    "points": 20,
+                    "reason": "2 of 2 revenue records join an included customer. Unassociated records remain visible; signed adjustments cannot cancel missing associations.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "reconciliation",
+                    "label": "Reconciled calculations",
+                    "points": 20,
+                    "reason": "Included amount USD 48000.00; customer-supplied control USD 48000; difference USD 0.00. Control source: SYNTHETIC collections control. Tolerance USD 0.01.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "review",
+                    "label": "Reviewed method",
+                    "points": 20,
+                    "reason": "Review collections versus recognized revenue and the selected allocation method. Association is not causation.",
+                    "status": "pass"
+                  }
+                ],
+                "meaning": "Evidence checklist completion. Not statistical confidence, causal attribution, or a performance grade.",
+                "score": 100,
+                "state": "ready",
+                "version": "evidence-1.0.1"
+              }
+            },
+            "control_variance": "0.00",
+            "cost_components": {
+              "compute": "0",
+              "human_review": "7500.00",
+              "inference": "24500.00",
+              "other": "0",
+              "subscription": "0",
+              "tools": "0"
+            },
+            "outcomes": {
+              "acceptance_rate": "80.0",
+              "accepted_quantity": "4000",
+              "capacity_basis": "Modeled capacity value; not realized cash savings",
+              "cohort_complete": true,
+              "cost_per_accepted_outcome": "8.00",
+              "included_runs": 50,
+              "modeled_capacity_value": null,
+              "modeled_hours": null,
+              "reviewed_runs": 50
+            },
+            "summary": {
+              "basis": "Modeled",
+              "contribution": "16000.00",
+              "cost_scope_complete": true,
+              "gpp1m": null,
+              "known_cost": "32000.00",
+              "margin_percent": "33.3333333333333333333333333333333333333333333333333333333333",
+              "requests": "0",
+              "revenue": "48000.00",
+              "tokens": "0",
+              "unknown_cost_rows": 0
+            },
+            "workload": {
+              "acceptance_definition": "Human reviewer accepts the batch against the synthetic quality checklist",
+              "cost_scope": "Synthetic inference and human review, including failed work and signed credits",
+              "id": "ab1e8ab4-1a7f-55da-bb33-dc6affd5c7d1",
+              "kind": "product",
+              "mappings": {},
+              "name": "SYNTHETIC Research test workload",
+              "outcome_unit": "accepted research brief",
+              "purpose": "CSV acceptance exercise; invented business activity",
+              "responsible_team": "Research delivery",
+              "unallocated": false
+            }
+          },
+          {
+            "confidence": {
+              "cost": {
+                "checks": [
+                  {
+                    "id": "sources",
+                    "label": "Traceable sources",
+                    "points": 20,
+                    "reason": "101 of 101 cost records have a source. Source/period review note recorded.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "coverage",
+                    "label": "Complete coverage",
+                    "points": 20,
+                    "reason": "0 included usage rows lack a price. Full cost scope confirmed by reviewer.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "associations",
+                    "label": "Valid associations",
+                    "points": 20,
+                    "reason": "Included records assigned to SYNTHETIC Support test workload. This is a workload association; ambiguous shared expenses must remain Unallocated.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "reconciliation",
+                    "label": "Reconciled calculations",
+                    "points": 20,
+                    "reason": "Included amount USD 11200.00; customer-supplied control USD 11200; difference USD 0.00. Control source: SYNTHETIC control ledger. Tolerance USD 0.01.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "review",
+                    "label": "Reviewed method",
+                    "points": 20,
+                    "reason": "Reviewer confirmed cost basis, scope, mappings and assumptions.",
+                    "status": "pass"
+                  }
+                ],
+                "meaning": "Evidence checklist completion. Not statistical confidence, causal attribution, or a performance grade.",
+                "score": 100,
+                "state": "ready",
+                "version": "evidence-1.0.1"
+              },
+              "outcomes": {
+                "checks": [
+                  {
+                    "id": "sources",
+                    "label": "Traceable sources",
+                    "points": 20,
+                    "reason": "50 final outcome records supplied. Source/period review note recorded.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "coverage",
+                    "label": "Complete coverage",
+                    "points": 20,
+                    "reason": "Include accepted, rejected, and failed runs for the full cost cohort.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "associations",
+                    "label": "Valid associations",
+                    "points": 20,
+                    "reason": "Define one accepted business unit and link all included costs to that cohort.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "reconciliation",
+                    "label": "Reconciled calculations",
+                    "points": 20,
+                    "reason": "Included distinct runs: 50; reviewed outcomes: 50; customer-supplied expected runs: 50. Counts must agree exactly.",
+                    "status": "pass"
+                  },
+                  {
+                    "id": "review",
+                    "label": "Reviewed method",
+                    "points": 20,
+                    "reason": "Confirm the acceptance criteria and any modeled time/capacity assumptions.",
+                    "status": "pass"
+                  }
+                ],
+                "meaning": "Evidence checklist completion. Not statistical confidence, causal attribution, or a performance grade.",
+                "score": 100,
+                "state": "ready",
+                "version": "evidence-1.0.1"
+              },
+              "revenue": {
+                "checks": [],
+                "meaning": "Not applicable to this workload.",
+                "score": null,
+                "state": "not_applicable",
+                "version": "evidence-1.0.1"
+              }
+            },
+            "control_variance": "0.00",
+            "cost_components": {
+              "compute": "0",
+              "human_review": "4000.00",
+              "inference": "7200.00",
+              "other": "0",
+              "subscription": "0",
+              "tools": "0"
+            },
+            "outcomes": {
+              "acceptance_rate": "80.0",
+              "accepted_quantity": "8000",
+              "capacity_basis": "Modeled capacity value; not realized cash savings",
+              "cohort_complete": true,
+              "cost_per_accepted_outcome": "1.40",
+              "included_runs": 50,
+              "modeled_capacity_value": null,
+              "modeled_hours": null,
+              "reviewed_runs": 50
+            },
+            "summary": {
+              "basis": "Customer supplied",
+              "contribution": null,
+              "cost_scope_complete": true,
+              "gpp1m": null,
+              "known_cost": "11200.00",
+              "margin_percent": null,
+              "requests": "0",
+              "revenue": null,
+              "tokens": "0",
+              "unknown_cost_rows": 0
+            },
+            "workload": {
+              "acceptance_definition": "Human reviewer accepts the batch against the synthetic quality checklist",
+              "cost_scope": "Synthetic inference and human review, including failed work and signed credits",
+              "id": "3ef04240-c234-5e1b-ad63-374a22c7c3fd",
+              "kind": "internal",
+              "mappings": {},
+              "name": "SYNTHETIC Support test workload",
+              "outcome_unit": "accepted support resolution",
+              "purpose": "CSV acceptance exercise; invented business activity",
+              "responsible_team": "Support operations",
+              "unallocated": false
+            }
+          }
+        ]
+      },
+      "folder": "04-very-messy",
+      "sources": {
+        "research-collections.csv": {
+          "initial": {
+            "canonical_hash": "239c6949bc9d33ad5c51f735acecc554b21776dea05d19b16a3a7a8c28a957d7",
+            "controls": {
+              "amendments": "0.00",
+              "duplicate": "0",
+              "excluded": "0",
+              "included": "0",
+              "quarantined": "98999.00",
+              "source_parseable": "98999.00",
+              "structure": "0"
+            },
+            "controls_by_currency": {
+              "EUR": {
+                "amendments": "0.00",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "0",
+                "quarantined": "550.50",
+                "source_parseable": "550.50",
+                "structure": "0"
+              },
+              "UNSPECIFIED": {
+                "amendments": "0",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "0",
+                "quarantined": "0",
+                "source_parseable": "0",
+                "structure": "0"
+              },
+              "USD": {
+                "amendments": "0.00",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "0",
+                "quarantined": "98999.00",
+                "source_parseable": "98999.00",
+                "structure": "0"
+              }
+            },
+            "counts": {
+              "quarantined": 8
+            },
+            "issues": {
+              "allocation_explanation": 1,
+              "currency": 2,
+              "invalid:amount": 2,
+              "missing:amount": 1,
+              "missing:currency": 1,
+              "missing:date": 2,
+              "missing:method": 2,
+              "missing:revenue_id": 1,
+              "outside_period": 1,
+              "revenue_method": 7
+            },
+            "ready": false,
+            "unknown_source_amount_rows": 3
+          },
+          "kind": "revenue_csv",
+          "reviewed": {
+            "canonical_hash": "09e09e739cad771a3a90a391d54a390bbde9928b5715168b350ca288104654f5",
+            "controls": {
+              "amendments": "48000.00",
+              "duplicate": "50000.00",
+              "excluded": "999.00",
+              "included": "48000.00",
+              "quarantined": "0",
+              "source_parseable": "98999.00",
+              "structure": "48000.00"
+            },
+            "controls_by_currency": {
+              "EUR": {
+                "amendments": "0.00",
+                "duplicate": "0",
+                "excluded": "550.50",
+                "included": "0",
+                "quarantined": "0",
+                "source_parseable": "550.50",
+                "structure": "0"
+              },
+              "UNSPECIFIED": {
+                "amendments": "0",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "0",
+                "quarantined": "0",
+                "source_parseable": "0",
+                "structure": "0"
+              },
+              "USD": {
+                "amendments": "48000.00",
+                "duplicate": "50000.00",
+                "excluded": "999.00",
+                "included": "48000.00",
+                "quarantined": "0",
+                "source_parseable": "98999.00",
+                "structure": "48000.00"
+              }
+            },
+            "counts": {
+              "duplicate": 1,
+              "excluded": 3,
+              "included": 2,
+              "structure": 2
+            },
+            "issues": {},
+            "ready": true,
+            "unknown_source_amount_rows": 3
+          },
+          "sha256": "3dc2b1447e56107c2a4e35d17a8387d3ccda62d2408766c488078ff27c01ba1b"
+        },
+        "research-costs.csv": {
+          "initial": {
+            "canonical_hash": "7a647268b0dc60a51e820b2475731f92bf3660137d208c847bda5de7b9176614",
+            "controls": {
+              "amendments": "0.00",
+              "duplicate": "0",
+              "excluded": "0",
+              "included": "28900.00",
+              "quarantined": "34649.00",
+              "source_parseable": "63549.00",
+              "structure": "0"
+            },
+            "controls_by_currency": {
+              "EUR": {
+                "amendments": "0.00",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "0",
+                "quarantined": "550.50",
+                "source_parseable": "550.50",
+                "structure": "0"
+              },
+              "UNSPECIFIED": {
+                "amendments": "0",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "0",
+                "quarantined": "0",
+                "source_parseable": "0",
+                "structure": "0"
+              },
+              "USD": {
+                "amendments": "0.00",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "28900.00",
+                "quarantined": "34649.00",
+                "source_parseable": "63549.00",
+                "structure": "0"
+              }
+            },
+            "counts": {
+              "included": 90,
+              "quarantined": 17
+            },
+            "issues": {
+              "cost_category": 3,
+              "currency": 2,
+              "duplicate_id": 1,
+              "invalid:amount": 7,
+              "invalid:date": 1,
+              "missing:amount": 2,
+              "missing:category": 2,
+              "missing:cost_id": 1,
+              "missing:currency": 1,
+              "missing:date": 2,
+              "missing:source": 3,
+              "outside_period": 1
+            },
+            "ready": false,
+            "unknown_source_amount_rows": 9
+          },
+          "kind": "costs_csv",
+          "reviewed": {
+            "canonical_hash": "4b7e8586c63dfc5c73b6ce255d2bbe30851e39402c3335b143e626249b3652b5",
+            "controls": {
+              "amendments": "1950.00",
+              "duplicate": "500.00",
+              "excluded": "999.00",
+              "included": "32000.00",
+              "quarantined": "0",
+              "source_parseable": "63549.00",
+              "structure": "32000.00"
+            },
+            "controls_by_currency": {
+              "EUR": {
+                "amendments": "0.00",
+                "duplicate": "0",
+                "excluded": "550.50",
+                "included": "0",
+                "quarantined": "0",
+                "source_parseable": "550.50",
+                "structure": "0"
+              },
+              "UNSPECIFIED": {
+                "amendments": "0",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "0",
+                "quarantined": "0",
+                "source_parseable": "0",
+                "structure": "0"
+              },
+              "USD": {
+                "amendments": "1950.00",
+                "duplicate": "500.00",
+                "excluded": "999.00",
+                "included": "32000.00",
+                "quarantined": "0",
+                "source_parseable": "63549.00",
+                "structure": "32000.00"
+              }
+            },
+            "counts": {
+              "duplicate": 1,
+              "excluded": 3,
+              "included": 101,
+              "structure": 2
+            },
+            "issues": {},
+            "ready": true,
+            "unknown_source_amount_rows": 9
+          },
+          "sha256": "9f5a31b150619991db45ec81c6cdb7c8b6ad72a3ea568c4d8ea3ea55aefc9002"
+        },
+        "support-costs.csv": {
+          "initial": {
+            "canonical_hash": "7e8b28a67f3f7147c056354d537832a738deff97fa26e695bbc9bb453c33bcf0",
+            "controls": {
+              "amendments": "0.00",
+              "duplicate": "0",
+              "excluded": "0",
+              "included": "10280.00",
+              "quarantined": "12729.00",
+              "source_parseable": "23009.00",
+              "structure": "0"
+            },
+            "controls_by_currency": {
+              "EUR": {
+                "amendments": "0.00",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "0",
+                "quarantined": "550.50",
+                "source_parseable": "550.50",
+                "structure": "0"
+              },
+              "UNSPECIFIED": {
+                "amendments": "0",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "0",
+                "quarantined": "0",
+                "source_parseable": "0",
+                "structure": "0"
+              },
+              "USD": {
+                "amendments": "0.00",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "10280.00",
+                "quarantined": "12729.00",
+                "source_parseable": "23009.00",
+                "structure": "0"
+              }
+            },
+            "counts": {
+              "included": 90,
+              "quarantined": 17
+            },
+            "issues": {
+              "cost_category": 3,
+              "currency": 2,
+              "duplicate_id": 1,
+              "invalid:amount": 7,
+              "invalid:date": 1,
+              "missing:amount": 2,
+              "missing:category": 2,
+              "missing:cost_id": 1,
+              "missing:currency": 1,
+              "missing:date": 2,
+              "missing:source": 3,
+              "outside_period": 1
+            },
+            "ready": false,
+            "unknown_source_amount_rows": 9
+          },
+          "kind": "costs_csv",
+          "reviewed": {
+            "canonical_hash": "0e276fe840dc52853e99deb9b1f5465cdd56d453e19bc23d0705675721219f39",
+            "controls": {
+              "amendments": "540.00",
+              "duplicate": "150.00",
+              "excluded": "999.00",
+              "included": "11200.00",
+              "quarantined": "0",
+              "source_parseable": "23009.00",
+              "structure": "11200.00"
+            },
+            "controls_by_currency": {
+              "EUR": {
+                "amendments": "0.00",
+                "duplicate": "0",
+                "excluded": "550.50",
+                "included": "0",
+                "quarantined": "0",
+                "source_parseable": "550.50",
+                "structure": "0"
+              },
+              "UNSPECIFIED": {
+                "amendments": "0",
+                "duplicate": "0",
+                "excluded": "0",
+                "included": "0",
+                "quarantined": "0",
+                "source_parseable": "0",
+                "structure": "0"
+              },
+              "USD": {
+                "amendments": "540.00",
+                "duplicate": "150.00",
+                "excluded": "999.00",
+                "included": "11200.00",
+                "quarantined": "0",
+                "source_parseable": "23009.00",
+                "structure": "11200.00"
+              }
+            },
+            "counts": {
+              "duplicate": 1,
+              "excluded": 3,
+              "included": 101,
+              "structure": 2
+            },
+            "issues": {},
+            "ready": true,
+            "unknown_source_amount_rows": 9
+          },
+          "sha256": "50d1e03af678a244e33dcd5ca1eec64b903c706190e93bedc9da444f1075ef80"
+        }
+      }
+    }
+  ],
+  "synthetic": true
+}

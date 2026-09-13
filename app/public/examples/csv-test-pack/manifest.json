@@ -1,0 +1,198 @@
+{
+  "files": {
+    "01-clean-control/research-collections.csv": {
+      "bytes": 456,
+      "sha256": "09e09e739cad771a3a90a391d54a390bbde9928b5715168b350ca288104654f5"
+    },
+    "01-clean-control/research-collections.review.json": {
+      "bytes": 692,
+      "sha256": "3462eae642f94f885db69022a2420b1f5d175b58405a05057010ae623e25992c"
+    },
+    "01-clean-control/research-costs.csv": {
+      "bytes": 18232,
+      "sha256": "4b7e8586c63dfc5c73b6ce255d2bbe30851e39402c3335b143e626249b3652b5"
+    },
+    "01-clean-control/research-costs.review.json": {
+      "bytes": 748,
+      "sha256": "d3dc267a813277a3ba57a634424ea3da9fca330d0b22c83607018f66712da9e5"
+    },
+    "01-clean-control/settings-reference.json": {
+      "bytes": 2222,
+      "sha256": "2c3d183600821aff70d3ef52cf70b30245ffb190f38fb4fca568e31e2bfb754c"
+    },
+    "01-clean-control/support-costs.csv": {
+      "bytes": 15960,
+      "sha256": "0e276fe840dc52853e99deb9b1f5465cdd56d453e19bc23d0705675721219f39"
+    },
+    "01-clean-control/support-costs.review.json": {
+      "bytes": 748,
+      "sha256": "d3dc267a813277a3ba57a634424ea3da9fca330d0b22c83607018f66712da9e5"
+    },
+    "02-decent/research-collections.csv": {
+      "bytes": 614,
+      "sha256": "5f14029ebe830884664920a64321f1334aecd39c99e9c13c5330b98c0cfb96e5"
+    },
+    "02-decent/research-collections.review.json": {
+      "bytes": 746,
+      "sha256": "2ff09436d0917f4d885f4e18e436717a785577590384d567ebdf1b1100a62801"
+    },
+    "02-decent/research-costs.csv": {
+      "bytes": 20348,
+      "sha256": "a78525d86bd651ae4d7f58b9583467201ace572ae4218bdce339438261f2198d"
+    },
+    "02-decent/research-costs.review.json": {
+      "bytes": 817,
+      "sha256": "2fa8f8757554d86af680e2e7ec0757d90b796c51383276073733b58e5557c662"
+    },
+    "02-decent/settings-reference.json": {
+      "bytes": 2222,
+      "sha256": "2c3d183600821aff70d3ef52cf70b30245ffb190f38fb4fca568e31e2bfb754c"
+    },
+    "02-decent/support-costs.csv": {
+      "bytes": 18076,
+      "sha256": "bb0a2c47b04e9b7684f9fb2d1949a5ea7ad6bb72ee1826e62aa724b94f096f54"
+    },
+    "02-decent/support-costs.review.json": {
+      "bytes": 817,
+      "sha256": "2fa8f8757554d86af680e2e7ec0757d90b796c51383276073733b58e5557c662"
+    },
+    "03-messy/research-collections.csv": {
+      "bytes": 1048,
+      "sha256": "da1c34602621bbeea20cabf1f4444ce5b117a97fd5fe3b962f42e7df50ebdf37"
+    },
+    "03-messy/research-collections.review.json": {
+      "bytes": 2040,
+      "sha256": "ed204d173f37ca56061fb4e30e9f2df3684416de59f3d54069702fad36246791"
+    },
+    "03-messy/research-costs.csv": {
+      "bytes": 20427,
+      "sha256": "a28a320500c941766e09551ae868f840d03264364143a56967d9a4c1430cb3fa"
+    },
+    "03-messy/research-costs.review.json": {
+      "bytes": 2020,
+      "sha256": "b3717e31ff5ce26d7cf94f02842817e37299fde358c549ad3c5f9ebc22e86479"
+    },
+    "03-messy/settings-reference.json": {
+      "bytes": 2222,
+      "sha256": "2c3d183600821aff70d3ef52cf70b30245ffb190f38fb4fca568e31e2bfb754c"
+    },
+    "03-messy/support-costs.csv": {
+      "bytes": 18112,
+      "sha256": "5a5462c0a48d385a09d51de0bff28bd940274b95b156e5d1a1a886467ee32b2a"
+    },
+    "03-messy/support-costs.review.json": {
+      "bytes": 2018,
+      "sha256": "ac28a1743eda3f0cc6005bb7733633bc1a6a92c969c806fc907bc97aedfa214f"
+    },
+    "04-very-messy/research-collections.csv": {
+      "bytes": 1498,
+      "sha256": "3dc2b1447e56107c2a4e35d17a8387d3ccda62d2408766c488078ff27c01ba1b"
+    },
+    "04-very-messy/research-collections.review.json": {
+      "bytes": 2931,
+      "sha256": "49c6a603f97c977044793919f5c1e1035e84433447b96d9b6a154f5d69239a8f"
+    },
+    "04-very-messy/research-costs.csv": {
+      "bytes": 20775,
+      "sha256": "9f5a31b150619991db45ec81c6cdb7c8b6ad72a3ea568c4d8ea3ea55aefc9002"
+    },
+    "04-very-messy/research-costs.review.json": {
+      "bytes": 4490,
+      "sha256": "e5b29f706fa65e7624ec10c1fb8d8b0cb92c5da2a9a59998e9ec25ebe962f6de"
+    },
+    "04-very-messy/settings-reference.json": {
+      "bytes": 2222,
+      "sha256": "2c3d183600821aff70d3ef52cf70b30245ffb190f38fb4fca568e31e2bfb754c"
+    },
+    "04-very-messy/support-costs.csv": {
+      "bytes": 18421,
+      "sha256": "50d1e03af678a244e33dcd5ca1eec64b903c706190e93bedc9da444f1075ef80"
+    },
+    "04-very-messy/support-costs.review.json": {
+      "bytes": 4476,
+      "sha256": "54eca564f331f561d7b0829d22d2b3580b216ab2f000948e29f6002461a9f722"
+    },
+    "05-edge-cases/broken-quoting.csv": {
+      "bytes": 89,
+      "sha256": "f38e5f8e2a5911d9a83518af1b6a0f032de9cfc1c0723235bb9cb14d3290908c"
+    },
+    "05-edge-cases/changed-schema.csv": {
+      "bytes": 269,
+      "sha256": "2db607f9f30d06e86045e9c3fe50abc88b5afcb00558f28fd3de360f97ce9426"
+    },
+    "05-edge-cases/duplicate-headers.csv": {
+      "bytes": 20,
+      "sha256": "e224cc50ac06e3a8bfb1a41325c4f0500c7b5ce9f7bb57a41f667201ecd2222b"
+    },
+    "05-edge-cases/failed-outcome-with-quantity.csv": {
+      "bytes": 1802,
+      "sha256": "4f3c20adf6911f987aaca72528f4aa20f81b1e663a005375301fac16f75c16d8"
+    },
+    "05-edge-cases/harmless-formula-text.csv": {
+      "bytes": 226,
+      "sha256": "481a42387fda00a6ffa2c4722a72a50f836e55e7f88e76b3863eb51297d67fd3"
+    },
+    "05-edge-cases/missing-business-id.csv": {
+      "bytes": 232,
+      "sha256": "738b3f5a042cedc2561b83da37c1067b29b438807a66b349bbc1eb33ed8cdbb1"
+    },
+    "05-edge-cases/mixed-currencies.csv": {
+      "bytes": 414,
+      "sha256": "7012394cbbec07fc30a6480f9e059e171deba4f3f9321fb43a258a1934a67778"
+    },
+    "05-edge-cases/ragged-record.csv": {
+      "bytes": 98,
+      "sha256": "bda6ebadd108bbd1e88bb64ad3dc19ead106d8d3929087d82f9521793725ba41"
+    },
+    "05-edge-cases/unknown-amount.csv": {
+      "bytes": 262,
+      "sha256": "0be24161c90a52ef15f1b1aa093c823a1f568676b40e6e3215c77b8fdada6497"
+    },
+    "05-edge-cases/unpriced-usage.csv": {
+      "bytes": 291,
+      "sha256": "e8c49ef22740d63276ee2d3d68eebc00773dfe5275c7610649db3b4092640e73"
+    },
+    "05-edge-cases/whitespace-business-id.csv": {
+      "bytes": 259,
+      "sha256": "e424563320ffdba5151d5fce65f8ba6cfc9fc48b1853140f4590b5c5bd2bc749"
+    },
+    "README.md": {
+      "bytes": 11122,
+      "sha256": "1e8b5522258e44bdcc65929ae37510cb895e0ce4fe4d891a02c85ef6e33fd4cf"
+    },
+    "answer-key/column-mapping.csv": {
+      "bytes": 9598,
+      "sha256": "08ff2421f7800f429baef91e4d7d431524f5b0a635bdcf0e60049cb79845097e"
+    },
+    "answer-key/row-decisions.csv": {
+      "bytes": 9095,
+      "sha256": "66bc26e386e44e2a4081d930118b02987aefa751ade5588a88bdfd9fd0e96739"
+    },
+    "expected-results.json": {
+      "bytes": 104783,
+      "sha256": "31f66054db2adab4b608835aafb6a3a61d339188cca5290b54545916adbff490"
+    },
+    "reference/collection-control.csv": {
+      "bytes": 450,
+      "sha256": "770e5ccf4afb821853b703626016d9b2a47710c268acf08122b5b371b3b662ea"
+    },
+    "reference/cost-control.csv": {
+      "bytes": 33500,
+      "sha256": "23f1db5fe58dcb7b9d797ee3525b7d50deb22f599d47774511e7609fe3a3a96b"
+    },
+    "reference/workloads.json": {
+      "bytes": 1115,
+      "sha256": "4823bba2a5f70e3e78a8d5e683bd1584315d7f4e90dde55ecdd13ee810db9389"
+    },
+    "shared/research-outcomes.csv": {
+      "bytes": 1802,
+      "sha256": "fd61c452ce436cd60ee847d8aaf7029c87b48f7f0c28e97e02b22c28d414ad1f"
+    },
+    "shared/support-outcomes.csv": {
+      "bytes": 1752,
+      "sha256": "25510f48de5e07df8d5993bb951f4e7ed6a7297ec2ba271398f5fff9f80e7a19"
+    }
+  },
+  "month": "2026-08",
+  "synthetic": true
+}

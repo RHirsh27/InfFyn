@@ -1,0 +1,3 @@
+revenue_id,date,amount,currency,customer_id,feature,method,allocation_note
+syn-research-collections,2026-08-10,50000.00,USD,synthetic-account-a,research,allocated,SYNTHETIC management allocation of collected cash to research; not recognized revenue or proof AI caused the sale
+syn-research-refund,2026-08-28,-2000.00,USD,synthetic-account-a,research,allocated,SYNTHETIC refund associated with the same research allocation; signed adjustment to collections

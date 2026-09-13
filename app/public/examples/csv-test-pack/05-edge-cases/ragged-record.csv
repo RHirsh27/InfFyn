@@ -1,0 +1,2 @@
+cost_id,date,category,amount,currency,source
+c1,2026-08-01,inference,500,USD,SYNTHETIC,unexpected

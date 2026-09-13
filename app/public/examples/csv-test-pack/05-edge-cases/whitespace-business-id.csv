@@ -1,0 +1,2 @@
+cost_id,date,category,amount,currency,source,customer_id,feature,workflow,team,run_id
+ syn-research-000-inference,2026-08-01,inference,500,USD,SYNTHETIC control ledger / inference,synthetic-account-a,research,research,Research delivery,syn-research-batch-000

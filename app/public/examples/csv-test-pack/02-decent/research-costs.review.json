@@ -1,0 +1,28 @@
+{
+  "decisions": [],
+  "kind": "costs_csv",
+  "month": "2026-08",
+  "note": "Reference for manual interpretation; JSON is not a supported UI upload. Row numbers are CSV record numbers, including the selected header/preamble.",
+  "rules": {
+    "amount_unit": "cents",
+    "constants": {},
+    "date_format": "%m/%d/%Y",
+    "delimiter": ";",
+    "header_row": 1,
+    "mapping": {
+      "amount": "Net amount",
+      "category": "Charge type",
+      "cost_id": "Entry reference",
+      "currency": "ISO currency",
+      "customer_id": "Account reference",
+      "date": "Service day",
+      "feature": "Business feature",
+      "run_id": "Batch reference",
+      "source": "Evidence reference",
+      "team": "Responsible team",
+      "workflow": "Activity"
+    },
+    "number_format": "us"
+  },
+  "synthetic": true
+}

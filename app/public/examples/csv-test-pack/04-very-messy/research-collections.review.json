@@ -1,0 +1,96 @@
+{
+  "decisions": [
+    {
+      "action": "amend",
+      "field": "method",
+      "reason": "Synthetic source correction: reference/collection-control.csv confirms syn-research-collections method",
+      "row": 4,
+      "value": "allocated"
+    },
+    {
+      "action": "amend",
+      "field": "allocation_note",
+      "reason": "Synthetic source correction: reference/collection-control.csv confirms syn-research-refund allocation_note",
+      "row": 5,
+      "value": "SYNTHETIC refund associated with the same research allocation; signed adjustment to collections"
+    },
+    {
+      "action": "duplicate",
+      "field": "",
+      "reason": "SYNTHETIC overlapping export: same immutable ID and amount as the earlier included record",
+      "row": 6,
+      "value": ""
+    },
+    {
+      "action": "exclude",
+      "field": "",
+      "reason": "SYNTHETIC July-only record; outside August scope. Preserve for a separate July review",
+      "row": 7,
+      "value": ""
+    },
+    {
+      "action": "structure",
+      "field": "",
+      "reason": "SYNTHETIC display subtotal; not an additional economic charge",
+      "row": 8,
+      "value": ""
+    },
+    {
+      "action": "structure",
+      "field": "",
+      "reason": "Blank export separator; no economic record",
+      "row": 9,
+      "value": ""
+    },
+    {
+      "action": "amend",
+      "field": "amount",
+      "reason": "Synthetic source correction: reference/collection-control.csv confirms syn-research-collections amount",
+      "row": 4,
+      "value": "50,000.00"
+    },
+    {
+      "action": "amend",
+      "field": "amount",
+      "reason": "Synthetic source correction: reference/collection-control.csv confirms syn-research-refund amount",
+      "row": 5,
+      "value": "-2,000.00"
+    },
+    {
+      "action": "exclude",
+      "field": "",
+      "reason": "SYNTHETIC unrelated EUR appendix outside this defined USD test scope; keep EUR separate, do not convert or relabel it",
+      "row": 10,
+      "value": ""
+    },
+    {
+      "action": "exclude",
+      "field": "",
+      "reason": "Repeated synthetic EUR appendix; neither EUR row is included or claimed as company USD coverage",
+      "row": 11,
+      "value": ""
+    }
+  ],
+  "kind": "revenue_csv",
+  "month": "2026-08",
+  "note": "Reference for manual interpretation; JSON is not a supported UI upload. Row numbers are CSV record numbers, including the selected header/preamble.",
+  "rules": {
+    "amount_unit": "dollars",
+    "constants": {},
+    "date_format": "%m/%d/%Y",
+    "delimiter": ";",
+    "header_row": 3,
+    "mapping": {
+      "allocation_note": "Allocation explanation",
+      "amount": "Net amount",
+      "currency": "ISO currency",
+      "customer_id": "Account reference",
+      "date": "Service day",
+      "feature": "Business feature",
+      "method": "Attribution method",
+      "revenue_id": "Collection reference"
+    },
+    "number_format": "us"
+  },
+  "synthetic": true
+}

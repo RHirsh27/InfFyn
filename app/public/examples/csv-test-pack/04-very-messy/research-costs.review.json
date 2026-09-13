@@ -1,0 +1,148 @@
+{
+  "decisions": [
+    {
+      "action": "amend",
+      "field": "category",
+      "reason": "Synthetic source correction: reference/cost-control.csv confirms syn-research-000-human_review category",
+      "row": 5,
+      "value": "human_review"
+    },
+    {
+      "action": "amend",
+      "field": "date",
+      "reason": "Synthetic source correction: reference/cost-control.csv confirms syn-research-004-inference date",
+      "row": 12,
+      "value": "08/05/2026"
+    },
+    {
+      "action": "duplicate",
+      "field": "",
+      "reason": "SYNTHETIC overlapping export: same immutable ID and amount as the earlier included record",
+      "row": 105,
+      "value": ""
+    },
+    {
+      "action": "exclude",
+      "field": "",
+      "reason": "SYNTHETIC July-only record; outside August scope. Preserve for a separate July review",
+      "row": 106,
+      "value": ""
+    },
+    {
+      "action": "structure",
+      "field": "",
+      "reason": "SYNTHETIC display subtotal; not an additional economic charge",
+      "row": 107,
+      "value": ""
+    },
+    {
+      "action": "structure",
+      "field": "",
+      "reason": "Blank export separator; no economic record",
+      "row": 108,
+      "value": ""
+    },
+    {
+      "action": "amend",
+      "field": "amount",
+      "reason": "Synthetic source correction: reference/cost-control.csv confirms syn-research-000-inference amount",
+      "row": 4,
+      "value": "500.00"
+    },
+    {
+      "action": "amend",
+      "field": "amount",
+      "reason": "Synthetic source correction: reference/cost-control.csv confirms syn-research-001-human_review amount",
+      "row": 7,
+      "value": "150.00"
+    },
+    {
+      "action": "amend",
+      "field": "amount",
+      "reason": "Synthetic source correction: reference/cost-control.csv confirms syn-research-002-inference amount",
+      "row": 8,
+      "value": "500.00"
+    },
+    {
+      "action": "amend",
+      "field": "amount",
+      "reason": "Synthetic source correction: reference/cost-control.csv confirms syn-research-002-human_review amount",
+      "row": 9,
+      "value": "150.00"
+    },
+    {
+      "action": "amend",
+      "field": "amount",
+      "reason": "Synthetic source correction: reference/cost-control.csv confirms syn-research-003-inference amount",
+      "row": 10,
+      "value": "500.00"
+    },
+    {
+      "action": "amend",
+      "field": "amount",
+      "reason": "Synthetic source correction: reference/cost-control.csv confirms syn-research-003-human_review amount",
+      "row": 11,
+      "value": "150.00"
+    },
+    {
+      "action": "amend",
+      "field": "amount",
+      "reason": "Synthetic source correction: reference/cost-control.csv confirms syn-research-006-inference amount",
+      "row": 16,
+      "value": "500.00"
+    },
+    {
+      "action": "amend",
+      "field": "source",
+      "reason": "Synthetic source correction: reference/cost-control.csv confirms syn-research-005-inference source",
+      "row": 14,
+      "value": "SYNTHETIC control ledger / inference"
+    },
+    {
+      "action": "amend",
+      "field": "amount",
+      "reason": "Synthetic source correction: reference/cost-control.csv confirms syn-research-credit amount",
+      "row": 104,
+      "value": "-500.00"
+    },
+    {
+      "action": "exclude",
+      "field": "",
+      "reason": "SYNTHETIC unrelated EUR appendix outside this defined USD test scope; keep EUR separate, do not convert or relabel it",
+      "row": 109,
+      "value": ""
+    },
+    {
+      "action": "exclude",
+      "field": "",
+      "reason": "Repeated synthetic EUR appendix; neither EUR row is included or claimed as company USD coverage",
+      "row": 110,
+      "value": ""
+    }
+  ],
+  "kind": "costs_csv",
+  "month": "2026-08",
+  "note": "Reference for manual interpretation; JSON is not a supported UI upload. Row numbers are CSV record numbers, including the selected header/preamble.",
+  "rules": {
+    "amount_unit": "dollars",
+    "constants": {},
+    "date_format": "%m/%d/%Y",
+    "delimiter": ";",
+    "header_row": 3,
+    "mapping": {
+      "amount": "Net amount",
+      "category": "Charge type",
+      "cost_id": "Entry reference",
+      "currency": "ISO currency",
+      "customer_id": "Account reference",
+      "date": "Service day",
+      "feature": "Business feature",
+      "run_id": "Batch reference",
+      "source": "Evidence reference",
+      "team": "Responsible team",
+      "workflow": "Activity"
+    },
+    "number_format": "us"
+  },
+  "synthetic": true
+}

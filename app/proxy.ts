@@ -56,6 +56,8 @@ const PUBLIC_EXAMPLES = new Set([
   "/examples/InfFyn-Northstar-August-2026.pdf",
   "/examples/InfFyn-normalized-CSV-examples.zip",
   "/examples/CSV-IMPORT-GUIDE.txt",
+  "/examples/InfFyn-CSV-test-pack.zip",
+  "/examples/csv-test-pack/README.md",
 ]);
 
 function isPublicRoute(pathname: string): boolean {

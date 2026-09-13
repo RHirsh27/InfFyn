@@ -1,0 +1,9 @@
+SYNTHETIC export; invented data only
+August 2026; retain this original
+Collection reference;Service day;Net amount;ISO currency;Account reference;Business feature;Attribution method;Allocation explanation;Export note (ignored)
+syn-research-collections;10/08/2026;50.000,00;USD;synthetic-account-a;research;Allocated;"SYNTHETIC management allocation of collected cash to research; not recognized revenue or proof AI caused the sale";"SYNTHETIC analyst note, ""reviewed separately"""
+syn-research-refund;28/08/2026;-2.000,00;USD;synthetic-account-a;research;allocated;;SYNTHETIC
+syn-research-collections;10/08/2026;50.000,00;USD;synthetic-account-a;research;Allocated;"SYNTHETIC management allocation of collected cash to research; not recognized revenue or proof AI caused the sale";SYNTHETIC
+syn-prior-month;07/01/2026;999,00;USD;synthetic-account-a;research;Allocated;"SYNTHETIC management allocation of collected cash to research; not recognized revenue or proof AI caused the sale";SYNTHETIC
+TOTAL;;48.000,00;USD;;;;;SYNTHETIC
+;;;;;;;;SYNTHETIC

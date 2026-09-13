@@ -1,0 +1,63 @@
+scenario,file,source_record,action,field,replacement,explanation
+03-messy,research-costs.csv,5,amend,category,human_review,Synthetic source correction: reference/cost-control.csv confirms syn-research-000-human_review category
+03-messy,research-costs.csv,12,amend,date,05/08/2026,Synthetic source correction: reference/cost-control.csv confirms syn-research-004-inference date
+03-messy,research-costs.csv,105,duplicate,,,SYNTHETIC overlapping export: same immutable ID and amount as the earlier included record
+03-messy,research-costs.csv,106,exclude,,,SYNTHETIC July-only record; outside August scope. Preserve for a separate July review
+03-messy,research-costs.csv,107,structure,,,SYNTHETIC display subtotal; not an additional economic charge
+03-messy,research-costs.csv,108,structure,,,Blank export separator; no economic record
+03-messy,support-costs.csv,5,amend,category,human_review,Synthetic source correction: reference/cost-control.csv confirms syn-support-000-human_review category
+03-messy,support-costs.csv,12,amend,date,05/08/2026,Synthetic source correction: reference/cost-control.csv confirms syn-support-004-inference date
+03-messy,support-costs.csv,105,duplicate,,,SYNTHETIC overlapping export: same immutable ID and amount as the earlier included record
+03-messy,support-costs.csv,106,exclude,,,SYNTHETIC July-only record; outside August scope. Preserve for a separate July review
+03-messy,support-costs.csv,107,structure,,,SYNTHETIC display subtotal; not an additional economic charge
+03-messy,support-costs.csv,108,structure,,,Blank export separator; no economic record
+03-messy,research-collections.csv,4,amend,method,allocated,Synthetic source correction: reference/collection-control.csv confirms syn-research-collections method
+03-messy,research-collections.csv,5,amend,allocation_note,SYNTHETIC refund associated with the same research allocation; signed adjustment to collections,Synthetic source correction: reference/collection-control.csv confirms syn-research-refund allocation_note
+03-messy,research-collections.csv,6,duplicate,,,SYNTHETIC overlapping export: same immutable ID and amount as the earlier included record
+03-messy,research-collections.csv,7,exclude,,,SYNTHETIC July-only record; outside August scope. Preserve for a separate July review
+03-messy,research-collections.csv,8,structure,,,SYNTHETIC display subtotal; not an additional economic charge
+03-messy,research-collections.csv,9,structure,,,Blank export separator; no economic record
+04-very-messy,research-costs.csv,5,amend,category,human_review,Synthetic source correction: reference/cost-control.csv confirms syn-research-000-human_review category
+04-very-messy,research-costs.csv,12,amend,date,08/05/2026,Synthetic source correction: reference/cost-control.csv confirms syn-research-004-inference date
+04-very-messy,research-costs.csv,105,duplicate,,,SYNTHETIC overlapping export: same immutable ID and amount as the earlier included record
+04-very-messy,research-costs.csv,106,exclude,,,SYNTHETIC July-only record; outside August scope. Preserve for a separate July review
+04-very-messy,research-costs.csv,107,structure,,,SYNTHETIC display subtotal; not an additional economic charge
+04-very-messy,research-costs.csv,108,structure,,,Blank export separator; no economic record
+04-very-messy,research-costs.csv,4,amend,amount,500.00,Synthetic source correction: reference/cost-control.csv confirms syn-research-000-inference amount
+04-very-messy,research-costs.csv,7,amend,amount,150.00,Synthetic source correction: reference/cost-control.csv confirms syn-research-001-human_review amount
+04-very-messy,research-costs.csv,8,amend,amount,500.00,Synthetic source correction: reference/cost-control.csv confirms syn-research-002-inference amount
+04-very-messy,research-costs.csv,9,amend,amount,150.00,Synthetic source correction: reference/cost-control.csv confirms syn-research-002-human_review amount
+04-very-messy,research-costs.csv,10,amend,amount,500.00,Synthetic source correction: reference/cost-control.csv confirms syn-research-003-inference amount
+04-very-messy,research-costs.csv,11,amend,amount,150.00,Synthetic source correction: reference/cost-control.csv confirms syn-research-003-human_review amount
+04-very-messy,research-costs.csv,16,amend,amount,500.00,Synthetic source correction: reference/cost-control.csv confirms syn-research-006-inference amount
+04-very-messy,research-costs.csv,14,amend,source,SYNTHETIC control ledger / inference,Synthetic source correction: reference/cost-control.csv confirms syn-research-005-inference source
+04-very-messy,research-costs.csv,104,amend,amount,-500.00,Synthetic source correction: reference/cost-control.csv confirms syn-research-credit amount
+04-very-messy,research-costs.csv,109,exclude,,,"SYNTHETIC unrelated EUR appendix outside this defined USD test scope; keep EUR separate, do not convert or relabel it"
+04-very-messy,research-costs.csv,110,exclude,,,Repeated synthetic EUR appendix; neither EUR row is included or claimed as company USD coverage
+04-very-messy,support-costs.csv,5,amend,category,human_review,Synthetic source correction: reference/cost-control.csv confirms syn-support-000-human_review category
+04-very-messy,support-costs.csv,12,amend,date,08/05/2026,Synthetic source correction: reference/cost-control.csv confirms syn-support-004-inference date
+04-very-messy,support-costs.csv,105,duplicate,,,SYNTHETIC overlapping export: same immutable ID and amount as the earlier included record
+04-very-messy,support-costs.csv,106,exclude,,,SYNTHETIC July-only record; outside August scope. Preserve for a separate July review
+04-very-messy,support-costs.csv,107,structure,,,SYNTHETIC display subtotal; not an additional economic charge
+04-very-messy,support-costs.csv,108,structure,,,Blank export separator; no economic record
+04-very-messy,support-costs.csv,4,amend,amount,150.00,Synthetic source correction: reference/cost-control.csv confirms syn-support-000-inference amount
+04-very-messy,support-costs.csv,7,amend,amount,80.00,Synthetic source correction: reference/cost-control.csv confirms syn-support-001-human_review amount
+04-very-messy,support-costs.csv,8,amend,amount,150.00,Synthetic source correction: reference/cost-control.csv confirms syn-support-002-inference amount
+04-very-messy,support-costs.csv,9,amend,amount,80.00,Synthetic source correction: reference/cost-control.csv confirms syn-support-002-human_review amount
+04-very-messy,support-costs.csv,10,amend,amount,150.00,Synthetic source correction: reference/cost-control.csv confirms syn-support-003-inference amount
+04-very-messy,support-costs.csv,11,amend,amount,80.00,Synthetic source correction: reference/cost-control.csv confirms syn-support-003-human_review amount
+04-very-messy,support-costs.csv,16,amend,amount,150.00,Synthetic source correction: reference/cost-control.csv confirms syn-support-006-inference amount
+04-very-messy,support-costs.csv,14,amend,source,SYNTHETIC control ledger / inference,Synthetic source correction: reference/cost-control.csv confirms syn-support-005-inference source
+04-very-messy,support-costs.csv,104,amend,amount,-300.00,Synthetic source correction: reference/cost-control.csv confirms syn-support-credit amount
+04-very-messy,support-costs.csv,109,exclude,,,"SYNTHETIC unrelated EUR appendix outside this defined USD test scope; keep EUR separate, do not convert or relabel it"
+04-very-messy,support-costs.csv,110,exclude,,,Repeated synthetic EUR appendix; neither EUR row is included or claimed as company USD coverage
+04-very-messy,research-collections.csv,4,amend,method,allocated,Synthetic source correction: reference/collection-control.csv confirms syn-research-collections method
+04-very-messy,research-collections.csv,5,amend,allocation_note,SYNTHETIC refund associated with the same research allocation; signed adjustment to collections,Synthetic source correction: reference/collection-control.csv confirms syn-research-refund allocation_note
+04-very-messy,research-collections.csv,6,duplicate,,,SYNTHETIC overlapping export: same immutable ID and amount as the earlier included record
+04-very-messy,research-collections.csv,7,exclude,,,SYNTHETIC July-only record; outside August scope. Preserve for a separate July review
+04-very-messy,research-collections.csv,8,structure,,,SYNTHETIC display subtotal; not an additional economic charge
+04-very-messy,research-collections.csv,9,structure,,,Blank export separator; no economic record
+04-very-messy,research-collections.csv,4,amend,amount,"50,000.00",Synthetic source correction: reference/collection-control.csv confirms syn-research-collections amount
+04-very-messy,research-collections.csv,5,amend,amount,"-2,000.00",Synthetic source correction: reference/collection-control.csv confirms syn-research-refund amount
+04-very-messy,research-collections.csv,10,exclude,,,"SYNTHETIC unrelated EUR appendix outside this defined USD test scope; keep EUR separate, do not convert or relabel it"
+04-very-messy,research-collections.csv,11,exclude,,,Repeated synthetic EUR appendix; neither EUR row is included or claimed as company USD coverage
