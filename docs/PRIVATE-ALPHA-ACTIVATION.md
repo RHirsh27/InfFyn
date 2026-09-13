@@ -178,7 +178,8 @@ Default is offline and reports pending. The alpha manifest extends the existing 
 - [x] Hosted negative checks for disabled provider/OAuth, billing and anonymous preview routes; complete the remaining direct Storage and authenticated legacy checks with the two-user run.
 - [ ] Improve email deliverability: Ryan's received sign-in message landed in Spam.
 - [x] Hosted maintenance sweep and ten rolled-back database retention assertions; scrubbed test events found in both platform logs.
-- [ ] External Sentry receipt/alerts and protected access for Stephen.
+- [x] Exact frontend and engine diagnostic event IDs received in Sentry; synthetic private-evidence canary absent. See [operations evidence](PRIVATE-ALPHA-OPERATIONS.md).
+- [ ] Verify notification inbox receipt, the diagnostic formatting correction after deployment, and protected access for Stephen.
 - [x] Ryan's complimentary invitation redeemed through his actual browser; company ownership checked without granting access to other companies.
 - [x] Stephen's separate invitation prepared, unredeemed and unsent; retained in private access administration.
 - [ ] Stephen's own complimentary workspace and final alpha URL ready.

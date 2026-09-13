@@ -22,25 +22,27 @@ def scrub_telemetry(event, hint=None):
     clean["message"] = (
         "Application error. Use the event ID and error type for diagnosis."
     )
-    clean["exception"] = {
-        "values": [
+    values = []
+    for value in event.get("exception", {}).get("values", []):
+        cleaned = {
+            "type": value.get("type", "ApplicationError"),
+            "value": clean["message"],
+        }
+        frames = [
             {
-                "type": value.get("type", "ApplicationError"),
-                "value": clean["message"],
-                "stacktrace": {
-                    "frames": [
-                        {
-                            key: frame[key]
-                            for key in ("filename", "function", "lineno", "in_app")
-                            if key in frame
-                        }
-                        for frame in value.get("stacktrace", {}).get("frames", [])
-                    ]
-                },
+                key: frame[key]
+                for key in ("filename", "function", "lineno", "in_app")
+                if key in frame
             }
-            for value in event.get("exception", {}).get("values", [])
+            for frame in value.get("stacktrace", {}).get("frames", [])
         ]
-    }
+        # Sentry rejects empty stacktrace/exception arrays. An event without
+        # code frames still has a valid error type and fixed safe message.
+        if frames:
+            cleaned["stacktrace"] = {"frames": frames}
+        values.append(cleaned)
+    if values:
+        clean["exception"] = {"values": values}
     return clean
 
 

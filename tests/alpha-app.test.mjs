@@ -82,6 +82,36 @@ function loader(env = {}, mocks = {}) {
 const alphaEnv = { INFFYN_PRIVATE_ALPHA: "true", INFFYN_ALPHA_USER_IDS: id };
 const policy = loader()("lib/alpha-policy.ts");
 
+test("telemetry keeps frameless diagnostics valid and removes private request evidence", () => {
+  const { scrubTelemetry } = loader()("lib/telemetry-privacy.ts");
+  for (const stacktrace of [{}, { frames: [] }]) {
+    const clean = scrubTelemetry({
+      event_id: "1".repeat(32),
+      request: { data: "synthetic-private-evidence" },
+      user: { email: "synthetic-private-evidence" },
+      exception: {
+        values: [
+          {
+            type: "InfFynOperationalCheck",
+            value: "synthetic-private-evidence",
+            stacktrace,
+          },
+        ],
+      },
+    });
+    assert.equal(clean.exception.values[0].type, "InfFynOperationalCheck");
+    assert.equal("stacktrace" in clean.exception.values[0], false);
+    assert.equal(
+      JSON.stringify(clean).includes("synthetic-private-evidence"),
+      false,
+    );
+  }
+  assert.equal(
+    "exception" in scrubTelemetry({ message: "private log" }),
+    false,
+  );
+});
+
 test("maintenance rejects uncredentialed calls and never forwards credentials to an unexpected alpha host", async () => {
   const env = {
     CRON_SECRET: "a".repeat(40),
